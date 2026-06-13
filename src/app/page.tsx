@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Reveal from "./Reveal";
 import { PROFILE, LINKS, NOW, STORY, COMMUNITY, BUILDS } from "./content";
 
@@ -32,6 +33,7 @@ function Nav() {
           <a href="#story" className="transition-colors hover:text-(--color-ink)">Story</a>
           <a href="#community" className="transition-colors hover:text-(--color-ink)">Community</a>
           <a href="#builds" className="transition-colors hover:text-(--color-ink)">Builds</a>
+          <Link href="/articles/" className="transition-colors hover:text-(--color-ink)">Articles</Link>
         </nav>
         <a
           href="#contact"

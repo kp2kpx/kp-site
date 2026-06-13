@@ -1,0 +1,72 @@
+# ============================================================
+# Gasless IPFS + IPNS publish for kp2kp.eth.
+#
+# On every push to main:
+#   1. Build the Next.js static export (out/).
+#   2. Pin out/ to IPFS via Pinata (KP's account, persistent).
+#   3. Update KP's self-owned IPNS name to the new root CID via
+#      the w3name service (signed locally, key never leaves CI).
+#
+# No gas. No onchain interaction. KP sets ipns://<name> on
+# kp2kp.eth exactly once; this keeps that name current forever.
+#
+# Required repo secrets (Settings -> Secrets and variables -> Actions):
+#   PINATA_JWT             Pinata API JWT with pinning permission.
+#   IPNS_SIGNING_KEY_B64   base64 Ed25519 IPNS private key
+#                          (printed once at setup; the public name
+#                          is the value pasted into ENS).
+# ============================================================
+
+name: Deploy to IPFS and update IPNS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: ipfs-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static export
+        run: npm run build
+
+      - name: Pin to IPFS (Pinata)
+        id: pin
+        env:
+          PINATA_JWT: ${{ secrets.PINATA_JWT }}
+        run: |
+          node scripts/pin-pinata.mjs out | tee pin-output.txt
+          CID=$(grep '^CID=' pin-output.txt | cut -d= -f2)
+          if [ -z "$CID" ]; then echo "::error::No CID produced by pin step"; exit 1; fi
+          echo "cid=$CID" >> "$GITHUB_OUTPUT"
+          echo "Pinned root CID: $CID"
+
+      - name: Publish IPNS (w3name)
+        env:
+          IPNS_SIGNING_KEY_B64: ${{ secrets.IPNS_SIGNING_KEY_B64 }}
+        run: node scripts/publish-ipns.mjs "${{ steps.pin.outputs.cid }}"
+
+      - name: Summary
+        run: |
+          echo "### IPFS deploy complete" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Root CID: \`${{ steps.pin.outputs.cid }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Pinata gateway: https://gateway.pinata.cloud/ipfs/${{ steps.pin.outputs.cid }}/" >> "$GITHUB_STEP_SUMMARY"
+          echo "- kp2kp.eth should reflect this within minutes via IPNS." >> "$GITHUB_STEP_SUMMARY"

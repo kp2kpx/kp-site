@@ -105,3 +105,81 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(-4px);
   border-color: var(--color-border-strong);
 }
+
+/* ============================================================
+   Article prose. Styles the HTML rendered from markdown.
+   Matches the dark, minimal brand. Scoped under .prose so it
+   never leaks into the rest of the site.
+   ============================================================ */
+.prose {
+  color: var(--color-ink-dim);
+  font-size: 17px;
+  line-height: 1.8;
+}
+.prose > * + * { margin-top: 1.25em; }
+.prose h2 {
+  margin-top: 2em;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+.prose h3 {
+  margin-top: 1.6em;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.prose p { color: var(--color-ink-dim); }
+.prose strong { color: var(--color-ink); font-weight: 600; }
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(200, 162, 74, 0.4);
+}
+.prose a:hover { text-decoration-color: var(--color-accent); }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li { margin-top: 0.5em; }
+.prose li::marker { color: var(--color-accent); }
+.prose blockquote {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1.1em;
+  color: var(--color-ink-faint);
+  font-style: italic;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  padding: 0.12em 0.4em;
+  color: var(--color-accent-soft);
+}
+.prose pre {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.1em 1.3em;
+  overflow-x: auto;
+}
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-ink-dim);
+}
+.prose img {
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+.prose hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-strong) 50%, transparent);
+}

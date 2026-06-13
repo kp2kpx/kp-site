@@ -41,3 +41,19 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# IPNS signing key. NEVER commit. Paste into GitHub Secrets, then delete locally.
+IPNS_SIGNING_KEY.secret.txt
+/scripts/_genkey_tmp.mjs
+
+# Local IPFS packaging scratch artifacts
+/out.car
+/out_extracted
+
+# Belt and suspenders: never commit any private key material.
+*.key
+*.key.bin
+*.bin
+*key*.txt
+*.secret.txt
+*.secret
