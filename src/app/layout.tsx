@@ -24,7 +24,7 @@ const SITE_URL = "https://kp-singh.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "K.P. Singh — Crypto-native builder & ecosystem operator",
+  title: "K.P. Singh, Crypto-native builder & ecosystem operator",
   description:
     "Ex-finance, self-taught Solidity builder, Base & Farcaster ecosystem operator. I host the Spaces, run the builders' nights, and ship live mini-apps.",
   keywords: [
@@ -42,17 +42,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: "K.P. Singh — Crypto-native builder & ecosystem operator",
+    title: "K.P. Singh, Crypto-native builder & ecosystem operator",
     description:
       "Ex-finance → self-taught Solidity builder → Base & Farcaster ecosystem operator. Host, builder, community OG.",
     siteName: "K.P. Singh",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "K.P. Singh, crypto-native builder and ecosystem operator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "K.P. Singh — Crypto-native builder & ecosystem operator",
+    title: "K.P. Singh, Crypto-native builder & ecosystem operator",
     description:
       "Ex-finance → self-taught Solidity builder → Base & Farcaster ecosystem operator.",
     creator: "@KP2kpx",
+    images: ["/og.png"],
   },
   robots: { index: true, follow: true },
 };

@@ -160,7 +160,7 @@ function Story() {
         </Reveal>
         <Reveal delay={120}>
           <p className="mt-4 max-w-2xl text-[15px] text-(--color-ink-faint)">
-            No straight line. Every chapter was an unmarked deep end — which is exactly the skill the work needs now.
+            No straight line. Every chapter was an unmarked deep end, which is exactly the skill the work needs now.
           </p>
         </Reveal>
 
@@ -202,10 +202,10 @@ function Community() {
     <section id="community" className="relative py-20 sm:py-28">
       <div aria-hidden className="absolute inset-0 -z-10 bg-(--color-bg-2)" />
       <Container>
-        <Reveal><SectionLabel>Ecosystem &amp; community — the proof</SectionLabel></Reveal>
+        <Reveal><SectionLabel>Ecosystem &amp; community: the proof</SectionLabel></Reveal>
         <Reveal delay={60}>
           <h2 className="mt-4 max-w-3xl font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight sm:text-4xl">
-            This is the DevRel job, already done — on my own time, for the community.
+            This is the DevRel job, already done, on my own time, for the community.
           </h2>
         </Reveal>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
