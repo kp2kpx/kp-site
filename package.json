@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "gen:og": "node scripts/gen-og.mjs",
-    "prebuild": "node scripts/gen-og.mjs",
+    "prebuild": "node scripts/gen-og.mjs || echo \"gen-og skipped; using committed public/og.png\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
