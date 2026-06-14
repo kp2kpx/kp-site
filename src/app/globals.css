@@ -298,3 +298,365 @@ a { color: inherit; text-decoration: none; }
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--color-border-strong) 50%, transparent);
 }
+
+/* ===== GARDEN V2 (Chester layout + lift/pop hover) ===== */
+/* ============================================================
+   garden-v2: Chester-faithful structured grid + the canonical
+   lift / inner-scale / arrow-circle hover. This REPLACES the v1
+   springy tilt everywhere (home feed, section grids, book shelf,
+   related chips). The tilt is dead. See
+   team/designer/prototypes/garden-v2-chester/SPEC.md.
+
+   Warm palette unchanged. Tokens below are local aliases so the
+   card system reads exactly like the spec table.
+   ============================================================ */
+:root {
+  --paper-2: #fffdf8;  /* card surface, rest */
+  --paper-3: #fffefb;  /* card surface, hover */
+  --line-hover: #ded2c0;
+  --shadow-rest: 0 1px 2px rgba(60, 48, 32, 0.04);
+  --shadow-hover: 0 18px 38px -12px rgba(60, 48, 32, 0.22),
+                  0 6px 14px -6px rgba(60, 48, 32, 0.12);
+}
+
+/* ---------------- THE GRID ---------------- */
+.garden-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 168px;
+  gap: 18px;
+  padding: 24px 0 8px;
+}
+/* span helpers (match the mockup) */
+.garden-grid .c2 { grid-column: span 2; }
+.garden-grid .c3 { grid-column: span 3; }
+.garden-grid .c4 { grid-column: span 4; }
+.garden-grid .c6 { grid-column: span 6; }
+.garden-grid .r2 { grid-row: span 2; }
+.garden-grid .r3 { grid-row: span 3; }
+
+/* intro block = top-left cell, not a separate header */
+.intro-cell {
+  grid-column: span 4;
+  grid-row: span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6px 30px 6px 4px;
+}
+.intro-cell h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 34px;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+  color: var(--color-ink);
+}
+.intro-cell h1 .wave { color: var(--color-accent); font-style: italic; }
+.intro-cell p {
+  color: var(--color-ink-dim);
+  font-size: 17.5px;
+  max-width: 50ch;
+  margin: 0;
+}
+
+/* ---------------- CARD (the canonical interaction) ---------------- */
+.card {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--paper-2);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-rest);
+  transform: translateY(0);
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.26s ease,
+    border-color 0.26s ease;
+  will-change: transform;
+}
+.card:hover {
+  transform: translateY(-6px);
+  background: var(--paper-3);
+  border-color: var(--line-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+/* the inner scaling target (image / cover / screenshot / text) */
+.scale-target {
+  transition: transform 0.30s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(1);
+  transform-origin: center;
+}
+.card:hover .scale-target { transform: scale(1.045); }
+
+/* ---------- EYEBROW (top-left, outside scale-target) ---------- */
+.eyebrow {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+.eyebrow b { color: var(--color-ink-dim); font-weight: 500; }
+.eyebrow.on-photo { color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45); }
+.eyebrow.on-photo b { color: #fff; }
+
+/* ---------- CORNER ARROW -> solidifies into filled circle ---------- */
+.arrow {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  z-index: 3;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-ink-faint);
+  transition:
+    background-color 0.24s ease,
+    color 0.24s ease,
+    transform 0.26s cubic-bezier(0.34, 1.4, 0.5, 1),
+    box-shadow 0.24s ease;
+}
+.arrow.on-photo { color: rgba(255, 255, 255, 0.9); }
+.arrow svg { width: 14px; height: 14px; transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1); }
+.card:hover .arrow {
+  background: var(--color-ink);
+  color: var(--paper-2);
+  transform: scale(1.06);
+  box-shadow: 0 4px 10px rgba(40, 32, 20, 0.28);
+}
+.card:hover .arrow.on-photo { background: #fff; color: var(--color-ink); }
+.card:hover .arrow svg { transform: translate(1px, -1px); }
+
+/* ===================== TYPE: PHOTO (full-bleed) ===================== */
+.card.photo .card-media { position: absolute; inset: 0; }
+.card.photo .card-media .scale-target {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card.photo .photo-grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20, 14, 8, 0.55) 0%, rgba(20, 14, 8, 0) 42%);
+  z-index: 2;
+}
+.card.photo .photo-cap {
+  position: absolute;
+  left: 15px;
+  bottom: 13px;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* ===================== TYPE: PROJECT (inset screenshot) ===================== */
+.card.project { background: var(--paper-2); }
+.card.project .shot {
+  position: absolute;
+  inset: 34px 14px 52px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+.card.project .shot .scale-target {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card.project .proj-title {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  bottom: 14px;
+  z-index: 3;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+/* ===================== TYPE: BOOK (cover + badge + meta) ===================== */
+.card.book .cover-wrap {
+  position: absolute;
+  left: 16px;
+  top: 38px;
+  bottom: 16px;
+  width: 86px;
+  perspective: 600px;
+}
+.card.book .cover {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px 7px 7px 4px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 6px 16px rgba(40, 32, 20, 0.22), inset 3px 0 0 rgba(255, 255, 255, 0.12);
+}
+.card.book .cover-fallback {
+  background: linear-gradient(135deg, var(--color-accent), #7c4422);
+}
+.card.book .book-meta { position: absolute; left: 118px; right: 16px; top: 40px; }
+.card.book .badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.card.book .badge.reading { background: var(--color-accent-soft); color: var(--color-accent-ink); }
+.card.book .badge.read { background: var(--color-leaf-soft); color: var(--color-leaf-ink); }
+.card.book .b-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 5px;
+  color: var(--color-ink);
+}
+.card.book .b-author { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--color-ink-dim); }
+
+/* ===================== TYPE: TEXT / EXCERPT ===================== */
+.card.text { padding: 38px 18px 18px; display: flex; flex-direction: column; }
+.card.text .text-body { margin-top: auto; }
+.card.text .t-date { font-family: var(--font-mono); font-size: 10.5px; color: var(--color-ink-faint); margin-bottom: 8px; letter-spacing: 0.02em; text-transform: uppercase; }
+.card.text .t-title { font-family: var(--font-display); font-weight: 500; font-size: 19px; line-height: 1.22; letter-spacing: -0.01em; margin-bottom: 7px; color: var(--color-ink); }
+.card.text .t-excerpt { font-size: 15px; color: var(--color-ink-dim); line-height: 1.5; }
+
+/* ---------------- HOME FOOTER (Planted by KP) ---------------- */
+.garden-footer {
+  padding: 30px 0 50px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-ink-faint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.garden-footer .sprout { color: var(--color-leaf); }
+
+/* ============================================================
+   SITE-WIDE HOVER REPLACEMENT.
+   The v1 tilt on .card-lift / .feed-card / .related-chip is
+   replaced by the same lift + arrow-circle contract. These rules
+   come AFTER the v1 definitions so they win the cascade. No
+   rotate, no wobble.
+   ============================================================ */
+.card-lift,
+.feed-card {
+  box-shadow: var(--shadow-rest);
+  transform: translateY(0);
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.26s ease,
+    border-color 0.26s ease;
+}
+.card-lift:hover,
+.feed-card:hover {
+  transform: translateY(-6px) !important; /* kill the v1 rotate+scale */
+  background: var(--paper-3);
+  border-color: var(--line-hover);
+  box-shadow: var(--shadow-hover);
+}
+/* neutralise the v1 per-position tilt vars */
+.card-lift:nth-child(2n):hover,
+.card-lift:nth-child(3n):hover,
+.card-lift:nth-child(4n):hover,
+.feed-card:nth-child(2n):hover,
+.feed-card:nth-child(3n):hover,
+.feed-card:nth-child(4n):hover {
+  transform: translateY(-6px) !important;
+}
+
+.related-chip {
+  box-shadow: var(--shadow-rest);
+  transform: translateY(0);
+  transition:
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.26s ease;
+}
+.related-chip:hover,
+.related-chip:nth-child(2n):hover {
+  transform: translateY(-6px) !important;
+  border-color: var(--line-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+/* the inner media pop + arrow-circle fire on the v1 wrappers too,
+   so section grids / shelf behave exactly like the home grid */
+.card-lift:hover .scale-target,
+.feed-card:hover .scale-target {
+  transform: scale(1.045);
+}
+.card-lift:hover .arrow,
+.feed-card:hover .arrow {
+  background: var(--color-ink);
+  color: var(--paper-2);
+  transform: scale(1.06);
+  box-shadow: 0 4px 10px rgba(40, 32, 20, 0.28);
+}
+.card-lift:hover .arrow.on-photo,
+.feed-card:hover .arrow.on-photo {
+  background: #fff;
+  color: var(--color-ink);
+}
+.card-lift:hover .arrow svg,
+.feed-card:hover .arrow svg {
+  transform: translate(1px, -1px);
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 760px) {
+  .garden-grid { grid-template-columns: repeat(2, 1fr); }
+  .garden-grid .c3, .garden-grid .c4, .garden-grid .c6 { grid-column: span 2; }
+  .intro-cell { grid-column: span 2; grid-row: span 1; padding: 4px 0 8px; }
+  .intro-cell h1 { font-size: 28px; }
+}
+@media (max-width: 520px) {
+  .garden-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+  .garden-grid .c2, .garden-grid .c3, .garden-grid .c4, .garden-grid .c6 { grid-column: span 1; }
+  .intro-cell { grid-column: span 1; }
+}
+
+/* ---------------- REDUCED MOTION ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  .card, .scale-target, .arrow, .arrow svg,
+  .card-lift, .feed-card, .related-chip {
+    transition: background-color 0.01ms, color 0.01ms, border-color 0.01ms, box-shadow 0.01ms !important;
+  }
+  .card:hover, .card-lift:hover, .feed-card:hover, .related-chip:hover {
+    transform: none !important;
+  }
+  .card:hover .scale-target { transform: none !important; }
+  .card:hover .arrow { transform: none !important; } /* keep the fill, drop the pop */
+  .card:hover .arrow svg { transform: none !important; }
+}
+/* ===== END GARDEN V2 ===== */

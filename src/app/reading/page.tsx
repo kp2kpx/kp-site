@@ -4,6 +4,7 @@ import Reveal from "../Reveal";
 import { SectionShell } from "../components/SectionShell";
 import { getGardenNodes } from "@/lib/posts";
 import { byKind } from "@/lib/garden";
+import { ArrowUpRight } from "../components/icons";
 
 export const metadata: Metadata = {
   title: "Reading, KP",
@@ -33,13 +34,18 @@ export default function ReadingPage() {
               className="card-lift group block"
             >
               <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-(--color-border) bg-(--color-panel)">
+                <span className={`arrow${b.image ? " on-photo" : ""}`} aria-hidden>
+                  <ArrowUpRight />
+                </span>
                 {b.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={b.image}
-                    alt={b.imageAlt ?? b.title}
-                    className="h-full w-full object-cover"
-                  />
+                  <div className="scale-target h-full w-full">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={b.image}
+                      alt={b.imageAlt ?? b.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                 ) : (
                   /* No cover found on Open Library: a clean
                      typographic cover card on the warm palette,

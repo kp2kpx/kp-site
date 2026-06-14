@@ -2,6 +2,7 @@ import Link from "next/link";
 import Reveal from "../Reveal";
 import type { GardenNode } from "@/lib/garden";
 import { canonicalHref } from "@/lib/garden";
+import { ArrowUpRight } from "./icons";
 
 /* ============================================================
    A single garden node, rendered as a warm card. Used by every
@@ -31,16 +32,21 @@ export function NodeCard({ node, delay = 0 }: { node: GardenNode; delay?: number
     <Reveal delay={delay} className="h-full">
       <Link
         href={canonicalHref(node)}
-        className="card-lift group flex h-full flex-col overflow-hidden rounded-[18px] border border-(--color-border) bg-(--color-panel)"
+        className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[18px] border border-(--color-border) bg-(--color-panel)"
       >
+        <span className={`arrow${node.image ? " on-photo" : ""}`} aria-hidden>
+          <ArrowUpRight />
+        </span>
         {node.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={node.image}
-            alt={node.imageAlt ?? node.title}
-            loading="lazy"
-            className="h-44 w-full object-cover"
-          />
+          <div className="scale-target h-44 w-full overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={node.image}
+              alt={node.imageAlt ?? node.title}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          </div>
         ) : null}
         <div className="flex flex-1 flex-col p-6">
           {node.status ? (

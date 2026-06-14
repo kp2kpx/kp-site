@@ -1,77 +1,85 @@
 import Reveal from "./Reveal";
-import { SiteNav, SiteFooter, MobileSectionBar, Container } from "./components/Chrome";
-import { FeedCard, NoteCard } from "./components/FeedCard";
-import { PROFILE } from "./content";
+import { SiteNav, SiteFooter, MobileSectionBar } from "./components/Chrome";
+import { GardenCard } from "./components/GardenCard";
 import { getGardenNodes } from "@/lib/posts";
-import { recentNodes } from "@/lib/garden";
+import { getNode, type GardenNode } from "@/lib/garden";
 
 /* ============================================================
-   HOME (the KP garden front door). Warm, calm, paper-and-ink.
-   A short hand-written hero, then a masonry photo feed of the
-   most recent things across the whole garden graph, with a
-   quiet text-only "note" woven in for rhythm.
+   HOME (the KP garden front door). Chester-style structured
+   grid in the warm paper palette. The intro block is the
+   top-left grid cell; real garden nodes flow around it as
+   photo / project / book / text cards, each with a category
+   eyebrow and a corner arrow that solidifies on hover.
+
+   The grid is a CURATED hand-placed selection (not the raw
+   recent feed) so spans compose like the mockup: tall photos
+   span two rows, wide cards span more columns. Every node is
+   pulled from the real garden graph; nothing here is a
+   placeholder. Layout is restyling only, the node model and
+   routes are untouched.
 
    "KP" only here. Full name appears solely on the CV page.
    ============================================================ */
 
-/* A quiet thought, shown as a text-only note card between the
-   photos. True to KP's own operating principle. */
-const NOTE = {
-  kicker: "Note",
-  text: "Build the smallest thing that teaches you the next thing.",
-  when: "an operating principle",
-};
+/* A home cell: a real node id plus the grid span classes that
+   place it. Order matters; it is the visual reading order. */
+type Cell = { id: string; span: string };
+
+const HOME_CELLS: Cell[] = [
+  { id: "hobby-trekking", span: "c2 r2" },        // top-right tall climb/trek photo
+  { id: "gladaitors", span: "c2" },               // project (text, live mini-app)
+  { id: "book-beginning-of-infinity", span: "c2" }, // book
+  { id: "himalayas", span: "c4 r2" },             // wide story photo
+  { id: "farcaster-intel-api", span: "c2" },      // project (text)
+  { id: "why-i-host-the-spaces", span: "c4" },    // blog excerpt
+  { id: "book-fabric-of-reality", span: "c2" },   // book
+  { id: "fresh2o", span: "c2 r2" },               // tall story/project photo
+  { id: "story-cyclone", span: "c4" },            // wide story photo
+];
 
 export default function Home() {
-  const recent = recentNodes(getGardenNodes(), 7);
+  const nodes = getGardenNodes();
+  const cells = HOME_CELLS.map((c) => {
+    const node = getNode(nodes, c.id);
+    return node ? { node, span: c.span } : null;
+  }).filter((x): x is { node: GardenNode; span: string } => Boolean(x));
 
   return (
     <main>
       <SiteNav />
       <MobileSectionBar />
 
-      {/* hero */}
-      <section className="relative overflow-hidden pt-36 pb-10 sm:pt-44 sm:pb-14">
-        <div aria-hidden className="grid-bg pointer-events-none absolute inset-0 -z-10" />
-        <Container>
-          <div className="max-w-[620px]">
-            <Reveal delay={60}>
-              <h1 className="font-[family-name:var(--font-display)] text-[34px] font-medium leading-[1.15] tracking-[-0.02em] sm:text-[40px]">
-                Hi, I&apos;m KP.{" "}
-                <span className="text-gradient-gold">This is my garden,</span> a
-                quiet place I tend over time.
+      <div className="mx-auto w-full max-w-[1080px] px-8 pt-24 sm:pt-28">
+        <section className="garden-grid">
+          {/* INTRO occupies the top-left cell (4 cols x 2 rows) */}
+          <div className="intro-cell">
+            <Reveal>
+              <h1>
+                Hey there, I&apos;m KP{" "}
+                <span style={{ fontStyle: "normal" }}>&#128075;</span>
+                <br />
+                <span className="wave">Welcome to my digital garden</span>{" "}
+                &#127793;
               </h1>
             </Reveal>
-            <Reveal delay={150}>
-              <p className="mt-5 text-[19px] leading-relaxed text-(--color-ink-dim)">
-                Notes, photos, things I&apos;m reading and building. No feed
-                algorithm. Just what I felt like keeping. {PROFILE.hook}
+            <Reveal delay={120}>
+              <p>
+                A quiet place I tend over time. Things I&apos;m building,
+                reading, climbing, and thinking about. No feed, no algorithm.
+                Just what I felt like keeping.
               </p>
             </Reveal>
           </div>
-        </Container>
-      </section>
 
-      {/* recent things feed */}
-      <section className="pb-24">
-        <Container>
-          <div className="flex items-center gap-3.5 py-7 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-(--color-ink-faint)">
-            <span>Lately</span>
-            <span aria-hidden className="h-px flex-1 bg-(--color-border)" />
-          </div>
+          {cells.map(({ node, span }) => (
+            <GardenCard key={node.id} node={node} className={span} />
+          ))}
+        </section>
 
-          <div className="feed">
-            {recent.slice(0, 3).map((n, i) => (
-              <FeedCard key={n.id} node={n} index={i} />
-            ))}
-            {/* a quiet note woven into the feed for rhythm */}
-            <NoteCard note={NOTE} index={3} />
-            {recent.slice(3).map((n, i) => (
-              <FeedCard key={n.id} node={n} index={i + 4} />
-            ))}
-          </div>
-        </Container>
-      </section>
+        <footer className="garden-footer">
+          <span className="sprout">&#127793;</span> Planted by KP
+        </footer>
+      </div>
 
       <SiteFooter />
     </main>

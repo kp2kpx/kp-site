@@ -3,6 +3,7 @@ import Link from "next/link";
 import Reveal from "../Reveal";
 import { SectionShell } from "../components/SectionShell";
 import { getAllPostMeta, formatDate } from "@/lib/posts";
+import { ArrowUpRight } from "../components/icons";
 
 export const metadata: Metadata = {
   title: "Writing, KP",
@@ -31,8 +32,11 @@ export default function WritingPage() {
             <Reveal key={p.slug} delay={i * 60}>
               <Link
                 href={`/writing/${p.slug}/`}
-                className="card-lift group block rounded-2xl border border-(--color-border) bg-(--color-panel) p-7"
+                className="card-lift group relative block overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-panel) p-7"
               >
+                <span className="arrow" aria-hidden>
+                  <ArrowUpRight />
+                </span>
                 <div className="flex flex-wrap items-center gap-3 font-[family-name:var(--font-mono)] text-[12px] text-(--color-accent)">
                   <span>{formatDate(p.date)}</span>
                   {p.tags.slice(0, 3).map((t) => (

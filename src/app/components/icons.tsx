@@ -30,6 +30,26 @@ export function XIcon({ className }: IconProps) {
   );
 }
 
+/* Diagonal up-right arrow used in the corner of every garden
+   card. Stroke (currentColor) so the card hover can invert it
+   inside the filled circle. Path matches the garden-v2 spec. */
+export function ArrowUpRight({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M7 17 17 7M9 7h8v8" />
+    </svg>
+  );
+}
+
 /* GitHub mark. */
 export function GitHubIcon({ className }: IconProps) {
   return (
