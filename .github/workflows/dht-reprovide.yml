@@ -1,0 +1,73 @@
+# ============================================================
+# Keep kp2kp.eth resolvable: republish the IPNS record to the
+# public IPFS DHT on a schedule.
+#
+# IPNS records on the Amino DHT expire (and get garbage-collected
+# off the peers holding them) within roughly 24-48h. w3name keeps
+# the record over HTTP, but eth.limo and ipfs.io/ipns resolve via
+# the DHT, so without periodic republishing the site eventually
+# goes "Content Unreachable" again. This job republishes every 12h.
+#
+# It reads the CURRENT CID from w3name (the source of truth, kept
+# fresh by the deploy workflow) and puts that same name->CID record
+# back onto the DHT with kubo + the accelerated DHT client.
+#
+# Gasless. Uses the ed25519 content-signing key only. No wallet,
+# no onchain interaction.
+#
+# Required repo secret:
+#   IPNS_SIGNING_KEY_B64   base64 Ed25519 IPNS private key.
+# ============================================================
+
+name: Reprovide IPNS to DHT
+
+on:
+  schedule:
+    # Every 12 hours (00:30 and 12:30 UTC). Offset from the hour so
+    # it does not collide with peak GitHub Actions scheduling load.
+    - cron: "30 0,12 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: ipfs-dht-reprovide
+  cancel-in-progress: false
+
+jobs:
+  reprovide:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve current CID from w3name
+        id: cid
+        env:
+          IPNS_SIGNING_KEY_B64: ${{ secrets.IPNS_SIGNING_KEY_B64 }}
+        run: |
+          node scripts/resolve-current-cid.mjs | tee cid-output.txt
+          CID=$(grep '^CID=' cid-output.txt | cut -d= -f2)
+          if [ -z "$CID" ]; then echo "::error::Could not resolve current CID from w3name"; exit 1; fi
+          echo "cid=$CID" >> "$GITHUB_OUTPUT"
+
+      - name: Republish IPNS to public DHT (kubo)
+        env:
+          IPNS_SIGNING_KEY_B64: ${{ secrets.IPNS_SIGNING_KEY_B64 }}
+        run: |
+          chmod +x scripts/dht-publish.sh
+          scripts/dht-publish.sh "${{ steps.cid.outputs.cid }}"
+
+      - name: Summary
+        run: |
+          echo "### IPNS DHT reprovide complete" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Current CID: \`${{ steps.cid.outputs.cid }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- IPNS (DHT): https://ipfs.io/ipns/k51qzi5uqu5dirkws21royn4pbng52n780ezucpigsyahksijsdoybfodpj7zp/" >> "$GITHUB_STEP_SUMMARY"

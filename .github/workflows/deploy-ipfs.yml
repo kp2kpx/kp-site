@@ -6,6 +6,10 @@
 #   2. Pin out/ to IPFS via Pinata (KP's account, persistent).
 #   3. Update KP's self-owned IPNS name to the new root CID via
 #      the w3name service (signed locally, key never leaves CI).
+#   4. Publish the SAME IPNS record to the public IPFS DHT with
+#      kubo, so eth.limo and ipfs.io/ipns resolve it. w3name alone
+#      only serves the record over HTTP, never on the DHT, which is
+#      why kp2kp.eth went "Content Unreachable" before this step.
 #
 # No gas. No onchain interaction. KP sets ipns://<name> on
 # kp2kp.eth exactly once; this keeps that name current forever.
@@ -63,10 +67,18 @@ jobs:
           IPNS_SIGNING_KEY_B64: ${{ secrets.IPNS_SIGNING_KEY_B64 }}
         run: node scripts/publish-ipns.mjs "${{ steps.pin.outputs.cid }}"
 
+      - name: Publish IPNS to public DHT (kubo)
+        env:
+          IPNS_SIGNING_KEY_B64: ${{ secrets.IPNS_SIGNING_KEY_B64 }}
+        run: |
+          chmod +x scripts/dht-publish.sh
+          scripts/dht-publish.sh "${{ steps.pin.outputs.cid }}"
+
       - name: Summary
         run: |
           echo "### IPFS deploy complete" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "- Root CID: \`${{ steps.pin.outputs.cid }}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Pinata gateway: https://gateway.pinata.cloud/ipfs/${{ steps.pin.outputs.cid }}/" >> "$GITHUB_STEP_SUMMARY"
+          echo "- IPNS (DHT): https://ipfs.io/ipns/k51qzi5uqu5dirkws21royn4pbng52n780ezucpigsyahksijsdoybfodpj7zp/" >> "$GITHUB_STEP_SUMMARY"
           echo "- kp2kp.eth should reflect this within minutes via IPNS." >> "$GITHUB_STEP_SUMMARY"
