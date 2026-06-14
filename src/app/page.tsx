@@ -26,15 +26,15 @@ import { getNode, type GardenNode } from "@/lib/garden";
 type Cell = { id: string; span: string };
 
 const HOME_CELLS: Cell[] = [
-  { id: "hobby-trekking", span: "c2 r2" },        // top-right tall climb/trek photo
-  { id: "gladaitors", span: "c2" },               // project (text, live mini-app)
-  { id: "book-beginning-of-infinity", span: "c2" }, // book
-  { id: "himalayas", span: "c4 r2" },             // wide story photo
-  { id: "farcaster-intel-api", span: "c2" },      // project (text)
-  { id: "why-i-host-the-spaces", span: "c4" },    // blog excerpt
-  { id: "book-fabric-of-reality", span: "c2" },   // book
-  { id: "fresh2o", span: "c2 r2" },               // tall story/project photo
-  { id: "story-cyclone", span: "c4" },            // wide story photo
+  { id: "hobby-trekking", span: "c2 r2" },          // top-right tall climb photo, fills the 2x2 beside intro
+  { id: "himalayas", span: "c4 r2" },               // wide tall story photo band
+  { id: "fresh2o", span: "c2 r2" },                 // tall project/story photo beside himalayas
+  { id: "gladaitors", span: "c2" },                 // project (text, live mini-app)
+  { id: "farcaster-intel-api", span: "c2" },        // project (text)
+  { id: "book-beginning-of-infinity", span: "c2" }, // book, closes the trio row
+  { id: "why-i-host-the-spaces", span: "c4" },      // blog excerpt
+  { id: "book-fabric-of-reality", span: "c2" },     // book, closes the row
+  { id: "story-cyclone", span: "c6" },              // full-width closing story band
 ];
 
 export default function Home() {
