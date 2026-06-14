@@ -1,33 +1,47 @@
 #!/usr/bin/env bash
 # ============================================================
-# Publish KP's IPNS name to the PUBLIC IPFS DHT with kubo, so
-# eth.limo and ipfs.io/ipns keep resolving. w3name alone only
-# serves the record over HTTP; DHT resolvers need the record put
-# onto the Amino DHT. This is the durability fix that stops
-# kp2kp.eth from going "Content Unreachable" between updates.
+# Publish KP's IPNS name to the PUBLIC IPFS network so eth.limo
+# and ipfs.io/ipns keep resolving. The w3name service only serves
+# the record over HTTP; DHT-based resolvers need it on the Amino
+# DHT, which is why kp2kp.eth went "Content Unreachable" before.
 #
-# Gasless. Uses the ed25519 content-signing key only (never a
-# wallet, never an onchain tx).
+# Why this uses a DELEGATED HTTP publisher, not a direct DHT put:
+#   GitHub-hosted runners are ephemeral and NAT'd; they cannot
+#   build a usable Amino DHT routing table (an isolated runner
+#   sees ~0 DHT peers), so a direct `name publish` over the DHT
+#   hangs or fails. Instead we:
+#     1. Pull the full DAG for the CID as a CAR from a trustless
+#        gateway and `ipfs dag import` it, so the node holds the
+#        blocks locally (required for an offline publish).
+#     2. Point Ipns.DelegatedPublishers at the public delegated
+#        routing endpoint (https://delegated-ipfs.dev/routing/v1/ipns).
+#     3. `ipfs name publish --allow-delegated` signs the record
+#        with KP's ed25519 key and PUTs it to that endpoint over
+#        HTTP, which places it on the DHT on our behalf. No local
+#        DHT connectivity needed. The endpoint only ever sees a
+#        signed record, never the key.
+#
+# Gasless. ed25519 content-signing key only. No wallet, no onchain.
 #
 # Usage:   scripts/dht-publish.sh <CID>
 # Env:     IPNS_SIGNING_KEY_B64   base64 raw ed25519 IPNS key.
 #          KUBO_VERSION           optional, defaults below.
+#          DELEGATED_PUBLISHER    optional, override endpoint.
+#          CAR_GATEWAYS           optional, space-separated CAR
+#                                 gateway base URLs to try in order.
 #
 # Requires: node (for scripts/key-to-kubo.mjs), curl, tar.
-# Designed for ubuntu-latest GitHub runners.
 #
-# Note on error handling: we deliberately do NOT use `set -e` /
-# pipefail. While the accelerated DHT client warms up, calls like
-# `ipfs stats dht` exit non-zero, and `ipfs name publish` may need
-# a retry. Under `set -e` those expected non-zero exits would kill
-# the script. We check the outcomes we care about explicitly and
-# exit non-zero only on a real, final failure.
+# Error handling: no `set -e`/pipefail. We check each real step
+# explicitly and only fail on a final failure.
 # ============================================================
 set -u
 
 CID="${1:-}"
 EXPECTED_NAME="k51qzi5uqu5dirkws21royn4pbng52n780ezucpigsyahksijsdoybfodpj7zp"
 KUBO_VERSION="${KUBO_VERSION:-v0.39.0}"
+DELEGATED_PUBLISHER="${DELEGATED_PUBLISHER:-https://delegated-ipfs.dev/routing/v1/ipns}"
+CAR_GATEWAYS="${CAR_GATEWAYS:-https://trustless-gateway.link https://ipfs.io https://dweb.link}"
 
 fail() { echo "dht-publish: ERROR $*" >&2; exit 1; }
 
@@ -38,6 +52,7 @@ CID="${CID#/ipfs/}"
 WORK="$(mktemp -d)"
 export IPFS_PATH="$WORK/repo"
 KEYBIN="$WORK/ipns-key.proto.bin"
+CARFILE="$WORK/site.car"
 DAEMON_PID=""
 
 cleanup() {
@@ -52,6 +67,7 @@ trap cleanup EXIT
 
 echo "dht-publish: CID = $CID" >&2
 echo "dht-publish: kubo = $KUBO_VERSION" >&2
+echo "dht-publish: publisher = $DELEGATED_PUBLISHER" >&2
 
 # --- install kubo ---
 ARCH="amd64"
@@ -65,25 +81,38 @@ IPFS="$WORK/kubo/ipfs"
 # --- convert the portable key to kubo protobuf form (verifies name) ---
 node scripts/key-to-kubo.mjs "$KEYBIN" >&2 || fail "key conversion failed"
 
-# --- init isolated repo, accelerated DHT client for fast reliable puts ---
+# --- init isolated repo. Explicit delegated publisher endpoint so we
+#     do not depend on AutoConf expanding the "auto" placeholder. ---
 mkdir -p "$IPFS_PATH"
 "$IPFS" init --profile server >&2 || fail "ipfs init failed"
-"$IPFS" config Routing.Type dht >&2
-"$IPFS" config --json Routing.AcceleratedDHTClient true >&2
+"$IPFS" config Routing.Type auto >&2
+"$IPFS" config --json Ipns.DelegatedPublishers "[\"${DELEGATED_PUBLISHER}\"]" >&2
 
 # --- import the key under a known name, assert it is the on-chain name ---
 "$IPFS" key import kpsite "$KEYBIN" >&2 || fail "key import failed"
 KEYLINE="$("$IPFS" key list -l | awk '$2=="kpsite"{print $1}')"
 echo "dht-publish: imported key id = $KEYLINE" >&2
 [ "$KEYLINE" = "$EXPECTED_NAME" ] || fail "key name mismatch (got $KEYLINE)"
-# protobuf key no longer needed once imported
 rm -f "$KEYBIN" 2>/dev/null || true
 
-# --- start daemon ---
+# --- fetch the full DAG for the CID as a CAR and import it, so the
+#     blocks are local (offline publish needs the target present) ---
+got_car=""
+for gw in $CAR_GATEWAYS; do
+  echo "dht-publish: fetching CAR from $gw" >&2
+  if curl -fsSL -H "Accept: application/vnd.ipld.car" --max-time 180 \
+       "${gw}/ipfs/${CID}?format=car" -o "$CARFILE" && [ -s "$CARFILE" ]; then
+    # sanity: a CAR is at least a few hundred bytes; error pages are tiny html
+    sz="$(wc -c < "$CARFILE" | tr -d ' ')"
+    if [ "$sz" -gt 1000 ]; then got_car="yes"; echo "dht-publish: CAR ${sz} bytes" >&2; break; fi
+  fi
+  echo "dht-publish: CAR fetch from $gw did not yield a usable car" >&2
+done
+[ "$got_car" = "yes" ] || fail "could not fetch a CAR for $CID from any gateway"
+
+# --- start daemon (delegated publish still needs the daemon running) ---
 "$IPFS" daemon --enable-gc=false >"$WORK/daemon.log" 2>&1 &
 DAEMON_PID=$!
-
-# wait for API
 up=""
 for i in $(seq 1 60); do
   if "$IPFS" id >/dev/null 2>&1; then up="yes"; break; fi
@@ -92,49 +121,45 @@ done
 [ "$up" = "yes" ] || { tail -n 60 "$WORK/daemon.log" >&2; fail "daemon never came up"; }
 echo "dht-publish: daemon up" >&2
 
-# wait for the accelerated DHT routing table to fill. `stats dht`
-# exits non-zero while it warms up, so swallow failures and just
-# look at the peer count. Cap the wait; publish proceeds regardless.
-peers=0
-for i in $(seq 1 60); do
-  out="$("$IPFS" stats dht 2>/dev/null || true)"
-  n="$(printf '%s\n' "$out" | sed -n 's/.*DHT wan (\([0-9]\+\) peers).*/\1/p' | head -n1)"
-  case "$n" in (''|*[!0-9]*) n=0 ;; esac
-  peers="$n"
-  if [ "$peers" -ge 100 ]; then break; fi
-  sleep 10
-done
-echo "dht-publish: DHT wan routing table peers = $peers" >&2
+"$IPFS" dag import "$CARFILE" >&2 || fail "dag import failed"
+"$IPFS" block stat --offline "$CID" >/dev/null 2>&1 || fail "root block missing after import"
+echo "dht-publish: DAG imported, root block local" >&2
 
-# --- publish the record to the DHT, with a couple of retries ---
+# --- publish offline via the delegated publisher, with retries ---
 published=""
-for attempt in 1 2 3; do
-  if "$IPFS" name publish --key=kpsite --lifetime=8760h --ttl=1h "/ipfs/${CID}" >&2; then
+for attempt in 1 2 3 4 5; do
+  if "$IPFS" name publish --key=kpsite --allow-delegated \
+       --lifetime=8760h --ttl=1h "/ipfs/${CID}" >&2; then
     published="yes"; break
   fi
-  echo "dht-publish: publish attempt $attempt failed, retrying in 20s" >&2
-  sleep 20
+  echo "dht-publish: publish attempt $attempt failed, retrying in 15s" >&2
+  sleep 15
 done
-[ "$published" = "yes" ] || fail "name publish failed after retries"
+[ "$published" = "yes" ] || { tail -n 40 "$WORK/daemon.log" >&2; fail "name publish failed after retries"; }
 echo "dht-publish: published /ipns/${EXPECTED_NAME} -> /ipfs/${CID}" >&2
 
-# --- give the put a moment to land, then re-provide the key explicitly
-#     so it is well seeded on the DHT before the daemon shuts down ---
-"$IPFS" routing provide "/ipns/${EXPECTED_NAME}" >/dev/null 2>&1 || true
+# --- verify the delegated endpoint now serves our record ---
+rec_ok=""
+for i in $(seq 1 8); do
+  code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 \
+    -H "Accept: application/vnd.ipfs.ipns-record" \
+    "${DELEGATED_PUBLISHER%/}/${EXPECTED_NAME}" || true)"
+  echo "dht-publish: delegated record check #$i -> HTTP ${code}" >&2
+  if [ "$code" = "200" ]; then rec_ok="yes"; break; fi
+  sleep 10
+done
+[ "$rec_ok" = "yes" ] || echo "dht-publish: WARN delegated endpoint did not echo record yet" >&2
 
-# --- verify on a public resolver (best effort, do not hard-fail CI on
-#     gateway propagation lag; the DHT put above is the durable action) ---
+# --- verify on a public DHT resolver. Hard check: if the put landed,
+#     ipfs.io/ipns must resolve. Allow up to ~5 min for propagation. ---
 ok=""
-for i in $(seq 1 10); do
+for i in $(seq 1 20); do
   code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 40 "https://ipfs.io/ipns/${EXPECTED_NAME}/" || true)"
   echo "dht-publish: ipfs.io/ipns check #$i -> HTTP ${code}" >&2
   if [ "$code" = "200" ]; then ok="yes"; break; fi
   sleep 15
 done
-if [ "$ok" = "yes" ]; then
-  echo "dht-publish: VERIFIED live on ipfs.io/ipns" >&2
-else
-  echo "dht-publish: WARN gateway not 200 yet; record is on the DHT, propagation can lag" >&2
-fi
+[ "$ok" = "yes" ] || fail "record published but ipfs.io/ipns did not resolve to 200 in time"
+echo "dht-publish: VERIFIED live on ipfs.io/ipns" >&2
 
 exit 0
