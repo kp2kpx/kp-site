@@ -10,6 +10,10 @@
 #      kubo, so eth.limo and ipfs.io/ipns resolve it. w3name alone
 #      only serves the record over HTTP, never on the DHT, which is
 #      why kp2kp.eth went "Content Unreachable" before this step.
+#   5. Unpin superseded CIDs from Pinata, keeping the new CID and
+#      the immediately-previous one (one-step rollback). Without
+#      this, every deploy left its old full-site copy pinned and
+#      the free plan filled up with stale duplicates.
 #
 # No gas. No onchain interaction. KP sets ipns://<name> on
 # kp2kp.eth exactly once; this keeps that name current forever.
@@ -51,6 +55,20 @@ jobs:
       - name: Build static export
         run: npm run build
 
+      # Capture the CID the IPNS name currently points at BEFORE we
+      # pin the new build. This is the "previous" live CID; we keep
+      # it pinned as a one-step rollback and unpin everything older.
+      - name: Resolve previous live CID
+        id: prev
+        continue-on-error: true
+        env:
+          IPNS_SIGNING_KEY_B64: ${{ secrets.IPNS_SIGNING_KEY_B64 }}
+        run: |
+          node scripts/resolve-current-cid.mjs | tee prev-output.txt || true
+          PREV=$(grep '^CID=' prev-output.txt | cut -d= -f2 || true)
+          echo "cid=$PREV" >> "$GITHUB_OUTPUT"
+          echo "Previous live CID: ${PREV:-<none>}"
+
       - name: Pin to IPFS (Pinata)
         id: pin
         env:
@@ -74,11 +92,25 @@ jobs:
           chmod +x scripts/dht-publish.sh
           scripts/dht-publish.sh "${{ steps.pin.outputs.cid }}"
 
+      # Root-cause fix for Pinata free-plan exhaustion: now that the
+      # new CID is pinned AND published to IPNS/DHT, unpin everything
+      # except the new CID and the previous CID. Allowlist based, so
+      # it can never delete the live content. continue-on-error keeps
+      # a cleanup hiccup from failing an otherwise-good deploy; the
+      # next deploy (or the manual workflow) will catch up.
+      - name: Unpin superseded CIDs (Pinata)
+        continue-on-error: true
+        env:
+          PINATA_JWT: ${{ secrets.PINATA_JWT }}
+          KEEP: ${{ steps.pin.outputs.cid }},${{ steps.prev.outputs.cid }}
+        run: node scripts/pinata-maintenance.mjs --apply
+
       - name: Summary
         run: |
           echo "### IPFS deploy complete" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "- Root CID: \`${{ steps.pin.outputs.cid }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Previous CID (kept as rollback): \`${{ steps.prev.outputs.cid }}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- Pinata gateway: https://gateway.pinata.cloud/ipfs/${{ steps.pin.outputs.cid }}/" >> "$GITHUB_STEP_SUMMARY"
           echo "- IPNS (DHT): https://ipfs.io/ipns/k51qzi5uqu5dirkws21royn4pbng52n780ezucpigsyahksijsdoybfodpj7zp/" >> "$GITHUB_STEP_SUMMARY"
           echo "- kp2kp.eth should reflect this within minutes via IPNS." >> "$GITHUB_STEP_SUMMARY"
