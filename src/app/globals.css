@@ -3,6 +3,8 @@
 /* Scope Tailwind content scanning to source only, so stale build
    artifacts (out/, out.car) never leak dead classes into the CSS. */
 @source "../**/*.{ts,tsx}";
+@source not "../../out";
+@source not "../../out.car";
 
 /* ============================================================
    KP's garden. Warm, calm, paper-and-ink "digital garden".
