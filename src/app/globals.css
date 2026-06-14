@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Scope Tailwind content scanning to source only, so stale build
+   artifacts (out/, out.car) never leak dead classes into the CSS. */
+@source "../**/*.{ts,tsx}";
+
 /* ============================================================
    KP's garden. Warm, calm, paper-and-ink "digital garden".
    (Designer visual system, chester.how-adjacent.) Tokens are
