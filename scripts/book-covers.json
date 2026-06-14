@@ -263,5 +263,45 @@
     "found": true,
     "coverFile": "/garden/books/the-quran.jpg",
     "workUrl": "https://openlibrary.org/works/OL1073731W"
+  },
+  "the-fountainhead": {
+    "found": true,
+    "coverFile": "/garden/books/the-fountainhead.jpg",
+    "workUrl": "https://openlibrary.org/works/OL731663W"
+  },
+  "thus-spoke-zarathustra": {
+    "found": true,
+    "coverFile": "/garden/books/thus-spoke-zarathustra.jpg",
+    "workUrl": "https://openlibrary.org/works/OL24528372W"
+  },
+  "the-trial": {
+    "found": true,
+    "coverFile": "/garden/books/the-trial.jpg",
+    "workUrl": "https://openlibrary.org/works/OL43043884W"
+  },
+  "the-metamorphosis": {
+    "found": true,
+    "coverFile": "/garden/books/the-metamorphosis.jpg",
+    "workUrl": "https://openlibrary.org/works/OL15176533W"
+  },
+  "rights-of-man": {
+    "found": true,
+    "coverFile": "/garden/books/rights-of-man.jpg",
+    "workUrl": "https://openlibrary.org/works/OL60359W"
+  },
+  "the-art-of-war": {
+    "found": true,
+    "coverFile": "/garden/books/the-art-of-war.jpg",
+    "workUrl": "https://openlibrary.org/works/OL244537W"
+  },
+  "new-history-of-the-world": {
+    "found": true,
+    "coverFile": "/garden/books/new-history-of-the-world.jpg",
+    "workUrl": "https://openlibrary.org/works/OL16947597W"
+  },
+  "irrationally-rational": {
+    "found": true,
+    "coverFile": "/garden/books/irrationally-rational.jpg",
+    "workUrl": "https://openlibrary.org/works/OL27810605W"
   }
 }
