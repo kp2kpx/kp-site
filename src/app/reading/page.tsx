@@ -41,15 +41,22 @@ export default function ReadingPage() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="flex h-full w-full flex-col justify-end p-3">
-                    <span className="font-[family-name:var(--font-display)] text-sm font-semibold leading-snug text-(--color-ink)">
-                      {b.title}
-                    </span>
-                    {b.author ? (
-                      <span className="mt-1 font-[family-name:var(--font-mono)] text-[11px] text-(--color-ink-faint)">
-                        {b.author}
+                  /* No cover found on Open Library: a clean
+                     typographic cover card on the warm palette,
+                     never a broken image. Reads as a spine on
+                     the shelf. */
+                  <div className="flex h-full w-full flex-col bg-(--color-accent-soft)">
+                    <div className="h-1.5 w-full bg-(--color-accent)" />
+                    <div className="flex flex-1 flex-col justify-between p-4">
+                      <span className="font-[family-name:var(--font-display)] text-[15px] font-semibold leading-snug text-(--color-accent-ink)">
+                        {b.title}
                       </span>
-                    ) : null}
+                      {b.author ? (
+                        <span className="font-[family-name:var(--font-mono)] text-[11px] leading-snug text-(--color-ink-dim)">
+                          {b.author}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
                 )}
               </div>

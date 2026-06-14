@@ -1,0 +1,267 @@
+{
+  "godel-escher-bach": {
+    "found": true,
+    "coverFile": "/garden/books/godel-escher-bach.jpg",
+    "workUrl": "https://openlibrary.org/works/OL1881592W"
+  },
+  "fabric-of-reality": {
+    "found": true,
+    "coverFile": "/garden/books/fabric-of-reality.jpg",
+    "workUrl": "https://openlibrary.org/works/OL2635835W"
+  },
+  "beginning-of-infinity": {
+    "found": true,
+    "coverFile": "/garden/books/beginning-of-infinity.jpg",
+    "workUrl": "https://openlibrary.org/works/OL4325174W"
+  },
+  "brief-history-of-time": {
+    "found": true,
+    "coverFile": "/garden/books/brief-history-of-time.jpg",
+    "workUrl": "https://openlibrary.org/works/OL1892617W"
+  },
+  "short-history-nearly-everything": {
+    "found": true,
+    "coverFile": "/garden/books/short-history-nearly-everything.jpg",
+    "workUrl": "https://openlibrary.org/works/OL74128W"
+  },
+  "singularity-is-nearer": {
+    "found": true,
+    "coverFile": "/garden/books/singularity-is-nearer.jpg",
+    "workUrl": "https://openlibrary.org/works/OL42839671W"
+  },
+  "theoretical-minimum-classical": {
+    "found": false,
+    "coverFile": "",
+    "workUrl": "https://openlibrary.org/works/OL16006367W"
+  },
+  "quantum-mechanics-theoretical-minimum": {
+    "found": true,
+    "coverFile": "/garden/books/quantum-mechanics-theoretical-minimum.jpg",
+    "workUrl": "https://openlibrary.org/works/OL19333423W"
+  },
+  "black-swan": {
+    "found": true,
+    "coverFile": "/garden/books/black-swan.jpg",
+    "workUrl": "https://openlibrary.org/works/OL5848502W"
+  },
+  "algorithms-to-live-by": {
+    "found": true,
+    "coverFile": "/garden/books/algorithms-to-live-by.jpg",
+    "workUrl": "https://openlibrary.org/works/OL17357767W"
+  },
+  "origin-of-species": {
+    "found": true,
+    "coverFile": "/garden/books/origin-of-species.jpg",
+    "workUrl": "https://openlibrary.org/works/OL515051W"
+  },
+  "critique-of-pure-reason": {
+    "found": true,
+    "coverFile": "/garden/books/critique-of-pure-reason.jpg",
+    "workUrl": "https://openlibrary.org/works/OL17104789W"
+  },
+  "the-prophet": {
+    "found": true,
+    "coverFile": "/garden/books/the-prophet.jpg",
+    "workUrl": "https://openlibrary.org/works/OL318900W"
+  },
+  "nausea": {
+    "found": true,
+    "coverFile": "/garden/books/nausea.jpg",
+    "workUrl": "https://openlibrary.org/works/OL29288580W"
+  },
+  "richest-man-in-babylon": {
+    "found": true,
+    "coverFile": "/garden/books/richest-man-in-babylon.jpg",
+    "workUrl": "https://openlibrary.org/works/OL8165007W"
+  },
+  "wealth-of-nations": {
+    "found": true,
+    "coverFile": "/garden/books/wealth-of-nations.jpg",
+    "workUrl": "https://openlibrary.org/works/OL76827W"
+  },
+  "capital": {
+    "found": true,
+    "coverFile": "/garden/books/capital.jpg",
+    "workUrl": "https://openlibrary.org/works/OL15663481W"
+  },
+  "ascent-of-money": {
+    "found": true,
+    "coverFile": "/garden/books/ascent-of-money.jpg",
+    "workUrl": "https://openlibrary.org/works/OL14869415W"
+  },
+  "almanack-of-naval": {
+    "found": true,
+    "coverFile": "/garden/books/almanack-of-naval.jpg",
+    "workUrl": "https://openlibrary.org/works/OL22255847W"
+  },
+  "zero-to-one": {
+    "found": true,
+    "coverFile": "/garden/books/zero-to-one.jpg",
+    "workUrl": "https://openlibrary.org/works/OL17078706W"
+  },
+  "same-as-ever": {
+    "found": true,
+    "coverFile": "/garden/books/same-as-ever.jpg",
+    "workUrl": "https://openlibrary.org/works/OL35156586W"
+  },
+  "read-write-own": {
+    "found": false,
+    "coverFile": "",
+    "workUrl": "https://openlibrary.org/works/OL37568701W"
+  },
+  "hard-thing-about-hard-things": {
+    "found": true,
+    "coverFile": "/garden/books/hard-thing-about-hard-things.jpg",
+    "workUrl": "https://openlibrary.org/works/OL16818208W"
+  },
+  "sapiens": {
+    "found": true,
+    "coverFile": "/garden/books/sapiens.jpg",
+    "workUrl": "https://openlibrary.org/works/OL17075811W"
+  },
+  "nexus": {
+    "found": true,
+    "coverFile": "/garden/books/nexus.jpg",
+    "workUrl": "https://openlibrary.org/works/OL37826293W"
+  },
+  "sapiens-graphic-1": {
+    "found": false,
+    "coverFile": "",
+    "workUrl": null
+  },
+  "sapiens-graphic-2": {
+    "found": false,
+    "coverFile": "",
+    "workUrl": "https://openlibrary.org/works/OL34634534W"
+  },
+  "silk-roads": {
+    "found": true,
+    "coverFile": "/garden/books/silk-roads.jpg",
+    "workUrl": "https://openlibrary.org/works/OL19666939W"
+  },
+  "end-of-history": {
+    "found": true,
+    "coverFile": "/garden/books/end-of-history.jpg",
+    "workUrl": "https://openlibrary.org/works/OL2670501W"
+  },
+  "two-treatises-of-government": {
+    "found": true,
+    "coverFile": "/garden/books/two-treatises-of-government.jpg",
+    "workUrl": "https://openlibrary.org/works/OL31805824W"
+  },
+  "train-to-pakistan": {
+    "found": true,
+    "coverFile": "/garden/books/train-to-pakistan.jpg",
+    "workUrl": "https://openlibrary.org/works/OL318479W"
+  },
+  "mein-kampf": {
+    "found": true,
+    "coverFile": "/garden/books/mein-kampf.jpg",
+    "workUrl": "https://openlibrary.org/works/OL1067314W"
+  },
+  "gandhi-autobiography": {
+    "found": false,
+    "coverFile": "",
+    "workUrl": "https://openlibrary.org/works/OL32193455W"
+  },
+  "autobiography-malcolm-x": {
+    "found": true,
+    "coverFile": "/garden/books/autobiography-malcolm-x.jpg",
+    "workUrl": "https://openlibrary.org/works/OL36522668W"
+  },
+  "marx-returns": {
+    "found": false,
+    "coverFile": "",
+    "workUrl": "https://openlibrary.org/works/OL21339949W"
+  },
+  "demons": {
+    "found": true,
+    "coverFile": "/garden/books/demons.jpg",
+    "workUrl": "https://openlibrary.org/works/OL45429744W"
+  },
+  "brothers-karamazov": {
+    "found": true,
+    "coverFile": "/garden/books/brothers-karamazov.jpg",
+    "workUrl": "https://openlibrary.org/works/OL24600223W"
+  },
+  "war-and-peace": {
+    "found": true,
+    "coverFile": "/garden/books/war-and-peace.jpg",
+    "workUrl": "https://openlibrary.org/works/OL267171W"
+  },
+  "anna-karenina": {
+    "found": true,
+    "coverFile": "/garden/books/anna-karenina.jpg",
+    "workUrl": "https://openlibrary.org/works/OL26380516W"
+  },
+  "the-iliad": {
+    "found": true,
+    "coverFile": "/garden/books/the-iliad.jpg",
+    "workUrl": "https://openlibrary.org/works/OL27292338W"
+  },
+  "the-odyssey": {
+    "found": true,
+    "coverFile": "/garden/books/the-odyssey.jpg",
+    "workUrl": "https://openlibrary.org/works/OL26446888W"
+  },
+  "ulysses": {
+    "found": true,
+    "coverFile": "/garden/books/ulysses.jpg",
+    "workUrl": "https://openlibrary.org/works/OL86318W"
+  },
+  "labyrinths": {
+    "found": true,
+    "coverFile": "/garden/books/labyrinths.jpg",
+    "workUrl": "https://openlibrary.org/works/OL110959W"
+  },
+  "to-kill-a-mockingbird": {
+    "found": true,
+    "coverFile": "/garden/books/to-kill-a-mockingbird.jpg",
+    "workUrl": "https://openlibrary.org/works/OL3140822W"
+  },
+  "tale-of-two-cities": {
+    "found": true,
+    "coverFile": "/garden/books/tale-of-two-cities.jpg",
+    "workUrl": "https://openlibrary.org/works/OL8193465W"
+  },
+  "mountain-shadow": {
+    "found": true,
+    "coverFile": "/garden/books/mountain-shadow.jpg",
+    "workUrl": "https://openlibrary.org/works/OL20698909W"
+  },
+  "tomb-of-sand": {
+    "found": false,
+    "coverFile": "",
+    "workUrl": "https://openlibrary.org/works/OL28910613W"
+  },
+  "sita-warrior-of-mithila": {
+    "found": true,
+    "coverFile": "/garden/books/sita-warrior-of-mithila.jpg",
+    "workUrl": "https://openlibrary.org/works/OL17752993W"
+  },
+  "hitchhikers-guide": {
+    "found": true,
+    "coverFile": "/garden/books/hitchhikers-guide.jpg",
+    "workUrl": "https://openlibrary.org/works/OL25125779W"
+  },
+  "watchmen": {
+    "found": true,
+    "coverFile": "/garden/books/watchmen.jpg",
+    "workUrl": "https://openlibrary.org/works/OL2897798W"
+  },
+  "fish-in-alien-streams": {
+    "found": false,
+    "coverFile": "",
+    "workUrl": null
+  },
+  "life-keith-richards": {
+    "found": true,
+    "coverFile": "/garden/books/life-keith-richards.jpg",
+    "workUrl": "https://openlibrary.org/works/OL20444287W"
+  },
+  "the-quran": {
+    "found": true,
+    "coverFile": "/garden/books/the-quran.jpg",
+    "workUrl": "https://openlibrary.org/works/OL1073731W"
+  }
+}
