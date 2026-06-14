@@ -4,9 +4,9 @@ import { FarcasterIcon, XIcon, GitHubIcon } from "./icons";
 
 /* ============================================================
    Shared site chrome: the top nav and footer used by every
-   section. Structural only; the Designer styles on top.
+   section. Warm paper-and-ink "digital garden" styling.
 
-   Nav layout (per brief):
+   Nav layout:
      left  : KP (home) / Projects / Writing / Reading / Hobbies / Story
      right : Farcaster / X / GitHub as ICONS, then CV (the word)
 
@@ -30,7 +30,7 @@ export function Container({
   className?: string;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-5xl px-6 sm:px-8 ${className}`}>
+    <div className={`mx-auto w-full max-w-[920px] px-7 ${className}`}>
       {children}
     </div>
   );
@@ -39,23 +39,22 @@ export function Container({
 /* current: the section href to mark active, e.g. "/projects/". */
 export function SiteNav({ current = "" }: { current?: string }) {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-(--color-border) bg-[rgba(10,10,11,0.72)] backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-(--color-border) bg-[rgba(247,243,236,0.82)] backdrop-blur-md">
       <Container className="flex h-14 items-center justify-between gap-4">
         {/* left: home + sections */}
-        <nav className="flex min-w-0 items-center gap-5 text-[13px] text-(--color-ink-dim)">
+        <nav className="flex min-w-0 items-baseline gap-5 text-(--color-ink-dim)">
           <Link
             href="/"
-            className="shrink-0 font-[family-name:var(--font-display)] text-sm font-bold tracking-tight text-(--color-ink)"
+            className="shrink-0 font-[family-name:var(--font-display)] text-[20px] font-semibold tracking-tight text-(--color-ink)"
           >
             KP
           </Link>
-          <span aria-hidden className="hidden h-4 w-px bg-(--color-border-strong) sm:block" />
-          <span className="hidden items-center gap-5 sm:flex">
+          <span className="hidden items-baseline gap-5 sm:flex">
             {SECTIONS.map((s) => (
               <Link
                 key={s.href}
                 href={s.href}
-                className={`transition-colors hover:text-(--color-ink) ${
+                className={`font-[family-name:var(--font-mono)] text-[13px] tracking-[0.02em] transition-colors hover:text-(--color-accent) ${
                   current === s.href ? "text-(--color-accent)" : ""
                 }`}
               >
@@ -66,7 +65,7 @@ export function SiteNav({ current = "" }: { current?: string }) {
         </nav>
 
         {/* right: doors out (icons) + CV (word) */}
-        <div className="flex shrink-0 items-center gap-4 text-(--color-ink-dim)">
+        <div className="flex shrink-0 items-center gap-4 text-(--color-ink-faint)">
           <a
             href={LINKS.farcaster.url}
             target="_blank"
@@ -99,7 +98,7 @@ export function SiteNav({ current = "" }: { current?: string }) {
           </a>
           <Link
             href="/cv/"
-            className="rounded-full border border-(--color-border-strong) px-3 py-1 text-[13px] font-medium text-(--color-ink) transition-colors hover:border-(--color-accent) hover:text-(--color-accent)"
+            className="rounded-full border border-(--color-border) px-3.5 py-1 font-[family-name:var(--font-mono)] text-[13px] text-(--color-ink-dim) transition-colors hover:border-(--color-accent) hover:text-(--color-accent)"
           >
             CV
           </Link>
@@ -111,9 +110,9 @@ export function SiteNav({ current = "" }: { current?: string }) {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-(--color-border) py-8">
-      <Container className="flex flex-col items-center justify-between gap-3 text-[12px] text-(--color-ink-faint) sm:flex-row">
-        <span className="font-[family-name:var(--font-mono)]">KP · @kpx</span>
+    <footer className="border-t border-(--color-border) py-10">
+      <Container className="flex flex-col items-center justify-between gap-3 text-center font-[family-name:var(--font-mono)] text-[12px] text-(--color-ink-faint) sm:flex-row">
+        <span>KP &middot; @kpx</span>
         <span>Built by KP. Every line on this page is true.</span>
       </Container>
     </footer>
@@ -122,11 +121,11 @@ export function SiteFooter() {
 
 /* Small mobile section bar: the left-nav sections collapse on
    narrow screens, so expose them as a scrollable row under the
-   fixed header. Structural; Designer can restyle or replace. */
+   fixed header. */
 export function MobileSectionBar({ current = "" }: { current?: string }) {
   return (
-    <div className="fixed inset-x-0 top-14 z-40 border-b border-(--color-border) bg-[rgba(10,10,11,0.72)] backdrop-blur-md sm:hidden">
-      <div className="flex gap-4 overflow-x-auto px-6 py-2 text-[13px] text-(--color-ink-dim)">
+    <div className="fixed inset-x-0 top-14 z-40 border-b border-(--color-border) bg-[rgba(247,243,236,0.82)] backdrop-blur-md sm:hidden">
+      <div className="flex gap-4 overflow-x-auto px-7 py-2 font-[family-name:var(--font-mono)] text-[12px] text-(--color-ink-dim)">
         {SECTIONS.map((s) => (
           <Link
             key={s.href}

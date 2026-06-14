@@ -6,11 +6,25 @@ import type { GardenNode } from "@/lib/garden";
 
 /* ============================================================
    Generic detail page for any non-writing node (project, book,
-   hobby, story beat). Renders the node's body, image, external
-   link, tags, and the connected-nodes strip (links + backlinks).
-   Writing nodes use the existing /articles markdown renderer.
-   Structural only; Designer styles on top.
+   hobby, story beat). Warm paper-and-ink wiki node: serif title,
+   mono meta line, prose, optional photo, external link, tag
+   chips, and the "Grows alongside" related strip. Writing nodes
+   use the /articles markdown renderer.
    ============================================================ */
+
+const LEAF_TAGS = new Set([
+  "goa",
+  "himalayas",
+  "himalaya",
+  "outdoors",
+  "trekking",
+  "nature",
+  "cyclone",
+  "music",
+  "loss",
+  "turning-point",
+]);
+
 export function NodeDetail({
   node,
   related,
@@ -29,16 +43,8 @@ export function NodeDetail({
       <SiteNav current={current} />
       <MobileSectionBar current={current} />
 
-      <article className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[360px] w-[680px] -translate-x-1/2 rounded-full opacity-40 blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 30%, rgba(200,162,74,0.14), rgba(79,127,255,0.08) 45%, transparent 70%)",
-          }}
-        />
-        <Container className="max-w-3xl">
+      <article className="pt-32 pb-24 sm:pt-36">
+        <Container className="max-w-[680px]">
           <Reveal>
             <Link
               href={backHref}
@@ -49,7 +55,7 @@ export function NodeDetail({
           </Reveal>
 
           <Reveal delay={60}>
-            <div className="mt-6 flex flex-wrap items-center gap-3 font-[family-name:var(--font-mono)] text-[12px] text-(--color-accent)">
+            <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-(--color-accent)">
               {node.status ? <span>{node.status}</span> : null}
               {node.date ? <span>{node.date}</span> : null}
               {node.author ? (
@@ -59,13 +65,13 @@ export function NodeDetail({
           </Reveal>
 
           <Reveal delay={120}>
-            <h1 className="mt-3 font-[family-name:var(--font-display)] text-3xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
+            <h1 className="mt-3 font-[family-name:var(--font-display)] text-[34px] font-medium leading-[1.12] tracking-[-0.02em] sm:text-[44px]">
               {node.title}
             </h1>
           </Reveal>
 
           <Reveal delay={160}>
-            <p className="mt-5 text-lg leading-relaxed text-(--color-ink-dim)">
+            <p className="mt-4 text-[19px] leading-relaxed text-(--color-ink-dim)">
               {node.summary}
             </p>
           </Reveal>
@@ -76,8 +82,25 @@ export function NodeDetail({
               <img
                 src={node.image}
                 alt={node.imageAlt ?? node.title}
-                className="mt-8 w-full rounded-xl border border-(--color-border)"
+                className="mt-8 w-full rounded-[18px] border border-(--color-border)"
               />
+            </Reveal>
+          ) : null}
+
+          {node.video ? (
+            <Reveal delay={190}>
+              {/* lazy: preload metadata only so the static IPFS build
+                  stays light. The clip downloads only on play. */}
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster={node.videoPoster}
+                className="mt-6 w-full rounded-[18px] border border-(--color-border) bg-black"
+                style={{ maxHeight: "640px" }}
+              >
+                <source src={node.video} type="video/mp4" />
+              </video>
             </Reveal>
           ) : null}
 
@@ -91,11 +114,11 @@ export function NodeDetail({
 
           {node.takeaway ? (
             <Reveal delay={220}>
-              <div className="mt-8 rounded-xl border border-(--color-border) bg-(--color-panel) p-6">
-                <div className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.28em] text-(--color-accent)">
+              <div className="mt-8 rounded-[18px] border border-(--color-border) bg-(--color-panel) p-6">
+                <div className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.14em] text-(--color-accent)">
                   My take
                 </div>
-                <p className="mt-3 text-[15px] leading-relaxed text-(--color-ink-dim)">
+                <p className="mt-3 text-[16px] leading-relaxed text-(--color-ink-dim)">
                   {node.takeaway}
                 </p>
               </div>
@@ -106,10 +129,7 @@ export function NodeDetail({
             <Reveal delay={230}>
               <div className="mt-6 flex flex-wrap gap-2">
                 {node.stack.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-md border border-(--color-border) px-2 py-0.5 font-[family-name:var(--font-mono)] text-[11px] text-(--color-ink-faint)"
-                  >
+                  <span key={t} className="chip">
                     {t}
                   </span>
                 ))}
@@ -123,7 +143,7 @@ export function NodeDetail({
                 href={node.externalUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-8 inline-block rounded-full border border-(--color-border-strong) px-5 py-2.5 text-sm font-medium text-(--color-ink) transition-colors hover:border-(--color-accent) hover:text-(--color-accent)"
+                className="mt-8 inline-block rounded-full border border-(--color-border-strong) px-5 py-2.5 font-[family-name:var(--font-mono)] text-[13px] text-(--color-ink) transition-colors hover:border-(--color-accent) hover:text-(--color-accent)"
               >
                 {node.externalLabel ?? "Visit"} &#8599;
               </a>
@@ -134,11 +154,8 @@ export function NodeDetail({
             <Reveal delay={260}>
               <div className="mt-8 flex flex-wrap gap-2">
                 {node.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-md border border-(--color-border) px-2 py-0.5 font-[family-name:var(--font-mono)] text-[11px] text-(--color-ink-faint)"
-                  >
-                    #{t}
+                  <span key={t} className={`chip ${LEAF_TAGS.has(t) ? "leaf" : ""}`}>
+                    {t}
                   </span>
                 ))}
               </div>

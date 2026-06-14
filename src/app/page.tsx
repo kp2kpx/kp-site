@@ -1,21 +1,29 @@
 import Reveal from "./Reveal";
 import { SiteNav, SiteFooter, MobileSectionBar, Container } from "./components/Chrome";
-import { NodeCard } from "./components/NodeCard";
+import { FeedCard, NoteCard } from "./components/FeedCard";
 import { PROFILE } from "./content";
 import { getGardenNodes } from "@/lib/posts";
 import { recentNodes } from "@/lib/garden";
 
 /* ============================================================
-   HOME (the KP landing). Calm by design: a short hero and a
-   recent-things feed drawn from the garden graph (projects,
-   writing, story beats, whatever is newest). The deep content
-   lives in the sections; this is the front door.
+   HOME (the KP garden front door). Warm, calm, paper-and-ink.
+   A short hand-written hero, then a masonry photo feed of the
+   most recent things across the whole garden graph, with a
+   quiet text-only "note" woven in for rhythm.
 
    "KP" only here. Full name appears solely on the CV page.
-   Visual polish is the Designer's pass; this is the structure.
    ============================================================ */
+
+/* A quiet thought, shown as a text-only note card between the
+   photos. True to KP's own operating principle. */
+const NOTE = {
+  kicker: "Note",
+  text: "Build the smallest thing that teaches you the next thing.",
+  when: "an operating principle",
+};
+
 export default function Home() {
-  const recent = recentNodes(getGardenNodes(), 6);
+  const recent = recentNodes(getGardenNodes(), 7);
 
   return (
     <main>
@@ -23,54 +31,43 @@ export default function Home() {
       <MobileSectionBar />
 
       {/* hero */}
-      <section className="relative overflow-hidden pt-40 pb-20 sm:pt-52 sm:pb-28">
+      <section className="relative overflow-hidden pt-36 pb-10 sm:pt-44 sm:pb-14">
         <div aria-hidden className="grid-bg pointer-events-none absolute inset-0 -z-10" />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[520px] w-[820px] -translate-x-1/2 rounded-full opacity-60 blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 30%, rgba(200,162,74,0.16), rgba(79,127,255,0.10) 45%, transparent 70%)",
-          }}
-        />
         <Container>
-          <Reveal>
-            <span className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.28em] text-(--color-accent)">
-              KP, {PROFILE.handle}
-            </span>
-          </Reveal>
-          <Reveal delay={80}>
-            <h1 className="mt-5 max-w-3xl font-[family-name:var(--font-display)] text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl">
-              A garden of things I have{" "}
-              <span className="text-gradient-gold">made, read, and lived.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={150}>
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-(--color-ink-dim) sm:text-xl">
-              {PROFILE.hook}
-            </p>
-          </Reveal>
+          <div className="max-w-[620px]">
+            <Reveal delay={60}>
+              <h1 className="font-[family-name:var(--font-display)] text-[34px] font-medium leading-[1.15] tracking-[-0.02em] sm:text-[40px]">
+                Hi, I&apos;m KP.{" "}
+                <span className="text-gradient-gold">This is my garden,</span> a
+                quiet place I tend over time.
+              </h1>
+            </Reveal>
+            <Reveal delay={150}>
+              <p className="mt-5 text-[19px] leading-relaxed text-(--color-ink-dim)">
+                Notes, photos, things I&apos;m reading and building. No feed
+                algorithm. Just what I felt like keeping. {PROFILE.hook}
+              </p>
+            </Reveal>
+          </div>
         </Container>
       </section>
 
-      <div className="hairline" />
-
       {/* recent things feed */}
-      <section className="py-16 sm:py-24">
+      <section className="pb-24">
         <Container>
-          <Reveal>
-            <span className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.28em] text-(--color-accent)">
-              Recent things
-            </span>
-          </Reveal>
-          <Reveal delay={60}>
-            <h2 className="mt-4 max-w-3xl font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight sm:text-4xl">
-              Lately
-            </h2>
-          </Reveal>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {recent.map((n, i) => (
-              <NodeCard key={n.id} node={n} delay={(i % 3) * 60} />
+          <div className="flex items-center gap-3.5 py-7 font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-(--color-ink-faint)">
+            <span>Lately</span>
+            <span aria-hidden className="h-px flex-1 bg-(--color-border)" />
+          </div>
+
+          <div className="feed">
+            {recent.slice(0, 3).map((n, i) => (
+              <FeedCard key={n.id} node={n} index={i} />
+            ))}
+            {/* a quiet note woven into the feed for rhythm */}
+            <NoteCard note={NOTE} index={3} />
+            {recent.slice(3).map((n, i) => (
+              <FeedCard key={n.id} node={n} index={i + 4} />
             ))}
           </div>
         </Container>

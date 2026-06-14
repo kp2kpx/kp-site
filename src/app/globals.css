@@ -1,26 +1,34 @@
 @import "tailwindcss";
 
 /* ============================================================
-   KP. Personal brand site. Dark, elegant, crypto-native.
-   Design tokens. Tailwind v4 @theme.
+   KP's garden. Warm, calm, paper-and-ink "digital garden".
+   (Designer visual system, chester.how-adjacent.) Tokens are
+   kept under the existing --color-* names so every page that
+   already references them flips to the warm palette at once.
+   Tailwind v4 @theme.
    ============================================================ */
 
 @theme {
-  --color-bg: #0a0a0b;
-  --color-bg-2: #101013;
-  --color-panel: #131316;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.14);
-  --color-ink: #ededf0;
-  --color-ink-dim: #a1a1ab;
-  --color-ink-faint: #6b6b76;
-  --color-accent: #c8a24a;
-  --color-accent-soft: #e3c378;
+  /* warm paper + ink palette (replaces the old dark/gold set) */
+  --color-bg: #f7f3ec;            /* warm paper, page background */
+  --color-bg-2: #f0e9dc;          /* slightly deeper paper */
+  --color-panel: #fffdf8;         /* lifted card surface */
+  --color-border: #e7ded0;        /* hairline borders */
+  --color-border-strong: #d9cdb8; /* stronger hairline */
+  --color-ink: #2b2620;           /* primary text, warm near-black */
+  --color-ink-dim: #6b6356;       /* secondary text */
+  --color-ink-faint: #9a9082;     /* meta / timestamps */
+  --color-accent: #b06a3f;        /* terracotta, the warm pop */
+  --color-accent-soft: #f0e3d6;   /* accent tint for chips */
+  --color-accent-ink: #8a5733;    /* readable accent on tint chips */
+  --color-leaf: #6f7a52;          /* muted olive, second accent */
+  --color-leaf-soft: #e9ecdd;     /* olive chip tint */
+  --color-leaf-ink: #56603a;      /* readable olive on tint */
   --color-base-blue: #4f7fff;
   --color-violet: #8b7fff;
 
-  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-body), Georgia, "Times New Roman", serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 }
 
@@ -35,27 +43,30 @@ body {
   background-color: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
 }
 
+/* subtle paper grain so the warm bg never reads flat */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 100;
-  background:
-    radial-gradient(120% 80% at 50% -10%, rgba(200, 162, 74, 0.06), transparent 60%),
-    radial-gradient(80% 60% at 100% 100%, rgba(79, 127, 255, 0.05), transparent 60%);
-  mix-blend-mode: screen;
+  z-index: 0;
+  background-image: radial-gradient(rgba(120, 100, 70, 0.025) 1px, transparent 1px);
+  background-size: 4px 4px;
 }
 
+/* keep page content above the grain layer */
+main, header, footer { position: relative; z-index: 1; }
+
 ::selection {
-  background: rgba(200, 162, 74, 0.28);
-  color: #fff;
+  background: rgba(176, 106, 63, 0.22);
+  color: var(--color-ink);
 }
 
 a { color: inherit; text-decoration: none; }
@@ -72,6 +83,7 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
+  .card-lift:hover, .feed-card:hover, .related-chip:hover { transform: none !important; }
 }
 
 .hairline {
@@ -80,40 +92,137 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(90deg, transparent, var(--color-border-strong) 50%, transparent);
 }
 
+/* warm "highlight" for the one phrase that gets the accent.
+   Replaces the old gold gradient; italic terracotta reads as
+   a hand-tended emphasis, not a logo. */
 .text-gradient-gold {
-  background: linear-gradient(180deg, #f3e2b8 0%, #c8a24a 70%, #9c7a2e 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-accent);
+  font-style: italic;
 }
 
-/* Faint grid texture for hero depth */
+/* Faint grid texture for hero depth, warm + very soft. */
 .grid-bg {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    linear-gradient(to right, rgba(120, 100, 70, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 100, 70, 0.05) 1px, transparent 1px);
   background-size: 56px 56px;
   -webkit-mask-image: radial-gradient(80% 60% at 50% 30%, #000 0%, transparent 75%);
   mask-image: radial-gradient(80% 60% at 50% 30%, #000 0%, transparent 75%);
 }
 
+/* ============================================================
+   Signature hover micro-interaction (Designer spec):
+   springy overshoot tilt + lift. card-lift is the generic
+   version used by section grids and detail strips.
+   ============================================================ */
 .card-lift {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.35s ease, background-color 0.35s ease;
+  transform: rotate(0deg) translateY(0) scale(1);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.35s ease, box-shadow 0.45s ease;
+  box-shadow: 6px 8px 22px rgba(60, 48, 32, 0.06);
+  will-change: transform;
 }
 .card-lift:hover {
-  transform: translateY(-4px);
+  transform: rotate(var(--tilt, -1.2deg)) translateY(-6px) scale(1.018);
   border-color: var(--color-border-strong);
+  box-shadow: 18px 18px 48px rgba(60, 48, 32, 0.1);
+}
+/* alternate tilt direction by position so a grid feels alive */
+.card-lift:nth-child(2n) { --tilt: 1.3deg; }
+.card-lift:nth-child(3n) { --tilt: -1.0deg; }
+.card-lift:nth-child(4n) { --tilt: 1.1deg; }
+
+/* ============================================================
+   Home masonry photo feed.
+   CSS columns so cards of varied aspect-ratio pack and breathe.
+   ============================================================ */
+.feed {
+  columns: 2;
+  column-gap: 28px;
+}
+@media (max-width: 680px) {
+  .feed { columns: 1; }
+}
+.feed-card {
+  display: block;
+  break-inside: avoid;
+  margin-bottom: 28px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  overflow: hidden;
+  color: inherit;
+  box-shadow: 6px 8px 22px rgba(60, 48, 32, 0.06);
+  transform: rotate(0deg) translateY(0) scale(1);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.45s ease;
+  will-change: transform;
+}
+.feed-card:hover {
+  transform: rotate(var(--tilt, -1.2deg)) translateY(-6px) scale(1.018);
+  box-shadow: 18px 18px 48px rgba(60, 48, 32, 0.1);
+}
+.feed-card:nth-child(2n) { --tilt: 1.3deg; }
+.feed-card:nth-child(3n) { --tilt: -1.0deg; }
+.feed-card:nth-child(4n) { --tilt: 1.1deg; }
+
+.feed-photo {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  background: linear-gradient(135deg, #d9c7ad, #c2a888);
+}
+
+/* tag chips */
+.chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-ink);
+  border-radius: 999px;
+  padding: 3px 10px;
+  display: inline-block;
+}
+.chip.leaf {
+  background: var(--color-leaf-soft);
+  color: var(--color-leaf-ink);
 }
 
 /* ============================================================
-   Article prose. Styles the HTML rendered from markdown.
-   Matches the dark, minimal brand. Scoped under .prose so it
-   never leaks into the rest of the site.
+   Wiki "Grows alongside" related chips (Designer spec):
+   thumbnail + title + tag-sub, springy tilt on hover.
+   ============================================================ */
+.related-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 8px 14px 8px 8px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s;
+}
+.related-chip:hover {
+  transform: rotate(-1.2deg) translateY(-3px);
+  border-color: var(--color-accent);
+}
+.related-chip:nth-child(2n):hover { transform: rotate(1.2deg) translateY(-3px); }
+.related-chip .thumb {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex: none;
+  background: linear-gradient(135deg, #cdb79a, #b59a76);
+}
+
+/* ============================================================
+   Article prose. Styles HTML rendered from markdown, warm look.
    ============================================================ */
 .prose {
   color: var(--color-ink-dim);
-  font-size: 17px;
+  font-size: 19px;
   line-height: 1.8;
 }
 .prose > * + * { margin-top: 1.25em; }
@@ -121,26 +230,26 @@ a { color: inherit; text-decoration: none; }
   margin-top: 2em;
   font-family: var(--font-display);
   font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--color-ink);
 }
 .prose h3 {
   margin-top: 1.6em;
   font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-ink);
 }
 .prose p { color: var(--color-ink-dim); }
 .prose strong { color: var(--color-ink); font-weight: 600; }
 .prose a {
   color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: rgba(200, 162, 74, 0.4);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent-soft);
+  transition: border-color 0.2s;
 }
-.prose a:hover { text-decoration-color: var(--color-accent); }
+.prose a:hover { border-color: var(--color-accent); }
 .prose ul, .prose ol { padding-left: 1.4em; }
 .prose ul { list-style: disc; }
 .prose ol { list-style: decimal; }
@@ -154,15 +263,15 @@ a { color: inherit; text-decoration: none; }
 }
 .prose code {
   font-family: var(--font-mono);
-  font-size: 0.88em;
-  background: var(--color-panel);
+  font-size: 0.86em;
+  background: var(--color-bg-2);
   border: 1px solid var(--color-border);
   border-radius: 5px;
   padding: 0.12em 0.4em;
-  color: var(--color-accent-soft);
+  color: var(--color-accent-ink);
 }
 .prose pre {
-  background: var(--color-panel);
+  background: var(--color-bg-2);
   border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 1.1em 1.3em;

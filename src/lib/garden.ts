@@ -25,6 +25,12 @@
 
    Every field here must be TRUE. Placeholders are marked
    PLACEHOLDER and must be confirmed before publishing widely.
+
+   PHOTOS: image paths point at /public/garden/*.jpg, optimised
+   from KP's real archive (scripts/optimize-garden.mjs). Notes
+   are kept light and TRUE; dates come from the filenames and
+   KP's real timeline. KP can re-caption or move any of these by
+   editing the node here.
    ============================================================ */
 
 export type NodeKind = "project" | "writing" | "reading" | "hobby" | "story";
@@ -68,6 +74,13 @@ export type GardenNode = {
   image?: string;
   imageAlt?: string;
 
+  /* Optional embedded video (path under /public) for a beat
+     that is better told as motion. videoPoster is the still
+     shown before play; the clip is lazy (preload metadata only)
+     so the static IPFS build stays light. */
+  video?: string;
+  videoPoster?: string;
+
   /* External destination (live product, book purchase page,
      external article). Internal nodes still get their own
      detail page even when this is set. */
@@ -105,15 +118,15 @@ export const NODES: GardenNode[] = [
       "A beachside smoothie cafe in Goa I built with my own hands, then lost to a cyclone.",
     tags: ["goa", "hospitality", "built-by-hand", "fresh2o"],
     date: "2019 - 2021",
-    sortDate: "2019-01-01",
+    sortDate: "2020-03-16",
     status: "Closed 2021",
     chapter: 2,
     era: "2018 - 2021",
     links: ["goa-hostel", "open-mics"],
     body:
       "I opened Fresh2O, a beachside smoothie cafe I built myself: woodwork, paint, plumbing, electrical, every shift. In 2021 the second COVID wave and Cyclone Tauktae destroyed it. The cafe did not fail. Acts of god did.",
-    image: "",
-    imageAlt: "PLACEHOLDER: Fresh2O cafe photo",
+    image: "/garden/cafe-lanterns-night.jpg",
+    imageAlt: "Lantern-lit rooftop cafe at night, plants and fairy lights",
   },
   {
     id: "goa-hostel",
@@ -123,12 +136,14 @@ export const NODES: GardenNode[] = [
       "Ran a traveller hostel in Goa solo: front desk, ops, marketing, the lot.",
     tags: ["goa", "hospitality", "operations"],
     date: "2018 - 2021",
-    sortDate: "2018-01-01",
+    sortDate: "2019-07-19",
     status: "Closed 2021",
     era: "2018 - 2021",
     links: ["fresh2o", "open-mics"],
     body:
       "I ran a traveller hostel solo and built websites, social, menus and visiting cards for Goa businesses on the side.",
+    image: "/garden/goa-coast-monsoon.jpg",
+    imageAlt: "Monsoon view through trees down to the Goa coast, red tiled roofs below",
   },
   {
     id: "open-mics",
@@ -137,11 +152,13 @@ export const NODES: GardenNode[] = [
     summary: "Ran twice-weekly open mics in Goa end to end, host to teardown.",
     tags: ["goa", "events", "music", "community"],
     date: "2018 - 2021",
-    sortDate: "2018-06-01",
+    sortDate: "2019-10-09",
     status: "Closed 2021",
     links: ["goa-hostel"],
     body:
       "Twice-weekly open mics, run end to end: booking, sound, hosting, and the teardown after.",
+    image: "/garden/goa-courtyard-dogs.jpg",
+    imageAlt: "Painted courtyard with graffiti walls and a couple of street dogs",
   },
   {
     id: "gladaitors",
@@ -188,7 +205,9 @@ export const NODES: GardenNode[] = [
   /* ---------- reading ----------
      Each book is its own node with its own little page. The
      page holds KP's take ONLY if `takeaway` is set; otherwise
-     it is simply on the shelf. Never an aggregate views page. */
+     it is simply on the shelf. Never an aggregate views page.
+     These two are clean placeholders: KP is sending the real
+     shelf. Do not fabricate books. */
   {
     id: "book-placeholder-vitalik",
     kinds: ["reading"],
@@ -230,11 +249,14 @@ export const NODES: GardenNode[] = [
     kinds: ["hobby"],
     title: "Trekking",
     summary: "The Himalayas kept me afloat once. I keep going back.",
-    tags: ["himalayas", "outdoors"],
+    tags: ["himalayas", "outdoors", "trekking"],
+    date: "2021",
+    sortDate: "2021-09-02",
     links: ["himalayas"],
-    body: "PLACEHOLDER: trekking notes and photos.",
-    image: "",
-    imageAlt: "PLACEHOLDER trekking photo",
+    body:
+      "The mountains are the reset button. Feet over the edge of a cliff swing, clouds below, signal somewhere in there. I keep going back.",
+    image: "/garden/himalaya-cliff-swing.jpg",
+    imageAlt: "Feet resting on a cliff-edge swing above a deep cloud-filled Himalayan valley",
   },
   {
     id: "hobby-music",
@@ -249,10 +271,9 @@ export const NODES: GardenNode[] = [
   },
 
   /* ---------- story ----------
-     Cinematic vertical chapters. One strong photo per beat.
-     Ordered by `chapter`. The Designer drives the cinematic
-     feel; this just scaffolds the beats and copy. Some story
-     beats double as project nodes (fresh2o, goa-hostel above). */
+     Cinematic vertical chapters. One strong photo per beat,
+     ordered by `chapter`. Some story beats double as project
+     nodes (fresh2o, goa-hostel above). */
   {
     id: "story-lucknow",
     kinds: ["story"],
@@ -276,11 +297,14 @@ export const NODES: GardenNode[] = [
     tags: ["goa", "cyclone", "loss"],
     chapter: 3,
     era: "2021",
+    sortDate: "2021-05-16",
     links: ["fresh2o"],
     body:
-      "In 2021 the second COVID wave and Cyclone Tauktae destroyed Fresh2O. The cafe did not fail. Acts of god did.",
-    image: "",
-    imageAlt: "PLACEHOLDER cyclone / aftermath photo",
+      "In 2021 the second COVID wave and Cyclone Tauktae destroyed Fresh2O. The cafe did not fail. Acts of god did. This is the coast in the days the storm came through.",
+    image: "/garden/goa-windblown-palms.jpg",
+    imageAlt: "Palms bent in storm wind over a rough grey sea under a heavy monsoon sky",
+    video: "/garden/cafe-cyclone-week.mp4",
+    videoPoster: "/garden/cafe-cyclone-week-poster.jpg",
   },
   {
     id: "himalayas",
@@ -291,11 +315,12 @@ export const NODES: GardenNode[] = [
     tags: ["himalayas", "crypto", "turning-point"],
     chapter: 4,
     era: "2021",
+    sortDate: "2021-09-12",
     links: ["borrowed-laptop", "hobby-trekking"],
     body:
       "After the cafe I went to the mountains and traded crypto on a mobile phone wherever I could find signal. It kept me afloat. I found Vitalik's writing and decided to learn how this actually works.",
-    image: "",
-    imageAlt: "PLACEHOLDER Himalayas photo",
+    image: "/garden/himalaya-misty-valley.jpg",
+    imageAlt: "Mist rolling through a forested Himalayan valley under low cloud",
   },
   {
     id: "borrowed-laptop",

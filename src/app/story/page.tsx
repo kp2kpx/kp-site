@@ -13,12 +13,11 @@ export const metadata: Metadata = {
 
 /* ============================================================
    STORY: the centerpiece. Slow, cinematic, vertical. One strong
-   photo per beat, chapters in order. This pass SCAFFOLDS the
-   structure: full-height beat sections, ordered by chapter, with
-   a photo slot per beat and the copy in place. The Designer
-   drives the cinematic feel (parallax, scroll pacing, type) on
-   top of this skeleton. Each beat also links to its own detail
-   page, where related nodes connect the graph.
+   photo per beat, chapters in order. Warm paper-and-ink garden
+   treatment: each beat is a tall section with its photo set in a
+   rounded warm card, era in mono, title in serif, copy below,
+   and a link into the beat's own node page where related nodes
+   connect the graph. No round counts, no invented facts.
    ============================================================ */
 export default function StoryPage() {
   const beats = byKind(getGardenNodes(), "story").sort(
@@ -31,21 +30,21 @@ export default function StoryPage() {
       <MobileSectionBar current="/story/" />
 
       {/* opening beat */}
-      <section className="relative flex min-h-[80vh] items-center overflow-hidden pt-28">
+      <section className="relative overflow-hidden pt-36 pb-10 sm:pt-44">
         <div aria-hidden className="grid-bg pointer-events-none absolute inset-0 -z-10" />
         <Container>
           <Reveal>
-            <span className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.28em] text-(--color-accent)">
+            <span className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-(--color-accent)">
               The story
             </span>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="mt-5 max-w-3xl font-[family-name:var(--font-display)] text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl">
+            <h1 className="mt-4 max-w-3xl font-[family-name:var(--font-display)] text-[40px] font-medium leading-[1.1] tracking-[-0.02em] sm:text-[56px]">
               No straight line.
             </h1>
           </Reveal>
           <Reveal delay={150}>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-(--color-ink-dim)">
+            <p className="mt-5 max-w-[620px] text-[19px] leading-relaxed text-(--color-ink-dim)">
               Lucknow. A cafe I built by hand. A cyclone that took it. The
               Himalayas. A borrowed laptop. Every chapter was an unmarked deep
               end, which is exactly the skill the work needs now.
@@ -54,62 +53,67 @@ export default function StoryPage() {
         </Container>
       </section>
 
-      {/* beats: one full-height section per chapter, photo slot + copy */}
-      {beats.map((b, i) => (
-        <section
-          key={b.id}
-          className="relative flex min-h-[90vh] items-center border-t border-(--color-border) py-20"
-        >
-          {/* photo slot: full-bleed image when present, faint
-              placeholder block when not. Designer can swap this for
-              a parallax / pinned-scroll treatment. */}
-          <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden">
-            {b.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={b.image}
-                alt={b.imageAlt ?? b.title}
-                className="h-full w-full object-cover opacity-30"
-              />
-            ) : (
-              <div className="h-full w-full bg-(--color-bg-2)" />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-(--color-bg) via-(--color-bg)/70 to-(--color-bg)/30" />
-          </div>
+      {/* beats: one section per chapter, photo card + copy */}
+      <Container>
+        <div className="space-y-20 py-16 sm:space-y-28 sm:py-20">
+          {beats.map((b, i) => (
+            <section key={b.id} className="border-t border-(--color-border) pt-14">
+              <Reveal>
+                <div className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.14em] text-(--color-accent)">
+                  {b.era ?? b.date}
+                </div>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2 className="mt-3 max-w-3xl font-[family-name:var(--font-display)] text-[30px] font-medium leading-[1.15] tracking-[-0.02em] sm:text-[40px]">
+                  {b.title}
+                </h2>
+              </Reveal>
 
-          <Container>
-            <Reveal>
-              <div className="font-[family-name:var(--font-mono)] text-[12px] tracking-wider text-(--color-accent)">
-                {b.era ?? b.date}
-              </div>
-            </Reveal>
-            <Reveal delay={80}>
-              <h2 className="mt-3 max-w-3xl font-[family-name:var(--font-display)] text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
-                {b.title}
-              </h2>
-            </Reveal>
-            <Reveal delay={140}>
-              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-(--color-ink-dim)">
-                {b.body ?? b.summary}
-              </p>
-            </Reveal>
-            <Reveal delay={200}>
-              <Link
-                href={`/story/${b.id}/`}
-                className="mt-6 inline-block font-[family-name:var(--font-mono)] text-[13px] text-(--color-ink-faint) transition-colors hover:text-(--color-accent)"
-              >
-                More on this chapter &rarr;
-              </Link>
-            </Reveal>
-            {/* image not in yet marker, dev-facing via alt text only */}
-            {!b.image ? (
-              <p className="mt-4 font-[family-name:var(--font-mono)] text-[11px] text-(--color-ink-faint)">
-                photo slot {i + 1}: {b.imageAlt}
-              </p>
-            ) : null}
-          </Container>
-        </section>
-      ))}
+              {b.image ? (
+                <Reveal delay={120}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={b.image}
+                    alt={b.imageAlt ?? b.title}
+                    className="mt-7 w-full rounded-[18px] border border-(--color-border) object-cover"
+                    style={{ maxHeight: "560px" }}
+                  />
+                </Reveal>
+              ) : null}
+
+              {b.video ? (
+                <Reveal delay={130}>
+                  {/* lazy: metadata only; downloads on play */}
+                  <video
+                    controls
+                    playsInline
+                    preload="metadata"
+                    poster={b.videoPoster}
+                    className="mt-5 w-full rounded-[18px] border border-(--color-border) bg-black"
+                    style={{ maxHeight: "560px" }}
+                  >
+                    <source src={b.video} type="video/mp4" />
+                  </video>
+                </Reveal>
+              ) : null}
+
+              <Reveal delay={140}>
+                <p className="mt-6 max-w-[620px] text-[19px] leading-relaxed text-(--color-ink-dim)">
+                  {b.body ?? b.summary}
+                </p>
+              </Reveal>
+              <Reveal delay={200}>
+                <Link
+                  href={`/story/${b.id}/`}
+                  className="mt-5 inline-block font-[family-name:var(--font-mono)] text-[13px] text-(--color-ink-faint) transition-colors hover:text-(--color-accent)"
+                >
+                  More on this chapter &rarr;
+                </Link>
+              </Reveal>
+            </section>
+          ))}
+        </div>
+      </Container>
 
       <SiteFooter />
     </main>
