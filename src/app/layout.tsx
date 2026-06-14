@@ -24,11 +24,11 @@ const SITE_URL = "https://kp-singh.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "K.P. Singh, Crypto-native builder & ecosystem operator",
+  title: "KP, Crypto-native builder & ecosystem operator",
   description:
     "Ex-finance, self-taught Solidity builder, Base & Farcaster ecosystem operator. I host the Spaces, run the builders' nights, and ship live mini-apps.",
   keywords: [
-    "K.P. Singh",
+    "KP",
     "kpx",
     "DevRel",
     "Developer Advocate",
@@ -38,26 +38,26 @@ export const metadata: Metadata = {
     "web3",
     "Solidity",
   ],
-  authors: [{ name: "K.P. Singh" }],
+  authors: [{ name: "KP" }],
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: "K.P. Singh, Crypto-native builder & ecosystem operator",
+    title: "KP, Crypto-native builder & ecosystem operator",
     description:
       "Ex-finance → self-taught Solidity builder → Base & Farcaster ecosystem operator. Host, builder, community OG.",
-    siteName: "K.P. Singh",
+    siteName: "KP",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "K.P. Singh, crypto-native builder and ecosystem operator",
+        alt: "KP, crypto-native builder and ecosystem operator",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "K.P. Singh, Crypto-native builder & ecosystem operator",
+    title: "KP, Crypto-native builder & ecosystem operator",
     description:
       "Ex-finance → self-taught Solidity builder → Base & Farcaster ecosystem operator.",
     creator: "@KP2kpx",

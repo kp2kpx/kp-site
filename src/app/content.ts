@@ -5,7 +5,7 @@
    ============================================================ */
 
 export const PROFILE = {
-  name: "K.P. Singh",
+  name: "KP",
   handle: "@kpx",
   identity: "Crypto-native builder & ecosystem operator",
   hook:
@@ -14,7 +14,7 @@ export const PROFILE = {
 };
 
 export const LINKS = {
-  farcaster: { label: "Farcaster", handle: "@kpx", url: "https://warpcast.com/kpx" },
+  farcaster: { label: "Farcaster", handle: "@kpx", url: "https://farcaster.xyz/kpx" },
   x: { label: "X", handle: "@KP2kpx", url: "https://x.com/KP2kpx" },
   github: { label: "GitHub", handle: "@kp2kpx", url: "https://github.com/kp2kpx" },
   email: { label: "Email", handle: "kamal.kps@gmail.com", url: "mailto:kamal.kps@gmail.com" },
@@ -124,14 +124,5 @@ export const BUILDS = [
     stack: ["x402", "Base", "API", "Farcaster"],
     url: "https://farcaster-intel-api.vercel.app",
     urlLabel: "farcaster-intel-api.vercel.app",
-  },
-  {
-    name: "x402 integration consulting",
-    status: "Available",
-    blurb:
-      "I help Base builders ship working x402 payment integrations, from broken listings to live, paid endpoints.",
-    stack: ["x402", "Base", "Integration"],
-    url: "",
-    urlLabel: "Get in touch",
   },
 ];
