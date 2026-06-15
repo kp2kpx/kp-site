@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import { SiteNav, SiteFooter, MobileSectionBar } from "./components/Chrome";
+
 import { GardenCard } from "./components/GardenCard";
 import { getGardenNodes } from "@/lib/posts";
 import { getNode, type GardenNode } from "@/lib/garden";
@@ -76,9 +77,6 @@ export default function Home() {
           ))}
         </section>
 
-        <footer className="garden-footer">
-          <span className="sprout">&#127793;</span> Planted by KP
-        </footer>
       </div>
 
       <SiteFooter />

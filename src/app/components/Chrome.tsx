@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LINKS } from "../content";
 import { FarcasterIcon, XIcon, GitHubIcon } from "./icons";
+import { PlantedBy } from "./PlantedBy";
 
 /* ============================================================
    Shared site chrome: the top nav and footer used by every
@@ -111,9 +112,14 @@ export function SiteNav({ current = "" }: { current?: string }) {
 export function SiteFooter() {
   return (
     <footer className="border-t border-(--color-border) py-10">
-      <Container className="flex flex-col items-center justify-between gap-3 text-center font-[family-name:var(--font-mono)] text-[12px] text-(--color-ink-faint) sm:flex-row">
-        <span>KP &middot; @kpx</span>
-        <span>Built by KP. Every line on this page is true.</span>
+      <Container className="font-[family-name:var(--font-mono)] text-[12px] text-(--color-ink-faint)">
+        <div className="grid w-full grid-cols-1 items-center gap-5 text-center sm:grid-cols-3 sm:items-end sm:gap-4">
+          <span className="sm:justify-self-start sm:pb-0.5">KP</span>
+          <PlantedBy />
+          <span className="sm:justify-self-end sm:pb-0.5">
+            Every line on this page is true.
+          </span>
+        </div>
       </Container>
     </footer>
   );
