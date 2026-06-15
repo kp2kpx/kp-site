@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="s3-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f3ec" stop-opacity="0.68"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s3-hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dde3cf" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#c8d4b8" stop-opacity="0.45"/>
+    </linearGradient>
+    <linearGradient id="s3-path" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ddd1be" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#d5cabb" stop-opacity="0.24"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#s3-sky)"/>
+  <g fill="#fffef9" fill-opacity="0.54">
+    <ellipse cx="320" cy="100" rx="88" ry="24"/><ellipse cx="380" cy="88" rx="56" ry="18"/>
+    <ellipse cx="900" cy="82" rx="102" ry="28"/><ellipse cx="960" cy="70" rx="64" ry="20"/>
+  </g>
+  <path fill="url(#s3-hill)" d="M0 520 C280 460 560 490 840 455 C1080 425 1260 450 1440 420 V900 H0 Z"/>
+  <path fill="#b5c4a4" fill-opacity="0.32" d="M0 650 C360 590 720 630 1080 600 C1240 580 1360 610 1440 590 V900 H0 Z"/>
+  <!-- winding memory path -->
+  <path fill="url(#s3-path)" d="M40 900 C120 820 180 760 260 700 C340 640 400 600 480 560 C560 520 620 500 700 480 C780 460 860 440 960 420 C1060 400 1160 385 1340 360 L1360 380 C1180 405 1080 420 980 440 C880 460 800 480 720 500 C640 520 580 540 500 580 C420 620 360 660 280 720 C200 780 120 840 60 900 Z"/>
+  <path stroke="#bfb09a" stroke-opacity="0.5" stroke-width="2.2" stroke-linecap="round" d="M60 900 C140 820 200 760 280 700 C360 640 420 600 500 560 C580 520 640 500 720 480 C800 460 880 440 980 420 C1080 400 1180 385 1350 365"/>
+  <!-- milestone stones -->
+  <g fill="#fffef9" fill-opacity="0.46" stroke="#bfb09a" stroke-opacity="0.32">
+    <ellipse cx="280" cy="700" rx="14" ry="8"/><ellipse cx="500" cy="565" rx="16" ry="9"/><ellipse cx="720" cy="485" rx="18" ry="10"/>
+    <ellipse cx="980" cy="425" rx="16" ry="9"/><ellipse cx="1200" cy="390" rx="14" ry="8"/>
+  </g>
+  <!-- bench + journal -->
+  <g stroke="#a35a2c" stroke-opacity="0.34" stroke-width="1.8" stroke-linecap="round">
+    <path d="M620 620 H720"/><path d="M628 620 V642 M712 620 V642"/><path d="M620 628 H720"/>
+    <rect x="655" y="608" width="28" height="18" rx="2" fill="#fffef9" fill-opacity="0.32" stroke="#bfb09a" stroke-opacity="0.28"/>
+  </g>
+  <!-- story trees -->
+  <g stroke="#5a6442" stroke-opacity="0.4" stroke-width="2" stroke-linecap="round">
+    <path d="M180 680 V600"/><path d="M180 640 C160 622 145 612 130 602"/><path d="M180 630 C200 612 215 602 230 592"/>
+    <path d="M1240 660 V580"/><path d="M1240 620 C1220 602 1205 592 1190 582"/><path d="M1240 610 C1260 592 1275 582 1290 572"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.44">
+    <ellipse cx="180" cy="588" rx="42" ry="32"/><ellipse cx="1240" cy="568" rx="48" ry="36"/>
+  </g>
+  <!-- wildflowers along path -->
+  <g>
+    <circle cx="400" cy="640" r="7" fill="#fffef9" fill-opacity="0.55"/><circle cx="400" cy="640" r="3" fill="#ead9c8" fill-opacity="0.5"/>
+    <circle cx="860" cy="455" r="8" fill="#fffef9" fill-opacity="0.58"/><circle cx="860" cy="455" r="3.5" fill="#a35a2c" fill-opacity="0.4"/>
+    <circle cx="1080" cy="400" r="7" fill="#ead9c8" fill-opacity="0.52"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.38" stroke="#6f6558" stroke-opacity="0.28">
+    <ellipse cx="100" cy="850" rx="70" ry="28"/><ellipse cx="520" cy="870" rx="90" ry="30"/><ellipse cx="1100" cy="860" rx="80" ry="28"/>
+  </g>
+</svg>

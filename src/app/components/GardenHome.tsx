@@ -14,10 +14,18 @@ type GardenHomeProps = {
   cells: { node: GardenNode; span: string }[];
 };
 
+const showMeadowBackground = process.env.NEXT_PUBLIC_GARDEN_BG !== "0";
+
 export function GardenHome({ cells }: GardenHomeProps) {
   return (
     <GardenBirdsongProvider>
-      <main className="garden-alive">
+      <main
+        className={
+          showMeadowBackground
+            ? "garden-alive"
+            : "garden-alive garden-alive--no-meadow"
+        }
+      >
         <GardenAtmosphere />
         <SiteNav trailing={<GardenBirdsongMuteButton />} />
         <MobileSectionBar />

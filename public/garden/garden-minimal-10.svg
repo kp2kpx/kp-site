@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="s10-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f3ec" stop-opacity="0.68"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s10-glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fffef9" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#dde3cf" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#s10-sky)"/>
+  <g fill="#fffef9" fill-opacity="0.52"><ellipse cx="280" cy="92" rx="76" ry="22"/><ellipse cx="1120" cy="108" rx="88" ry="26"/></g>
+  <path fill="#b5c4a4" fill-opacity="0.3" d="M0 600 C340 545 680 575 1020 545 C1220 528 1360 548 1440 530 V900 H0 Z"/>
+  <!-- greenhouse (project detail focus) -->
+  <g stroke="#6f6558" stroke-opacity="0.38" stroke-width="1.8" fill="url(#s10-glass)">
+    <path d="M560 480 H880 V700 H560 Z"/><path d="M560 480 L720 420 L880 480"/>
+    <path d="M600 480 V700 M660 480 V700 M720 480 V700 M780 480 V700 M840 480 V700"/>
+    <path d="M560 540 H880 M560 600 H880 M560 660 H880"/>
+    <rect x="690" y="580" width="60" height="80" rx="2" fill="#d5cabb" fill-opacity="0.32" stroke="#bfb09a" stroke-opacity="0.3"/>
+  </g>
+  <!-- labeled beds -->
+  <g fill="#c8d4b8" fill-opacity="0.28" stroke="#bfb09a" stroke-opacity="0.32">
+    <rect x="180" y="680" width="160" height="60" rx="4"/><rect x="360" y="700" width="140" height="52" rx="4"/>
+    <rect x="1000" y="675" width="170" height="62" rx="4"/><rect x="1180" y="698" width="130" height="50" rx="4"/>
+  </g>
+  <g stroke="#5a6442" stroke-opacity="0.3" stroke-width="1.1">
+    <path d="M195 700 H325 M195 715 H325 M195 730 H325"/>
+    <path d="M1015 695 H1155 M1015 710 H1155 M1015 725 H1155"/>
+    <circle cx="210" cy="708" r="3" fill="#5a6442" fill-opacity="0.25"/><circle cx="240" cy="722" r="3" fill="#5a6442" fill-opacity="0.25"/>
+    <circle cx="1040" cy="702" r="3" fill="#5a6442" fill-opacity="0.25"/><circle cx="1080" cy="718" r="3" fill="#5a6442" fill-opacity="0.25"/>
+  </g>
+  <!-- measuring path -->
+  <path fill="#ddd1be" fill-opacity="0.3" stroke="#bfb09a" stroke-opacity="0.4" stroke-width="2" d="M60 900 C200 780 340 680 480 620 C560 585 620 560 700 540"/>
+  <g fill="#fffef9" fill-opacity="0.42" stroke="#bfb09a" stroke-opacity="0.28">
+    <ellipse cx="200" cy="800" rx="14" ry="8"/><ellipse cx="360" cy="700" rx="16" ry="9"/><ellipse cx="520" cy="630" rx="15" ry="8"/>
+  </g>
+  <!-- detail tools shelf -->
+  <g stroke="#a35a2c" stroke-opacity="0.32" stroke-width="1.5" stroke-linecap="round">
+    <path d="M920 620 H1040"/><path d="M920 620 V624 M1040 620 V624"/>
+    <path d="M940 612 V628 M960 610 V630 M980 612 V628 M1000 610 V630 M1020 612 V628"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.4"><ellipse cx="120" cy="865" rx="72" ry="28"/><ellipse cx="720" cy="880" rx="140" ry="38"/><ellipse cx="1300" cy="860" rx="68" ry="26"/></g>
+</svg>

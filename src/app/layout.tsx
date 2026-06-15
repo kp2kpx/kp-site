@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Newsreader, IBM_Plex_Mono } from "next/font/google";
+import { GardenRouteIllustration } from "./components/GardenRouteIllustration";
 import "./globals.css";
 
 /* Warm "digital garden" type system (Designer spec):
@@ -79,6 +80,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${body.variable} ${display.variable} ${mono.variable}`}>
+        <GardenRouteIllustration />
         {children}
       </body>
     </html>
