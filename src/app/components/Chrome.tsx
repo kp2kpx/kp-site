@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { LINKS } from "../content";
 import { FarcasterIcon, XIcon, GitHubIcon } from "./icons";
@@ -38,9 +39,15 @@ export function Container({
 }
 
 /* current: the section href to mark active, e.g. "/projects/". */
-export function SiteNav({ current = "" }: { current?: string }) {
+export function SiteNav({
+  current = "",
+  trailing,
+}: {
+  current?: string;
+  trailing?: ReactNode;
+}) {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-(--color-border) bg-[rgba(247,243,236,0.82)] backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-(--color-border) bg-[rgba(247,243,236,0.82)] backdrop-blur-md relative">
       <Container className="flex h-14 items-center justify-between gap-4">
         {/* left: home + sections */}
         <nav className="flex min-w-0 items-baseline gap-5 text-(--color-ink-dim)">
@@ -65,8 +72,8 @@ export function SiteNav({ current = "" }: { current?: string }) {
           </span>
         </nav>
 
-        {/* right: doors out (icons) + CV (word) */}
-        <div className="flex shrink-0 items-center gap-4 text-(--color-ink-faint)">
+        {/* right: doors out (icons) + CV + optional trailing (e.g. birdsong mute) */}
+        <div className="flex shrink-0 items-center gap-2.5 text-(--color-ink-faint) sm:gap-4">
           <a
             href={LINKS.farcaster.url}
             target="_blank"
@@ -103,6 +110,9 @@ export function SiteNav({ current = "" }: { current?: string }) {
           >
             CV
           </Link>
+          {trailing ? (
+            <div className="shrink-0 pl-0.5 sm:pl-1">{trailing}</div>
+          ) : null}
         </div>
       </Container>
     </header>
@@ -111,15 +121,9 @@ export function SiteNav({ current = "" }: { current?: string }) {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-(--color-border) py-10">
-      <Container className="font-[family-name:var(--font-mono)] text-[12px] text-(--color-ink-faint)">
-        <div className="grid w-full grid-cols-1 items-center gap-5 text-center sm:grid-cols-3 sm:items-end sm:gap-4">
-          <span className="sm:justify-self-start sm:pb-0.5">KP</span>
-          <PlantedBy />
-          <span className="sm:justify-self-end sm:pb-0.5">
-            Every line on this page is true.
-          </span>
-        </div>
+    <footer className="py-8">
+      <Container className="flex justify-center">
+        <PlantedBy />
       </Container>
     </footer>
   );

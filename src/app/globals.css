@@ -16,20 +16,20 @@
 
 @theme {
   /* warm paper + ink palette (replaces the old dark/gold set) */
-  --color-bg: #f7f3ec;            /* warm paper, page background */
-  --color-bg-2: #f0e9dc;          /* slightly deeper paper */
-  --color-panel: #fffdf8;         /* lifted card surface */
-  --color-border: #e7ded0;        /* hairline borders */
-  --color-border-strong: #d9cdb8; /* stronger hairline */
-  --color-ink: #2b2620;           /* primary text, warm near-black */
-  --color-ink-dim: #6b6356;       /* secondary text */
-  --color-ink-faint: #9a9082;     /* meta / timestamps */
-  --color-accent: #b06a3f;        /* terracotta, the warm pop */
-  --color-accent-soft: #f0e3d6;   /* accent tint for chips */
-  --color-accent-ink: #8a5733;    /* readable accent on tint chips */
-  --color-leaf: #6f7a52;          /* muted olive, second accent */
-  --color-leaf-soft: #e9ecdd;     /* olive chip tint */
-  --color-leaf-ink: #56603a;      /* readable olive on tint */
+  --color-bg: #ebe2d2;            /* warm paper, page background */
+  --color-bg-2: #ddd1be;          /* slightly deeper paper */
+  --color-panel: #fffef9;         /* lifted card surface */
+  --color-border: #d5cabb;        /* hairline borders */
+  --color-border-strong: #bfb09a; /* stronger hairline */
+  --color-ink: #1c1814;           /* primary text, warm near-black */
+  --color-ink-dim: #4f463c;       /* secondary text */
+  --color-ink-faint: #6f6558;     /* meta / timestamps */
+  --color-accent: #a35a2c;        /* terracotta, the warm pop */
+  --color-accent-soft: #ead9c8;   /* accent tint for chips */
+  --color-accent-ink: #7a4218;    /* readable accent on tint chips */
+  --color-leaf: #5a6442;          /* muted olive, second accent */
+  --color-leaf-soft: #dde3cf;     /* olive chip tint */
+  --color-leaf-ink: #434c2c;      /* readable olive on tint */
   --color-base-blue: #4f7fff;
   --color-violet: #8b7fff;
 
@@ -63,7 +63,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: radial-gradient(rgba(120, 100, 70, 0.025) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(90, 70, 45, 0.05) 1px, transparent 1px);
   background-size: 4px 4px;
 }
 
@@ -313,19 +313,19 @@ a { color: inherit; text-decoration: none; }
    card system reads exactly like the spec table.
    ============================================================ */
 :root {
-  --paper-2: #fffdf8;  /* card surface, rest */
-  --paper-3: #fffefb;  /* card surface, hover */
-  --line-hover: #ded2c0;
-  --shadow-rest: 0 1px 2px rgba(60, 48, 32, 0.04);
-  --shadow-hover: 0 18px 38px -12px rgba(60, 48, 32, 0.22),
-                  0 6px 14px -6px rgba(60, 48, 32, 0.12);
+  --paper-2: #fffffa;  /* card surface, rest */
+  --paper-3: #ffffff;  /* card surface, hover */
+  --line-hover: #cfc0aa;
+  --shadow-rest: 0 2px 4px rgba(40, 30, 18, 0.08);
+  --shadow-hover: 0 18px 38px -12px rgba(40, 30, 18, 0.28),
+                  0 6px 14px -6px rgba(40, 30, 18, 0.16);
 }
 
 /* ---------------- THE GRID ---------------- */
 .garden-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 164px;
+  grid-auto-rows: minmax(164px, auto);
   grid-auto-flow: row dense;
   gap: 18px;
   padding: 24px 0 8px;
@@ -341,10 +341,15 @@ a { color: inherit; text-decoration: none; }
 /* intro block = top-left cell, not a separate header */
 .intro-cell {
   grid-column: span 4;
-  grid-row: span 2;
+  grid-row: span 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  align-self: start;
+  position: relative;
+  z-index: 2;
+  min-height: min-content;
+  overflow: visible;
   padding: 6px 30px 6px 4px;
 }
 .intro-cell h1 {
@@ -357,11 +362,31 @@ a { color: inherit; text-decoration: none; }
   color: var(--color-ink);
 }
 .intro-cell h1 .wave { color: var(--color-accent); font-style: italic; }
-.intro-cell p {
+.intro-cell p:not(.intro-script__p) {
   color: var(--color-ink-dim);
   font-size: 17.5px;
   max-width: 50ch;
   margin: 0;
+}
+
+.intro-script {
+  max-width: 46ch;
+}
+
+.intro-cell .intro-script .intro-script__p {
+  font-size: 1.47rem;
+  line-height: 1.48;
+  color: var(--color-ink-faint);
+  margin: 0 0 1.15rem;
+}
+
+.intro-cell .intro-script .intro-script__p:last-child {
+  margin-bottom: 0;
+}
+
+.intro-cell .intro-script .intro-script__p strong {
+  color: var(--color-ink);
+  font-weight: 600;
 }
 
 /* ---------------- CARD (the canonical interaction) ---------------- */
@@ -552,25 +577,39 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------------- SITE FOOTER (Planted by KP) ---------------- */
 .planted-by {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-  justify-self: center;
-  cursor: default;
+  position: relative;
   user-select: none;
 }
 .planted-by__stage {
-  position: relative;
-  width: 72px;
-  height: 48px;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.26rem);
+  transform: translateX(-50%);
+  width: 54px;
+  height: 72px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  pointer-events: none;
+}
+.planted-by__leaf-hit {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.26rem);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }
 .planted-by__leaves {
-  width: 28px;
-  height: 28px;
+  width: 21px;
+  height: 21px;
   object-fit: contain;
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -580,7 +619,7 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 72px;
+  width: 54px;
   height: auto;
   aspect-ratio: 480 / 640;
   object-fit: contain;
@@ -588,27 +627,28 @@ a { color: inherit; text-decoration: none; }
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
-.planted-by:hover .planted-by__gif,
-.planted-by:focus-within .planted-by__gif {
+.planted-by:has(.planted-by__leaf-hit:hover) .planted-by__gif,
+.planted-by:has(.planted-by__leaf-hit:focus-visible) .planted-by__gif {
   opacity: 1;
 }
-.planted-by:hover .planted-by__leaves,
-.planted-by:focus-within .planted-by__leaves {
+.planted-by:has(.planted-by__leaf-hit:hover) .planted-by__leaves,
+.planted-by:has(.planted-by__leaf-hit:focus-visible) .planted-by__leaves {
   opacity: 0;
 }
 .planted-by__label {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 9px;
   letter-spacing: 0.01em;
   color: var(--color-ink-faint);
+  cursor: default;
 }
 @media (prefers-reduced-motion: reduce) {
-  .planted-by:hover .planted-by__gif,
-  .planted-by:focus-within .planted-by__gif {
+  .planted-by:has(.planted-by__leaf-hit:hover) .planted-by__gif,
+  .planted-by:has(.planted-by__leaf-hit:focus-visible) .planted-by__gif {
     opacity: 1;
   }
-  .planted-by:hover .planted-by__leaves,
-  .planted-by:focus-within .planted-by__leaves {
+  .planted-by:has(.planted-by__leaf-hit:hover) .planted-by__leaves,
+  .planted-by:has(.planted-by__leaf-hit:focus-visible) .planted-by__leaves {
     opacity: 0;
   }
 }
@@ -693,7 +733,7 @@ a { color: inherit; text-decoration: none; }
   .intro-cell h1 { font-size: 28px; }
 }
 @media (max-width: 520px) {
-  .garden-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+  .garden-grid { grid-template-columns: 1fr; grid-auto-rows: minmax(200px, auto); }
   .garden-grid .c2, .garden-grid .c3, .garden-grid .c4, .garden-grid .c6 { grid-column: span 1; }
   .intro-cell { grid-column: span 1; }
 }

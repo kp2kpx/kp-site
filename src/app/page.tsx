@@ -1,7 +1,4 @@
-import Reveal from "./Reveal";
-import { SiteNav, SiteFooter, MobileSectionBar } from "./components/Chrome";
-
-import { GardenCard } from "./components/GardenCard";
+import { GardenHome } from "./components/GardenHome";
 import { getGardenNodes } from "@/lib/posts";
 import { getNode, type GardenNode } from "@/lib/garden";
 
@@ -22,20 +19,18 @@ import { getNode, type GardenNode } from "@/lib/garden";
    "KP" only here. Full name appears solely on the CV page.
    ============================================================ */
 
-/* A home cell: a real node id plus the grid span classes that
-   place it. Order matters; it is the visual reading order. */
 type Cell = { id: string; span: string };
 
 const HOME_CELLS: Cell[] = [
-  { id: "hobby-trekking", span: "c2 r2" },          // top-right tall climb photo, fills the 2x2 beside intro
-  { id: "himalayas", span: "c4 r2" },               // wide tall story photo band
-  { id: "fresh2o", span: "c2 r2" },                 // tall project/story photo beside himalayas
-  { id: "gladaitors", span: "c2" },                 // project (text, live mini-app)
-  { id: "farcaster-intel-api", span: "c2" },        // project (text)
-  { id: "book-beginning-of-infinity", span: "c2" }, // book, closes the trio row
-  { id: "why-i-host-the-spaces", span: "c4" },      // blog excerpt
-  { id: "book-fabric-of-reality", span: "c2" },     // book, closes the row
-  { id: "story-cyclone", span: "c6" },              // full-width closing story band
+  { id: "hobby-trekking", span: "c2 r2" },
+  { id: "himalayas", span: "c4 r2" },
+  { id: "fresh2o", span: "c2 r2" },
+  { id: "gladaitors", span: "c2" },
+  { id: "farcaster-intel-api", span: "c2" },
+  { id: "book-beginning-of-infinity", span: "c2" },
+  { id: "why-i-host-the-spaces", span: "c4" },
+  { id: "book-fabric-of-reality", span: "c2" },
+  { id: "story-cyclone", span: "c6" },
 ];
 
 export default function Home() {
@@ -45,41 +40,5 @@ export default function Home() {
     return node ? { node, span: c.span } : null;
   }).filter((x): x is { node: GardenNode; span: string } => Boolean(x));
 
-  return (
-    <main>
-      <SiteNav />
-      <MobileSectionBar />
-
-      <div className="mx-auto w-full max-w-[1080px] px-8 pt-24 sm:pt-28">
-        <section className="garden-grid">
-          {/* INTRO occupies the top-left cell (4 cols x 2 rows) */}
-          <div className="intro-cell">
-            <Reveal>
-              <h1>
-                Hey there, I&apos;m KP{" "}
-                <span style={{ fontStyle: "normal" }}>&#128075;</span>
-                <br />
-                <span className="wave">Welcome to my digital garden</span>{" "}
-                &#127793;
-              </h1>
-            </Reveal>
-            <Reveal delay={120}>
-              <p>
-                A quiet place I tend over time. Things I&apos;m building,
-                reading, climbing, and thinking about. No feed, no algorithm.
-                Just what I felt like keeping.
-              </p>
-            </Reveal>
-          </div>
-
-          {cells.map(({ node, span }) => (
-            <GardenCard key={node.id} node={node} className={span} />
-          ))}
-        </section>
-
-      </div>
-
-      <SiteFooter />
-    </main>
-  );
+  return <GardenHome cells={cells} />;
 }
