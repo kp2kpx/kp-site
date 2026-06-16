@@ -87,21 +87,51 @@ function Arrow({ onPhoto }: { onPhoto?: boolean }) {
   );
 }
 
-/* The book status badge: READING when the node carries no
-   takeaway (still on the shelf / in progress) reads as READ if a
-   take exists. We keep this conservative and true: a `status`
-   string wins if present. */
-function bookBadge(node: GardenNode): { label: string; cls: string } {
-  if (node.takeaway) return { label: "Read", cls: "read" };
-  return { label: "Reading", cls: "reading" };
+function GoodreadsArrow({ url }: { url: string }) {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="arrow book-goodreads-arrow"
+      aria-label="View on Goodreads"
+    >
+      <ArrowUpRight />
+      <span className="book-goodreads-arrow__label">view on goodreads</span>
+    </a>
+  );
+}
+
+export type BookBadgeStatus = "reading" | "to-read" | "read";
+
+const BOOK_BADGE_LABEL: Record<BookBadgeStatus, string> = {
+  reading: "Reading",
+  "to-read": "To read",
+  read: "Read",
+};
+
+/* Shelf badge: explicit readStatus wins; else takeaway = read;
+   else to-read tag; else read (on-shelf default). */
+export function bookBadge(node: GardenNode): { label: string; cls: BookBadgeStatus } {
+  if (node.readStatus) {
+    return { label: BOOK_BADGE_LABEL[node.readStatus], cls: node.readStatus };
+  }
+  if (node.tags.includes("to-read")) {
+    return { label: BOOK_BADGE_LABEL["to-read"], cls: "to-read" };
+  }
+  if (node.takeaway) return { label: BOOK_BADGE_LABEL.read, cls: "read" };
+  return { label: BOOK_BADGE_LABEL.read, cls: "read" };
 }
 
 export function GardenCard({
   node,
   className = "",
+  shelf = false,
 }: {
   node: GardenNode;
   className?: string;
+  /** Reading shelf: hide per-card eyebrow (page shows section label). */
+  shelf?: boolean;
 }) {
   const home = node.kinds[0];
   const href = canonicalHref(node);
@@ -113,28 +143,51 @@ export function GardenCard({
   /* ----- BOOK variant ----- */
   if (home === "reading") {
     const badge = bookBadge(node);
+    const cover = (
+      <div className="cover-wrap">
+        {node.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={node.image}
+            alt={node.imageAlt ?? node.title}
+            loading="lazy"
+            className="cover scale-target"
+          />
+        ) : (
+          <div className="cover scale-target cover-fallback" aria-hidden />
+        )}
+      </div>
+    );
+    const meta = (
+      <div className="book-meta">
+        <span className={`badge ${badge.cls}`}>{badge.label}</span>
+        <div className="b-title">{node.title}</div>
+        {node.author ? <div className="b-author">{node.author}</div> : null}
+      </div>
+    );
+
+    if (shelf) {
+      return (
+        <div className={`card book book--shelf ${className}`}>
+          <Link href={href} className="book-shelf__hit">
+            {cover}
+            {meta}
+          </Link>
+          {node.externalUrl ? (
+            <GoodreadsArrow url={node.externalUrl} />
+          ) : (
+            <Arrow />
+          )}
+        </div>
+      );
+    }
+
     return (
       <Link href={href} className={`card book ${className}`}>
         <Eyebrow node={node} />
         <Arrow />
-        <div className="cover-wrap">
-          {node.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={node.image}
-              alt={node.imageAlt ?? node.title}
-              loading="lazy"
-              className="cover scale-target"
-            />
-          ) : (
-            <div className="cover scale-target cover-fallback" aria-hidden />
-          )}
-        </div>
-        <div className="book-meta">
-          <span className={`badge ${badge.cls}`}>{badge.label}</span>
-          <div className="b-title">{node.title}</div>
-          {node.author ? <div className="b-author">{node.author}</div> : null}
-        </div>
+        {cover}
+        {meta}
       </Link>
     );
   }

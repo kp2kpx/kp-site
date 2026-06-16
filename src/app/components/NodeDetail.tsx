@@ -38,6 +38,8 @@ export function NodeDetail({
   backHref: string;
   backLabel: string;
 }) {
+  const isBook = node.kinds.includes("reading");
+
   return (
     <main>
       <SiteNav current={current} />
@@ -82,7 +84,11 @@ export function NodeDetail({
               <img
                 src={node.image}
                 alt={node.imageAlt ?? node.title}
-                className="mt-8 w-full rounded-[18px] border border-(--color-border)"
+                className={
+                  isBook
+                    ? "node-detail-cover mt-8 w-[120px] rounded-[6px] border border-(--color-border) sm:w-[140px]"
+                    : "mt-8 w-full rounded-[18px] border border-(--color-border)"
+                }
               />
             </Reveal>
           ) : null}
@@ -107,7 +113,9 @@ export function NodeDetail({
           {node.body ? (
             <Reveal delay={200}>
               <div className="prose mt-8">
-                <p>{node.body}</p>
+                {node.body.split(/\n\n+/).map((para) => (
+                  <p key={para.slice(0, 48)}>{para}</p>
+                ))}
               </div>
             </Reveal>
           ) : null}

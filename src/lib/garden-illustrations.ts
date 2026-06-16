@@ -1,7 +1,9 @@
+/** Routes that use solid paper only (no route illustration). */
+export const PLAIN_PAPER_ROUTES = ["/cv"] as const;
+
 /** Minimal garden SVG variants (warm paper palette). One per top-level site area. */
 export const GARDEN_ILLUSTRATIONS = {
   home: "/garden/garden-minimal-02.svg",
-  cv: "/garden/garden-minimal-01.svg",
   story: "/garden/garden-minimal-03.svg",
   projects: "/garden/garden-minimal-04.svg",
   hobbies: "/garden/garden-minimal-05.svg",
@@ -22,7 +24,7 @@ const PATH_RULES: { prefix: string; key: GardenIllustrationKey }[] = [
   { prefix: "/story/", key: "story" },
   { prefix: "/hobbies/", key: "hobbies" },
   { prefix: "/reading/", key: "reading" },
-  { prefix: "/cv", key: "cv" },
+
   { prefix: "/story", key: "story" },
   { prefix: "/projects", key: "projects" },
   { prefix: "/hobbies", key: "hobbies" },
@@ -32,10 +34,23 @@ const PATH_RULES: { prefix: string; key: GardenIllustrationKey }[] = [
   { prefix: "/", key: "home" },
 ];
 
-export function getGardenIllustrationForPath(pathname: string): string {
-  const path = pathname.endsWith("/") && pathname.length > 1
+function normalizePath(pathname: string): string {
+  return pathname.endsWith("/") && pathname.length > 1
     ? pathname.slice(0, -1)
     : pathname;
+}
+
+export function isPlainPaperRoute(pathname: string): boolean {
+  const path = normalizePath(pathname);
+  return PLAIN_PAPER_ROUTES.some(
+    (prefix) => path === prefix || path.startsWith(`${prefix}/`)
+  );
+}
+
+export function getGardenIllustrationForPath(pathname: string): string | null {
+  if (isPlainPaperRoute(pathname)) return null;
+
+  const path = normalizePath(pathname);
 
   for (const { prefix, key } of PATH_RULES) {
     if (prefix === "/") {

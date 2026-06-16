@@ -5,8 +5,8 @@
   --color-bg-2: #8eb88a;
   --color-panel: rgba(255, 253, 246, 0.78);
   --color-border: rgba(255, 255, 255, 0.62);
-  --garden-glass: rgba(255, 253, 246, 0.78);
-  --garden-glass-hover: rgba(255, 253, 246, 0.88);
+  --garden-glass: rgba(255, 254, 249, 0.72);
+  --garden-glass-hover: rgba(255, 254, 252, 0.86);
   --garden-glass-border: rgba(255, 255, 255, 0.68);
 }
 
@@ -16,8 +16,8 @@
   --color-bg-2: #ddd1be;
   --color-panel: #fffef9;
   --color-border: #d5cabb;
-  --garden-glass: rgba(255, 254, 249, 0.92);
-  --garden-glass-hover: #ffffff;
+  --garden-glass: rgba(255, 254, 249, 0.72);
+  --garden-glass-hover: rgba(255, 254, 252, 0.86);
   --garden-glass-border: #d5cabb;
 }
 
@@ -160,10 +160,13 @@ main.garden-alive.garden-alive--no-meadow {
 }
 
 /* ---- glass cards ---- */
-.garden-alive .card {
+.garden-alive .card,
+.garden-alive .card-lift,
+.garden-alive .feed-card,
+.garden-alive .related-chip {
   background: var(--garden-glass) !important;
-  backdrop-filter: blur(14px) saturate(1.25);
-  -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
   border: 1px solid var(--garden-glass-border) !important;
   box-shadow: 0 8px 28px rgba(20, 30, 15, 0.18);
   transition:
@@ -172,7 +175,10 @@ main.garden-alive.garden-alive--no-meadow {
     background 0.35s ease;
 }
 
-.garden-alive .card:hover {
+.garden-alive .card:hover,
+.garden-alive .card-lift:hover,
+.garden-alive .feed-card:hover,
+.garden-alive .related-chip:hover {
   background: var(--garden-glass-hover) !important;
   transform: translateY(-4px);
   box-shadow: 0 14px 36px rgba(20, 30, 15, 0.24);

@@ -96,6 +96,8 @@ export type GardenNode = {
   /* reading */
   author?: string;
   takeaway?: string; // KP's own take, if any. Empty = just on the shelf.
+  /** Shelf badge: reading (in progress), to-read (queued), read (finished). */
+  readStatus?: "reading" | "to-read" | "read";
 
   /* story */
   chapter?: number; // ordering for the cinematic vertical scroll
@@ -206,13 +208,11 @@ export const NODES: GardenNode[] = [
      KP's real shelf, read off photos of it. Each book is its
      own node with its own little page. The page holds KP's take
      ONLY if `takeaway` is set; otherwise the book simply sits on
+     the shelf. `readStatus` drives the shelf badge (reading /
+     to-read / read). Default badge is read when unset.
      the shelf and the take slot is left empty for KP to fill in
      later. Never fabricate a take. Covers are optimised from the
-     Open Library Covers API into /garden/books (see
-     scripts/fetch-book-covers.mjs). Books with no cover found get
-     a typographic fallback card in the shelf UI (image left ""),
-     never a broken image. externalUrl is the Open Library work
-     page so a curious reader can click through. */
+     Goodreads covers into /garden/books (see scripts/sync-goodreads.mjs). externalUrl is the Goodreads book page so a curious reader can click through. */
 
   /* science & physics */
   {
@@ -224,8 +224,8 @@ export const NODES: GardenNode[] = [
     author: "Douglas R. Hofstadter",
     image: "/garden/books/godel-escher-bach.jpg",
     imageAlt: "Cover of Godel, Escher, Bach by Douglas R. Hofstadter",
-    externalUrl: "https://openlibrary.org/works/OL1881592W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/24113.G_del_Escher_Bach",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-fabric-of-reality",
@@ -236,8 +236,8 @@ export const NODES: GardenNode[] = [
     author: "David Deutsch",
     image: "/garden/books/fabric-of-reality.jpg",
     imageAlt: "Cover of The Fabric of Reality by David Deutsch",
-    externalUrl: "https://openlibrary.org/works/OL2635835W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/177068.The_Fabric_of_Reality",
+    externalLabel: "Goodreads",
     links: ["himalayas"],
   },
   {
@@ -249,8 +249,8 @@ export const NODES: GardenNode[] = [
     author: "David Deutsch",
     image: "/garden/books/beginning-of-infinity.jpg",
     imageAlt: "Cover of The Beginning of Infinity by David Deutsch",
-    externalUrl: "https://openlibrary.org/works/OL4325174W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/10483171-the-beginning-of-infinity",
+    externalLabel: "Goodreads",
     links: ["himalayas"],
   },
   {
@@ -262,8 +262,8 @@ export const NODES: GardenNode[] = [
     author: "Stephen Hawking",
     image: "/garden/books/brief-history-of-time.jpg",
     imageAlt: "Cover of A Brief History of Time by Stephen Hawking",
-    externalUrl: "https://openlibrary.org/works/OL1892617W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/3869.A_Brief_History_of_Time",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-short-history-nearly-everything",
@@ -274,32 +274,38 @@ export const NODES: GardenNode[] = [
     author: "Bill Bryson",
     image: "/garden/books/short-history-nearly-everything.jpg",
     imageAlt: "Cover of A Short History of Nearly Everything by Bill Bryson",
-    externalUrl: "https://openlibrary.org/works/OL74128W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/3333783-a-really-short-history-of-nearly-everything",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-singularity-is-nearer",
     kinds: ["reading"],
+    readStatus: "reading",
     title: "The Singularity Is Nearer",
     summary: "Kurzweil's updated case for accelerating returns and the merger of human and machine.",
     tags: ["science", "ai", "future"],
     author: "Ray Kurzweil",
     image: "/garden/books/singularity-is-nearer.jpg",
     imageAlt: "Cover of The Singularity Is Nearer by Ray Kurzweil",
-    externalUrl: "https://openlibrary.org/works/OL42839671W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/45024007-the-singularity-is-nearer",
+    externalLabel: "Goodreads",
+    body:
+      "I picked this up because the work I do every day stopped feeling like \"someday\" fiction. I ship with Claude Code, wire agents to paid APIs, watch builders demo things on Spaces that would have taken a team eighteen months ago. Kurzweil's whole pitch is that the curve is the story, not the gadgets. Reading it now hits different than reading it five years back.\n\n" +
+      "What actually lands for me is the frame, not the date-stamping. He treats software, biology, and cognition as the same kind of compounding stack. I do not need to buy every timeline on the cover to find that useful. It matches what I see in the ecosystem: one person with the right tools and a clear problem can ship a mini-app, a game, an API, and have it live before the conversation about it is over.\n\n" +
+      "The honest part: prediction is a track record game, and track records are messy. I am not reading this as prophecy. I am reading it as a way to stay oriented while the floor keeps moving. If you build with AI, or you are trying to figure out what agents are actually good for, this is worth the time. I am still in it. More notes when I finish.",
   },
   {
     id: "book-theoretical-minimum-classical",
     kinds: ["reading"],
+    readStatus: "to-read",
     title: "The Theoretical Minimum: Classical Mechanics",
     summary: "Susskind and Hrabovsky on the real physics, with the real maths, and nothing extra.",
     tags: ["science", "physics", "mathematics"],
     author: "Leonard Susskind & George Hrabovsky",
     image: "",
     imageAlt: "The Theoretical Minimum: Classical Mechanics by Leonard Susskind and George Hrabovsky",
-    externalUrl: "https://openlibrary.org/works/OL16006367W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/243611592-the-theoretical-minimum-4-book-set",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-quantum-mechanics-theoretical-minimum",
@@ -310,8 +316,8 @@ export const NODES: GardenNode[] = [
     author: "Leonard Susskind & Art Friedman",
     image: "/garden/books/quantum-mechanics-theoretical-minimum.jpg",
     imageAlt: "Cover of Quantum Mechanics: The Theoretical Minimum by Leonard Susskind and Art Friedman",
-    externalUrl: "https://openlibrary.org/works/OL19333423W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/243611592-the-theoretical-minimum-4-book-set",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-black-swan",
@@ -322,8 +328,8 @@ export const NODES: GardenNode[] = [
     author: "Nassim Nicholas Taleb",
     image: "/garden/books/black-swan.jpg",
     imageAlt: "Cover of The Black Swan by Nassim Nicholas Taleb",
-    externalUrl: "https://openlibrary.org/works/OL5848502W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/28226413-the-black-swan",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-algorithms-to-live-by",
@@ -334,8 +340,8 @@ export const NODES: GardenNode[] = [
     author: "Brian Christian & Tom Griffiths",
     image: "/garden/books/algorithms-to-live-by.jpg",
     imageAlt: "Cover of Algorithms to Live By by Brian Christian and Tom Griffiths",
-    externalUrl: "https://openlibrary.org/works/OL17357767W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/31925009-summary-of-algorithms-to-live-by",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-origin-of-species",
@@ -346,8 +352,8 @@ export const NODES: GardenNode[] = [
     author: "Charles Darwin",
     image: "/garden/books/origin-of-species.jpg",
     imageAlt: "Cover of The Origin of Species by Charles Darwin",
-    externalUrl: "https://openlibrary.org/works/OL515051W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/122809140-the-origin-of-species",
+    externalLabel: "Goodreads",
   },
 
   /* philosophy */
@@ -360,8 +366,8 @@ export const NODES: GardenNode[] = [
     author: "Immanuel Kant",
     image: "/garden/books/critique-of-pure-reason.jpg",
     imageAlt: "Cover of The Critique of Pure Reason by Immanuel Kant",
-    externalUrl: "https://openlibrary.org/works/OL17104789W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/51851032-the-critique-of-pure-reason",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-the-prophet",
@@ -372,8 +378,8 @@ export const NODES: GardenNode[] = [
     author: "Kahlil Gibran",
     image: "/garden/books/the-prophet.jpg",
     imageAlt: "Cover of The Prophet by Kahlil Gibran",
-    externalUrl: "https://openlibrary.org/works/OL318900W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/50915375-and-the-prophet-said",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-nausea",
@@ -384,8 +390,8 @@ export const NODES: GardenNode[] = [
     author: "Jean-Paul Sartre",
     image: "/garden/books/nausea.jpg",
     imageAlt: "Cover of Nausea by Jean-Paul Sartre",
-    externalUrl: "https://openlibrary.org/works/OL29288580W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/298275.Nausea",
+    externalLabel: "Goodreads",
   },
 
   /* money, business, tech */
@@ -398,8 +404,8 @@ export const NODES: GardenNode[] = [
     author: "George S. Clason",
     image: "/garden/books/richest-man-in-babylon.jpg",
     imageAlt: "Cover of The Richest Man in Babylon by George S. Clason",
-    externalUrl: "https://openlibrary.org/works/OL8165007W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/8516889-the-richest-man-in-babylon",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-wealth-of-nations",
@@ -410,8 +416,8 @@ export const NODES: GardenNode[] = [
     author: "Adam Smith",
     image: "/garden/books/wealth-of-nations.jpg",
     imageAlt: "Cover of The Wealth of Nations by Adam Smith",
-    externalUrl: "https://openlibrary.org/works/OL76827W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/28241997-the-wealth-of-nations",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-capital",
@@ -422,8 +428,8 @@ export const NODES: GardenNode[] = [
     author: "Karl Marx",
     image: "/garden/books/capital.jpg",
     imageAlt: "Cover of Capital by Karl Marx",
-    externalUrl: "https://openlibrary.org/works/OL15663481W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/34394704-o-capital---karl-marx",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-ascent-of-money",
@@ -434,8 +440,8 @@ export const NODES: GardenNode[] = [
     author: "Niall Ferguson",
     image: "/garden/books/ascent-of-money.jpg",
     imageAlt: "Cover of The Ascent of Money by Niall Ferguson",
-    externalUrl: "https://openlibrary.org/works/OL14869415W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/2714607-the-ascent-of-money",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-almanack-of-naval",
@@ -446,8 +452,8 @@ export const NODES: GardenNode[] = [
     author: "Eric Jorgenson",
     image: "/garden/books/almanack-of-naval.jpg",
     imageAlt: "Cover of The Almanack of Naval Ravikant by Eric Jorgenson",
-    externalUrl: "https://openlibrary.org/works/OL22255847W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/121105473-the-almanack-of-naval-ravikant-by-eric-jorgenson-tools-of-titans-by-tim",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-zero-to-one",
@@ -458,8 +464,8 @@ export const NODES: GardenNode[] = [
     author: "Peter Thiel",
     image: "/garden/books/zero-to-one.jpg",
     imageAlt: "Cover of Zero to One by Peter Thiel",
-    externalUrl: "https://openlibrary.org/works/OL17078706W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/31703274-zero-to-one",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-same-as-ever",
@@ -470,8 +476,8 @@ export const NODES: GardenNode[] = [
     author: "Morgan Housel",
     image: "/garden/books/same-as-ever.jpg",
     imageAlt: "Cover of Same as Ever by Morgan Housel",
-    externalUrl: "https://openlibrary.org/works/OL35156586W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/125116554-same-as-ever",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-read-write-own",
@@ -482,8 +488,8 @@ export const NODES: GardenNode[] = [
     author: "Chris Dixon",
     image: "",
     imageAlt: "Read Write Own by Chris Dixon",
-    externalUrl: "https://openlibrary.org/works/OL37568701W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/178628338-read-write-own",
+    externalLabel: "Goodreads",
     links: ["gladaitors", "farcaster-intel-api", "based-games", "borrowed-laptop"],
   },
   {
@@ -495,8 +501,8 @@ export const NODES: GardenNode[] = [
     author: "Ben Horowitz",
     image: "/garden/books/hard-thing-about-hard-things.jpg",
     imageAlt: "Cover of The Hard Thing About Hard Things by Ben Horowitz",
-    externalUrl: "https://openlibrary.org/works/OL16818208W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/24687652-the-hard-thing-about-hard-things-ben-horowitz---review-summary",
+    externalLabel: "Goodreads",
   },
 
   /* history & politics */
@@ -509,8 +515,8 @@ export const NODES: GardenNode[] = [
     author: "Yuval Noah Harari",
     image: "/garden/books/sapiens.jpg",
     imageAlt: "Cover of Sapiens by Yuval Noah Harari",
-    externalUrl: "https://openlibrary.org/works/OL17075811W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/26054257-sapiens",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-nexus",
@@ -521,8 +527,8 @@ export const NODES: GardenNode[] = [
     author: "Yuval Noah Harari",
     image: "/garden/books/nexus.jpg",
     imageAlt: "Cover of Nexus by Yuval Noah Harari",
-    externalUrl: "https://openlibrary.org/works/OL37826293W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/204927599-nexus",
+    externalLabel: "Goodreads",
     links: ["gladaitors", "farcaster-intel-api"],
   },
   {
@@ -534,7 +540,8 @@ export const NODES: GardenNode[] = [
     author: "Yuval Noah Harari & David Vandermeulen",
     image: "",
     imageAlt: "Sapiens: A Graphic History Volume 1 by Yuval Noah Harari and David Vandermeulen",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/54110137-sapiens",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-sapiens-graphic-2",
@@ -545,8 +552,8 @@ export const NODES: GardenNode[] = [
     author: "Yuval Noah Harari & David Vandermeulen",
     image: "",
     imageAlt: "Sapiens: A Graphic History Volume 2 by Yuval Noah Harari and David Vandermeulen",
-    externalUrl: "https://openlibrary.org/works/OL34634534W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/58699609-sapiens-a-graphic-history-volume-2",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-silk-roads",
@@ -557,8 +564,8 @@ export const NODES: GardenNode[] = [
     author: "Peter Frankopan",
     image: "/garden/books/silk-roads.jpg",
     imageAlt: "Cover of The Silk Roads by Peter Frankopan",
-    externalUrl: "https://openlibrary.org/works/OL19666939W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/25812847-the-silk-roads",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-end-of-history",
@@ -569,8 +576,8 @@ export const NODES: GardenNode[] = [
     author: "Francis Fukuyama",
     image: "/garden/books/end-of-history.jpg",
     imageAlt: "Cover of The End of History and the Last Man by Francis Fukuyama",
-    externalUrl: "https://openlibrary.org/works/OL2670501W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/57981.The_End_of_History_and_the_Last_Man",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-two-treatises-of-government",
@@ -581,8 +588,8 @@ export const NODES: GardenNode[] = [
     author: "John Locke",
     image: "/garden/books/two-treatises-of-government.jpg",
     imageAlt: "Cover of Two Treatises of Government by John Locke",
-    externalUrl: "https://openlibrary.org/works/OL31805824W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/53353109-the-first-and-second-treatises-of-government-by-john-locke",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-train-to-pakistan",
@@ -593,8 +600,8 @@ export const NODES: GardenNode[] = [
     author: "Khushwant Singh",
     image: "/garden/books/train-to-pakistan.jpg",
     imageAlt: "Cover of Train to Pakistan by Khushwant Singh",
-    externalUrl: "https://openlibrary.org/works/OL318479W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/785454.Train_to_Pakistan",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-mein-kampf",
@@ -605,8 +612,8 @@ export const NODES: GardenNode[] = [
     author: "Adolf Hitler",
     image: "/garden/books/mein-kampf.jpg",
     imageAlt: "Cover of Mein Kampf by Adolf Hitler",
-    externalUrl: "https://openlibrary.org/works/OL1067314W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/210151814-mein-kampf-da-adolf-hitler",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-gandhi-autobiography",
@@ -617,8 +624,8 @@ export const NODES: GardenNode[] = [
     author: "M.K. Gandhi",
     image: "",
     imageAlt: "An Autobiography: The Story of My Experiments with Truth by M.K. Gandhi",
-    externalUrl: "https://openlibrary.org/works/OL32193455W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/153275883-an-autobiography-or-the-story-of-my-experiments-with-truth-by-mk-gandhi",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-autobiography-malcolm-x",
@@ -629,8 +636,8 @@ export const NODES: GardenNode[] = [
     author: "Malcolm X with Alex Haley",
     image: "/garden/books/autobiography-malcolm-x.jpg",
     imageAlt: "Cover of The Autobiography of Malcolm X",
-    externalUrl: "https://openlibrary.org/works/OL36522668W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/131779119-the-autobiography-of-malcolm-x",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-marx-returns",
@@ -641,8 +648,8 @@ export const NODES: GardenNode[] = [
     author: "Jason Barker",
     image: "",
     imageAlt: "Marx Returns by Jason Barker",
-    externalUrl: "https://openlibrary.org/works/OL21339949W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/36963930-marx-returns",
+    externalLabel: "Goodreads",
   },
 
   /* fiction & literature */
@@ -655,8 +662,8 @@ export const NODES: GardenNode[] = [
     author: "Fyodor Dostoevsky",
     image: "/garden/books/demons.jpg",
     imageAlt: "Cover of Demons by Fyodor Dostoevsky",
-    externalUrl: "https://openlibrary.org/works/OL45429744W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/5695.Demons",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-brothers-karamazov",
@@ -667,8 +674,8 @@ export const NODES: GardenNode[] = [
     author: "Fyodor Dostoevsky",
     image: "/garden/books/brothers-karamazov.jpg",
     imageAlt: "Cover of The Brothers Karamazov by Fyodor Dostoevsky",
-    externalUrl: "https://openlibrary.org/works/OL24600223W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/236301336-the-brothers-karamazov",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-war-and-peace",
@@ -679,8 +686,8 @@ export const NODES: GardenNode[] = [
     author: "Leo Tolstoy",
     image: "/garden/books/war-and-peace.jpg",
     imageAlt: "Cover of War and Peace by Leo Tolstoy",
-    externalUrl: "https://openlibrary.org/works/OL267171W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/34742912-war-and-peace-by-leo-tolstoy",
+    externalLabel: "Goodreads",
     links: ["fresh2o"],
   },
   {
@@ -692,8 +699,8 @@ export const NODES: GardenNode[] = [
     author: "Leo Tolstoy",
     image: "/garden/books/anna-karenina.jpg",
     imageAlt: "Cover of Anna Karenina by Leo Tolstoy",
-    externalUrl: "https://openlibrary.org/works/OL26380516W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/62074658-anna-karenina",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-the-iliad",
@@ -704,8 +711,8 @@ export const NODES: GardenNode[] = [
     author: "Homer, translated by Caroline Alexander",
     image: "/garden/books/the-iliad.jpg",
     imageAlt: "Cover of The Iliad by Homer",
-    externalUrl: "https://openlibrary.org/works/OL27292338W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/23460877-the-iliad",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-the-odyssey",
@@ -716,8 +723,8 @@ export const NODES: GardenNode[] = [
     author: "Homer",
     image: "/garden/books/the-odyssey.jpg",
     imageAlt: "Cover of The Odyssey by Homer",
-    externalUrl: "https://openlibrary.org/works/OL26446888W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/1381.The_Odyssey",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-ulysses",
@@ -728,8 +735,8 @@ export const NODES: GardenNode[] = [
     author: "James Joyce",
     image: "/garden/books/ulysses.jpg",
     imageAlt: "Cover of Ulysses by James Joyce",
-    externalUrl: "https://openlibrary.org/works/OL86318W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/338798.Ulysses",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-labyrinths",
@@ -740,8 +747,8 @@ export const NODES: GardenNode[] = [
     author: "Jorge Luis Borges",
     image: "/garden/books/labyrinths.jpg",
     imageAlt: "Cover of Labyrinths by Jorge Luis Borges",
-    externalUrl: "https://openlibrary.org/works/OL110959W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/17717.Labyrinths",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-to-kill-a-mockingbird",
@@ -752,8 +759,8 @@ export const NODES: GardenNode[] = [
     author: "Harper Lee",
     image: "/garden/books/to-kill-a-mockingbird.jpg",
     imageAlt: "Cover of To Kill a Mockingbird by Harper Lee",
-    externalUrl: "https://openlibrary.org/works/OL3140822W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/26189532-to-kill-a-mockingbird-by-harper-lee-summary-analysis",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-tale-of-two-cities",
@@ -764,8 +771,8 @@ export const NODES: GardenNode[] = [
     author: "Charles Dickens",
     image: "/garden/books/tale-of-two-cities.jpg",
     imageAlt: "Cover of A Tale of Two Cities by Charles Dickens",
-    externalUrl: "https://openlibrary.org/works/OL8193465W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/13369163-a-tale-of-two-cities",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-mountain-shadow",
@@ -776,8 +783,8 @@ export const NODES: GardenNode[] = [
     author: "Gregory David Roberts",
     image: "/garden/books/mountain-shadow.jpg",
     imageAlt: "Cover of The Mountain Shadow by Gregory David Roberts",
-    externalUrl: "https://openlibrary.org/works/OL20698909W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/126006558-the-mountain-shadow-by-gregory-david-roberts",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-tomb-of-sand",
@@ -788,8 +795,8 @@ export const NODES: GardenNode[] = [
     author: "Geetanjali Shree",
     image: "",
     imageAlt: "Tomb of Sand by Geetanjali Shree",
-    externalUrl: "https://openlibrary.org/works/OL28910613W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/58703758-tomb-of-sand",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-sita-warrior-of-mithila",
@@ -800,8 +807,8 @@ export const NODES: GardenNode[] = [
     author: "Amish Tripathi",
     image: "/garden/books/sita-warrior-of-mithila.jpg",
     imageAlt: "Cover of Sita: Warrior of Mithila by Amish Tripathi",
-    externalUrl: "https://openlibrary.org/works/OL17752993W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/34680719-sita",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-hitchhikers-guide",
@@ -812,8 +819,8 @@ export const NODES: GardenNode[] = [
     author: "Douglas Adams",
     image: "/garden/books/hitchhikers-guide.jpg",
     imageAlt: "Cover of The Hitchhiker's Guide to the Galaxy by Douglas Adams",
-    externalUrl: "https://openlibrary.org/works/OL25125779W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/37928547-hitchhiker-s-guide-to-the-galaxy-complete-set---douglas-adams-collection",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-watchmen",
@@ -824,8 +831,8 @@ export const NODES: GardenNode[] = [
     author: "Alan Moore & Dave Gibbons",
     image: "/garden/books/watchmen.jpg",
     imageAlt: "Cover of Watchmen by Alan Moore and Dave Gibbons",
-    externalUrl: "https://openlibrary.org/works/OL2897798W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/139225519-rare-dc-watchmen-1-of-12-alan-moore-and-dave-gibbons-hardcover-unknow",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-fish-in-alien-streams",
@@ -836,6 +843,8 @@ export const NODES: GardenNode[] = [
     author: "Herjinder",
     image: "",
     imageAlt: "A Fish in Alien Streams by Herjinder",
+    externalUrl: "https://www.goodreads.com/book/show/59078371-a-fish-in-alien-streams",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-life-keith-richards",
@@ -846,8 +855,8 @@ export const NODES: GardenNode[] = [
     author: "Keith Richards",
     image: "/garden/books/life-keith-richards.jpg",
     imageAlt: "Cover of Life by Keith Richards",
-    externalUrl: "https://openlibrary.org/works/OL20444287W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/9439303-life",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-the-quran",
@@ -858,8 +867,8 @@ export const NODES: GardenNode[] = [
     author: "",
     image: "/garden/books/the-quran.jpg",
     imageAlt: "Cover of The Quran",
-    externalUrl: "https://openlibrary.org/works/OL1073731W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/4318.Monsieur_Ibrahim_and_the_Flowers_of_the_Qur_an",
+    externalLabel: "Goodreads",
   },
 
   /* more reading (batch 2, KP-confirmed) */
@@ -872,8 +881,8 @@ export const NODES: GardenNode[] = [
     author: "Ayn Rand",
     image: "/garden/books/the-fountainhead.jpg",
     imageAlt: "Cover of The Fountainhead by Ayn Rand",
-    externalUrl: "https://openlibrary.org/works/OL731663W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/2122.The_Fountainhead",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-thus-spoke-zarathustra",
@@ -884,8 +893,8 @@ export const NODES: GardenNode[] = [
     author: "Friedrich Nietzsche",
     image: "/garden/books/thus-spoke-zarathustra.jpg",
     imageAlt: "Cover of Thus Spoke Zarathustra by Friedrich Nietzsche",
-    externalUrl: "https://openlibrary.org/works/OL24528372W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/239262372-thus-spoke-zarathustra---by-friedrich-nietzsche",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-the-trial",
@@ -896,8 +905,8 @@ export const NODES: GardenNode[] = [
     author: "Franz Kafka",
     image: "/garden/books/the-trial.jpg",
     imageAlt: "Cover of The Trial by Franz Kafka",
-    externalUrl: "https://openlibrary.org/works/OL43043884W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/57016023-the-trial",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-the-metamorphosis",
@@ -908,8 +917,8 @@ export const NODES: GardenNode[] = [
     author: "Franz Kafka",
     image: "/garden/books/the-metamorphosis.jpg",
     imageAlt: "Cover of The Metamorphosis by Franz Kafka",
-    externalUrl: "https://openlibrary.org/works/OL15176533W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/198387408-the-metamorphosis",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-rights-of-man",
@@ -920,8 +929,8 @@ export const NODES: GardenNode[] = [
     author: "Thomas Paine",
     image: "/garden/books/rights-of-man.jpg",
     imageAlt: "Cover of Rights of Man by Thomas Paine",
-    externalUrl: "https://openlibrary.org/works/OL60359W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/34061011-the-rights-of-man",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-the-art-of-war",
@@ -932,8 +941,8 @@ export const NODES: GardenNode[] = [
     author: "Sun Tzu",
     image: "/garden/books/the-art-of-war.jpg",
     imageAlt: "Cover of The Art of War by Sun Tzu",
-    externalUrl: "https://openlibrary.org/works/OL244537W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/2587.The_Art_of_War_Sun_Tzu_s_Classic_in_Plain_English_With_Sun_Pin_s_",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-new-history-of-the-world",
@@ -944,8 +953,8 @@ export const NODES: GardenNode[] = [
     author: "J. M. Roberts",
     image: "/garden/books/new-history-of-the-world.jpg",
     imageAlt: "Cover of A New History of the World by J. M. Roberts",
-    externalUrl: "https://openlibrary.org/works/OL16947597W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/61617023-the-illustrated-history-of-the-world",
+    externalLabel: "Goodreads",
   },
   {
     id: "book-irrationally-rational",
@@ -956,8 +965,8 @@ export const NODES: GardenNode[] = [
     author: "V. Raghunathan",
     image: "/garden/books/irrationally-rational.jpg",
     imageAlt: "Cover of Irrationally Rational by V. Raghunathan",
-    externalUrl: "https://openlibrary.org/works/OL27810605W",
-    externalLabel: "Open Library",
+    externalUrl: "https://www.goodreads.com/book/show/61486532-irrationally-rational",
+    externalLabel: "Goodreads",
   },
 
   /* ---------- hobbies ---------- */

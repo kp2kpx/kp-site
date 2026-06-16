@@ -1,80 +1,59 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Reveal from "../Reveal";
-import { SectionShell } from "../components/SectionShell";
+import { SiteNav, SiteFooter, MobileSectionBar, Container } from "../components/Chrome";
+import { GardenCard, bookBadge } from "../components/GardenCard";
 import { getGardenNodes } from "@/lib/posts";
-import { byKind } from "@/lib/garden";
-import { ArrowUpRight } from "../components/icons";
+import { byKind, type GardenNode } from "@/lib/garden";
 
 export const metadata: Metadata = {
   title: "Reading, KP",
-  description: "A shelf of books KP has read. Each one has its own page, with KP's take if he has one.",
+  description: "Books KP has read, is reading, or has queued. Tap a cover for the page and KP's take if he has one.",
 };
 
-/* The shelf: book covers in a grid. Each cover links to that
-   book's own little page (NOT an aggregate views page). When a
-   cover image is not in yet, fall back to a titled spine block
-   so the shelf is navigable with placeholder data. */
+function shelfOrder(node: GardenNode): number {
+  const { cls } = bookBadge(node);
+  if (cls === "reading") return 0;
+  if (cls === "to-read") return 1;
+  return 2;
+}
+
+/* Chester-style shelf: section label once, then a 4-column grid of
+   horizontal book cards (cover left, badge + title + author right). */
 export default function ReadingPage() {
-  const nodes = getGardenNodes();
-  const books = byKind(nodes, "reading");
+  const books = byKind(getGardenNodes(), "reading").sort(
+    (a, b) => shelfOrder(a) - shelfOrder(b) || a.title.localeCompare(b.title)
+  );
 
   return (
-    <SectionShell
-      current="/reading/"
-      eyebrow="Reading"
-      title="The shelf"
-      intro="Books I have read. Tap a cover for the page, and my take if I have one."
-    >
-      <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
-        {books.map((b, i) => (
-          <Reveal key={b.id} delay={(i % 4) * 50}>
-            <Link
-              href={`/reading/${b.id}/`}
-              className="card-lift group block"
-            >
-              <div className="relative aspect-[2/3] overflow-hidden rounded-lg border border-(--color-border) bg-(--color-panel)">
-                <span className={`arrow${b.image ? " on-photo" : ""}`} aria-hidden>
-                  <ArrowUpRight />
-                </span>
-                {b.image ? (
-                  <div className="scale-target h-full w-full">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={b.image}
-                      alt={b.imageAlt ?? b.title}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  /* No cover found on Open Library: a clean
-                     typographic cover card on the warm palette,
-                     never a broken image. Reads as a spine on
-                     the shelf. */
-                  <div className="flex h-full w-full flex-col bg-(--color-accent-soft)">
-                    <div className="h-1.5 w-full bg-(--color-accent)" />
-                    <div className="flex flex-1 flex-col justify-between p-4">
-                      <span className="font-[family-name:var(--font-display)] text-[15px] font-semibold leading-snug text-(--color-accent-ink)">
-                        {b.title}
-                      </span>
-                      {b.author ? (
-                        <span className="font-[family-name:var(--font-mono)] text-[11px] leading-snug text-(--color-ink-dim)">
-                          {b.author}
-                        </span>
-                      ) : null}
-                    </div>
-                  </div>
-                )}
-              </div>
-              {b.takeaway ? (
-                <span className="mt-2 inline-block font-[family-name:var(--font-mono)] text-[11px] text-(--color-accent)">
-                  has a take
-                </span>
-              ) : null}
-            </Link>
+    <main>
+      <SiteNav current="/reading/" />
+      <MobileSectionBar current="/reading/" />
+
+      <div className="reading-page">
+        <Container className="max-w-[1080px] px-8 pt-[5.75rem] pb-16 sm:pt-[4.75rem]">
+          <Reveal>
+            <div className="reading-page__label">
+              Reading &middot; <b>Books</b>
+              <span className="reading-page__chev" aria-hidden>
+                {" "}
+                &rsaquo;
+              </span>
+            </div>
           </Reveal>
-        ))}
+
+          <div className="reading-shelf">
+            {books.map((book, i) => (
+              <div key={book.id} className="reading-shelf__cell">
+                <Reveal delay={(i % 4) * 40} className="reading-shelf__reveal">
+                  <GardenCard node={book} shelf />
+                </Reveal>
+              </div>
+            ))}
+          </div>
+        </Container>
       </div>
-    </SectionShell>
+
+      <SiteFooter />
+    </main>
   );
 }

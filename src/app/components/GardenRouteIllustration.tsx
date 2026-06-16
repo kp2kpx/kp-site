@@ -26,6 +26,7 @@ export function GardenRouteIllustration() {
   }, []);
 
   if (showMeadowBackground) return null;
+  if (!src) return null;
 
   return (
     <div className="garden-atmo garden-atmo--no-bg" aria-hidden="true">
