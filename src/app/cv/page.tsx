@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Reveal from "../Reveal";
 import { SiteNav, SiteFooter, Container } from "../components/Chrome";
-import { CV, LINKS, PROFILE } from "../content";
+import { CV, LINKS, PROFILE, type CvBuild } from "../content";
 
 /* ============================================================
    CV page. The ONLY place on the site where the full name
@@ -193,7 +193,9 @@ export default function CVPage() {
 
         <CvSection title="Selected builds">
           <div className="space-y-5">
-            {CV.builds.map((build, i) => (
+            {CV.builds.map((build: CvBuild, i) => {
+              const buildUrl = build.url;
+              return (
               <Reveal key={build.name} delay={i * 40}>
                 <p className="text-[16px] leading-relaxed text-(--color-ink-dim)">
                   <span className="font-[family-name:var(--font-display)] text-[18px] font-medium text-(--color-ink)">
@@ -201,22 +203,23 @@ export default function CVPage() {
                   </span>
                   <span className="text-(--color-ink-faint)">, </span>
                   {build.body}
-                  {build.url ? (
+                  {buildUrl ? (
                     <>
                       {" "}
                       <a
-                        href={build.url}
+                        href={buildUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-[family-name:var(--font-mono)] text-[13px] text-(--color-accent) underline-offset-2 hover:underline"
                       >
-                        {build.urlLabel ?? build.url}
+                        {build.urlLabel ?? buildUrl}
                       </a>
                     </>
                   ) : null}
                 </p>
               </Reveal>
-            ))}
+              );
+            })}
           </div>
         </CvSection>
 

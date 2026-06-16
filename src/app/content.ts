@@ -107,6 +107,13 @@ export const COMMUNITY = [
 ];
 
 /* Full CV content. Source of truth: C:\Users\kamal\kp-cv\v2\KP_Singh_CV.html */
+export type CvBuild = {
+  name: string;
+  body: string;
+  url?: string;
+  urlLabel?: string;
+};
+
 export const CV = {
   tagline: "Crypto Ecosystem Growth · Community · Builder",
   phone: "+91 9711336913",
@@ -202,7 +209,7 @@ export const CV = {
       body:
         "Ship real onchain products end-to-end using AI coding tools like Claude Code; learned the crypto and dev fundamentals from zero in 2021.",
     },
-  ],
+  ] satisfies CvBuild[],
   skills: [
     {
       label: "Ecosystem & Growth",
