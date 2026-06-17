@@ -29,23 +29,17 @@
     "coverFile": "/garden/books/short-history-nearly-everything.jpg",
     "bookId": "3333783"
   },
+  "singularity-is-near": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/83518.The_Singularity_is_Near",
+    "goodreadsTitle": "The Singularity is Near: When Humans Transcend Biology",
+    "coverFile": "/garden/books/singularity-is-near.jpg",
+    "bookId": "83518"
+  },
   "singularity-is-nearer": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/45024007-the-singularity-is-nearer",
     "goodreadsTitle": "The Singularity Is Nearer: When We Merge with AI",
     "coverFile": "/garden/books/singularity-is-nearer.jpg",
     "bookId": "45024007"
-  },
-  "theoretical-minimum-classical": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/243611592-the-theoretical-minimum-4-book-set",
-    "goodreadsTitle": "The Theoretical Minimum 4-Book Set: The Theoretical Minimum, Quantum Mechanics, Special Relativity and Classical Field Theory, General Relativity",
-    "coverFile": "",
-    "bookId": "243611592"
-  },
-  "quantum-mechanics-theoretical-minimum": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/243611592-the-theoretical-minimum-4-book-set",
-    "goodreadsTitle": "The Theoretical Minimum 4-Book Set: The Theoretical Minimum, Quantum Mechanics, Special Relativity and Classical Field Theory, General Relativity",
-    "coverFile": "",
-    "bookId": "243611592"
   },
   "black-swan": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/28226413-the-black-swan",
@@ -60,22 +54,22 @@
     "bookId": "31925009"
   },
   "origin-of-species": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/122809140-the-origin-of-species",
-    "goodreadsTitle": "The Origin of Species: And The Voyage of the Beagle by Darwin, Charles [Random House UK, 2009] (Paperback) [Paperback]",
-    "coverFile": "",
-    "bookId": "122809140"
+    "goodreadsUrl": "https://www.goodreads.com/book/show/32331601-the-origin-of-species",
+    "goodreadsTitle": "The Origin of Species: Charles Darwin Introduces Evolutionary Concepts",
+    "coverFile": "/garden/books/origin-of-species.jpg",
+    "bookId": "32331601"
   },
   "critique-of-pure-reason": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/51851032-the-critique-of-pure-reason",
     "goodreadsTitle": "The Critique of Pure Reason: Immanuel Kant",
-    "coverFile": "",
+    "coverFile": "/garden/books/critique-of-pure-reason.jpg",
     "bookId": "51851032"
   },
   "the-prophet": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/50915375-and-the-prophet-said",
-    "goodreadsTitle": "And the Prophet Said: Kahlil Gibran's Classic Text with Newly Discovered Writings",
-    "coverFile": "",
-    "bookId": "50915375"
+    "goodreadsUrl": "https://www.goodreads.com/book/show/223160115-the-prophet-by-kahlil-gibran",
+    "goodreadsTitle": "The Prophet by Kahlil Gibran",
+    "coverFile": "/garden/books/the-prophet.jpg",
+    "bookId": "223160115"
   },
   "nausea": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/298275.Nausea",
@@ -149,26 +143,11 @@
     "coverFile": "/garden/books/nexus.jpg",
     "bookId": "204927599"
   },
-  "sapiens-graphic-1": {
-    "error": "no match"
-  },
-  "sapiens-graphic-2": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/58699609-sapiens-a-graphic-history-volume-2",
-    "goodreadsTitle": "Sapiens A Graphic History, Volume 2: The story of civilisation retold, witty, bold and brilliantly visual.",
-    "coverFile": "/garden/books/sapiens-graphic-2.jpg",
-    "bookId": "58699609"
-  },
   "silk-roads": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/25812847-the-silk-roads",
     "goodreadsTitle": "The Silk Roads: A New History of the World",
     "coverFile": "/garden/books/silk-roads.jpg",
     "bookId": "25812847"
-  },
-  "end-of-history": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/57981.The_End_of_History_and_the_Last_Man",
-    "goodreadsTitle": "The End of History and the Last Man",
-    "coverFile": "/garden/books/end-of-history.jpg",
-    "bookId": "57981"
   },
   "two-treatises-of-government": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/53353109-the-first-and-second-treatises-of-government-by-john-locke",
@@ -261,28 +240,16 @@
     "bookId": "26189532"
   },
   "tale-of-two-cities": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/13369163-a-tale-of-two-cities",
-    "goodreadsTitle": "A Tale of Two Cities",
+    "goodreadsUrl": "https://www.goodreads.com/book/show/34332722-great-expectations",
+    "goodreadsTitle": "Great Expectations: FREE A Tale Of Two Cities By Charles Dickens, Illustrated [Quora Media]",
     "coverFile": "/garden/books/tale-of-two-cities.jpg",
-    "bookId": "13369163"
+    "bookId": "34332722"
   },
   "mountain-shadow": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/126006558-the-mountain-shadow-by-gregory-david-roberts",
     "goodreadsTitle": "The Mountain Shadow by Gregory David Roberts",
     "coverFile": "/garden/books/mountain-shadow.jpg",
     "bookId": "126006558"
-  },
-  "tomb-of-sand": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/58703758-tomb-of-sand",
-    "goodreadsTitle": "Tomb of Sand",
-    "coverFile": "/garden/books/tomb-of-sand.jpg",
-    "bookId": "58703758"
-  },
-  "sita-warrior-of-mithila": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/34680719-sita",
-    "goodreadsTitle": "Sita: Warrior of Mithila",
-    "coverFile": "/garden/books/sita-warrior-of-mithila.jpg",
-    "bookId": "34680719"
   },
   "hitchhikers-guide": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/37928547-hitchhiker-s-guide-to-the-galaxy-complete-set---douglas-adams-collection",
@@ -291,10 +258,10 @@
     "bookId": "37928547"
   },
   "watchmen": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/139225519-rare-dc-watchmen-1-of-12-alan-moore-and-dave-gibbons-hardcover-unknow",
-    "goodreadsTitle": "Rare DC WATCHMEN #1 of 12 Alan Moore and Dave Gibbons [Hardcover] unknown",
-    "coverFile": "",
-    "bookId": "139225519"
+    "goodreadsUrl": "https://www.goodreads.com/book/show/472331.Watchmen",
+    "goodreadsTitle": "Watchmen",
+    "coverFile": "/garden/books/watchmen.jpg",
+    "bookId": "472331"
   },
   "fish-in-alien-streams": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/59078371-a-fish-in-alien-streams",
@@ -308,11 +275,59 @@
     "coverFile": "/garden/books/life-keith-richards.jpg",
     "bookId": "9439303"
   },
-  "the-quran": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/4318.Monsieur_Ibrahim_and_the_Flowers_of_the_Qur_an",
-    "goodreadsTitle": "Monsieur Ibrahim and the Flowers of the Qur'an",
-    "coverFile": "/garden/books/the-quran.jpg",
-    "bookId": "4318"
+  "crime-and-punishment": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/46117596-crime-and-punishment",
+    "goodreadsTitle": "Crime And Punishment: Fyodor Dostoevsky's Exploration of Guilt and Redemption",
+    "coverFile": "/garden/books/crime-and-punishment.jpg",
+    "bookId": "46117596"
+  },
+  "the-idiot": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/53123010-the-idiot-by-fyodor-dostoevsky",
+    "goodreadsTitle": "The Idiot by Fyodor Dostoevsky",
+    "coverFile": "/garden/books/the-idiot.jpg",
+    "bookId": "53123010"
+  },
+  "in-search-of-schrodingers-cat": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/513367.In_Search_of_Schr_dinger_s_Cat",
+    "goodreadsTitle": "In Search of Schrödinger's Cat: Quantum Physics and Reality",
+    "coverFile": "/garden/books/in-search-of-schrodingers-cat.jpg",
+    "bookId": "513367"
+  },
+  "to-explain-the-world": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/22328555-to-explain-the-world",
+    "goodreadsTitle": "To Explain the World: The Discovery of Modern Science",
+    "coverFile": "/garden/books/to-explain-the-world.jpg",
+    "bookId": "22328555"
+  },
+  "consciousness-explained": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/128454543-consciousness-explained-by-daniel-c-dennett",
+    "goodreadsTitle": "Consciousness Explained by Daniel C. Dennett",
+    "coverFile": "/garden/books/consciousness-explained.jpg",
+    "bookId": "128454543"
+  },
+  "beyond-good-and-evil": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/33651446-beyond-good-and-evil",
+    "goodreadsTitle": "Beyond Good and Evil: By Friedrich Nietzsche - Illustrated",
+    "coverFile": "/garden/books/beyond-good-and-evil.jpg",
+    "bookId": "33651446"
+  },
+  "thinking-fast-and-slow": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/17185950-thinking-fast-and-slow-by-daniel-kahneman",
+    "goodreadsTitle": "Thinking, Fast and Slow by Daniel Kahneman",
+    "coverFile": "/garden/books/thinking-fast-and-slow.jpg",
+    "bookId": "17185950"
+  },
+  "siddhartha": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/60487534-siddhartha-by-hermann-hesse",
+    "goodreadsTitle": "Siddhartha by Hermann Hesse: A Journey to Enlightenment and Self-Discovery",
+    "coverFile": "/garden/books/siddhartha.jpg",
+    "bookId": "60487534"
+  },
+  "in-search-of-lost-time-vol-1": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/18803.In_Search_of_Lost_Time_Volume_1",
+    "goodreadsTitle": "In Search of Lost Time, Volume 1: The Way by Swann's",
+    "coverFile": "/garden/books/in-search-of-lost-time-vol-1.jpg",
+    "bookId": "18803"
   },
   "the-fountainhead": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/2122.The_Fountainhead",
@@ -327,10 +342,10 @@
     "bookId": "239262372"
   },
   "the-trial": {
-    "goodreadsUrl": "https://www.goodreads.com/book/show/57016023-the-trial",
-    "goodreadsTitle": "The Trial: Franz Kafka - Bitig Books Classics",
+    "goodreadsUrl": "https://www.goodreads.com/book/show/6874976-the-trial-by-franz-kafka-and-the-metamorphosis-by-franz-kafka",
+    "goodreadsTitle": "The Trial by Franz Kafka and The Metamorphosis by Franz Kafka",
     "coverFile": "/garden/books/the-trial.jpg",
-    "bookId": "57016023"
+    "bookId": "6874976"
   },
   "the-metamorphosis": {
     "goodreadsUrl": "https://www.goodreads.com/book/show/198387408-the-metamorphosis",

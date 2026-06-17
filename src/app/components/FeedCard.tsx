@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { GardenNode, NodeKind } from "@/lib/garden";
 import { canonicalHref } from "@/lib/garden";
+import { ExternalArrow, externalHoverLabel } from "./ExternalArrow";
 
 /* ============================================================
    Home masonry feed cards (Designer visual system).
@@ -61,9 +62,64 @@ export function FeedCard({ node, index }: { node: GardenNode; index: number }) {
   const kicker = KICKER[node.kinds[0]];
   const when = whenLabel(node);
 
+  const href = canonicalHref(node);
+
+  if (node.externalUrl) {
+    return (
+      <div
+        className="feed-card feed-card--has-external group"
+        style={{ ["--tilt" as string]: tiltVar(index) }}
+      >
+        <Link href={href} className="tile-hit block">
+          {node.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={node.image}
+              alt={node.imageAlt ?? node.title}
+              loading="lazy"
+              className="feed-photo"
+              style={{ aspectRatio: aspect }}
+            />
+          ) : null}
+          <div className="px-5 pb-6 pt-5">
+            <div className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.14em] text-(--color-accent)">
+              {kicker}
+            </div>
+            <h3 className="mt-2 font-[family-name:var(--font-display)] text-[22px] font-medium leading-[1.25] tracking-[-0.01em]">
+              {node.title}
+            </h3>
+            <p className="mt-2 text-[16px] leading-[1.55] text-(--color-ink-dim)">
+              {node.summary}
+            </p>
+            {node.tags.length > 0 ? (
+              <div className="mt-3.5 flex flex-wrap gap-2">
+                {node.tags.slice(0, 3).map((t) => (
+                  <span key={t} className={`chip ${LEAF_TAGS.has(t) ? "leaf" : ""}`}>
+                    {t}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+            {when ? (
+              <div className="mt-3.5 font-[family-name:var(--font-mono)] text-[11px] tracking-[0.04em] text-(--color-ink-faint)">
+                {when}
+              </div>
+            ) : null}
+          </div>
+        </Link>
+        <ExternalArrow
+          url={node.externalUrl}
+          ariaLabel={node.externalLabel ?? "Open external link"}
+          hoverLabel={externalHoverLabel(node)}
+          onPhoto={Boolean(node.image)}
+        />
+      </div>
+    );
+  }
+
   return (
     <Link
-      href={canonicalHref(node)}
+      href={href}
       className="feed-card group"
       style={{ ["--tilt" as string]: tiltVar(index) }}
     >

@@ -105,6 +105,22 @@ export default async function WritingPostPage({
             />
           </Reveal>
 
+          {post.source ? (
+            <Reveal delay={220}>
+              <p className="mt-12 border-t border-(--color-border) pt-8 font-[family-name:var(--font-mono)] text-[13px] text-(--color-ink-faint)">
+                Originally on{" "}
+                <a
+                  href={post.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-(--color-accent) transition-colors hover:text-(--color-ink)"
+                >
+                  Paragraph
+                </a>
+              </p>
+            </Reveal>
+          ) : null}
+
           <RelatedStrip related={related} />
         </Container>
       </article>

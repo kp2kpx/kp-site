@@ -2,7 +2,7 @@ import Link from "next/link";
 import Reveal from "../Reveal";
 import type { GardenNode } from "@/lib/garden";
 import { canonicalHref } from "@/lib/garden";
-import { ArrowUpRight } from "./icons";
+import { ExternalArrow, externalHoverLabel } from "./ExternalArrow";
 
 /* ============================================================
    A single garden node, rendered as a warm card. Used by every
@@ -30,13 +30,13 @@ const LEAF_TAGS = new Set([
 export function NodeCard({ node, delay = 0 }: { node: GardenNode; delay?: number }) {
   return (
     <Reveal delay={delay} className="h-full">
-      <Link
-        href={canonicalHref(node)}
-        className="card-lift group relative flex h-full flex-col overflow-hidden rounded-[18px] border border-(--color-border) bg-(--color-panel)"
+      <div
+        className={`card-lift group relative flex h-full flex-col overflow-hidden rounded-[18px] border border-(--color-border) bg-(--color-panel)${node.externalUrl ? " card-lift--has-external" : ""}`}
       >
-        <span className={`arrow${node.image ? " on-photo" : ""}`} aria-hidden>
-          <ArrowUpRight />
-        </span>
+        <Link
+          href={canonicalHref(node)}
+          className="tile-hit flex h-full flex-col"
+        >
         {node.image ? (
           <div className="scale-target h-44 w-full overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -74,7 +74,16 @@ export function NodeCard({ node, delay = 0 }: { node: GardenNode; delay?: number
             </div>
           ) : null}
         </div>
-      </Link>
+        </Link>
+        {node.externalUrl ? (
+          <ExternalArrow
+            url={node.externalUrl}
+            ariaLabel={node.externalLabel ?? "Open external link"}
+            hoverLabel={externalHoverLabel(node)}
+            onPhoto={Boolean(node.image)}
+          />
+        ) : null}
+      </div>
     </Reveal>
   );
 }

@@ -1,6 +1,9 @@
 import { GardenHome } from "./components/GardenHome";
 import { getGardenNodes } from "@/lib/posts";
-import { getNode, type GardenNode } from "@/lib/garden";
+import { byKind, getNode, type GardenNode } from "@/lib/garden";
+import { booksFavorites, shuffleBooks } from "@/lib/reading-shelf";
+
+const HOME_FAVORITE_COUNT = 3;
 
 /* ============================================================
    HOME (the KP garden front door). Chester-style structured
@@ -9,36 +12,49 @@ import { getNode, type GardenNode } from "@/lib/garden";
    photo / project / book / text cards, each with a category
    eyebrow and a corner arrow that solidifies on hover.
 
-   The grid is a CURATED hand-placed selection (not the raw
-   recent feed) so spans compose like the mockup: tall photos
-   span two rows, wide cards span more columns. Every node is
-   pulled from the real garden graph; nothing here is a
-   placeholder. Layout is restyling only, the node model and
-   routes are untouched.
+   Three book tiles are shuffled picks from favorite: true
+   nodes. Everything else on /reading/.
 
    "KP" only here. Full name appears solely on the CV page.
    ============================================================ */
 
-type Cell = { id: string; span: string };
+type HomeSlot =
+  | { kind: "node"; id: string; span: string }
+  | { kind: "favorite"; span: string };
 
-const HOME_CELLS: Cell[] = [
-  { id: "hobby-trekking", span: "c2 r2" },
-  { id: "himalayas", span: "c4 r2" },
-  { id: "fresh2o", span: "c2 r2" },
-  { id: "gladaitors", span: "c2" },
-  { id: "farcaster-intel-api", span: "c2" },
-  { id: "book-beginning-of-infinity", span: "c2" },
-  { id: "why-i-host-the-spaces", span: "c4" },
-  { id: "book-fabric-of-reality", span: "c2" },
-  { id: "story-cyclone", span: "c6" },
+const HOME_LAYOUT: HomeSlot[] = [
+  { kind: "node", id: "hobby-trekking", span: "c2 r2" },
+  { kind: "node", id: "himalayas", span: "c4 r2" },
+  { kind: "node", id: "fresh2o", span: "c2 r2" },
+  { kind: "node", id: "gladaitors", span: "c2" },
+  { kind: "favorite", span: "c2" },
+  { kind: "favorite", span: "c2" },
+  { kind: "node", id: "poetical-science", span: "c4" },
+  { kind: "favorite", span: "c2" },
+  { kind: "node", id: "story-cyclone", span: "c6" },
 ];
 
-export default function Home() {
-  const nodes = getGardenNodes();
-  const cells = HOME_CELLS.map((c) => {
-    const node = getNode(nodes, c.id);
-    return node ? { node, span: c.span } : null;
-  }).filter((x): x is { node: GardenNode; span: string } => Boolean(x));
+function buildHomeCells(nodes: GardenNode[]) {
+  const favoriteQueue = shuffleBooks(
+    booksFavorites(byKind(nodes, "reading")),
+    "kp-home-favorites",
+  ).slice(0, HOME_FAVORITE_COUNT);
+  const cells: { node: GardenNode; span: string }[] = [];
 
+  for (const slot of HOME_LAYOUT) {
+    if (slot.kind === "favorite") {
+      const book = favoriteQueue.shift();
+      if (book) cells.push({ node: book, span: slot.span });
+      continue;
+    }
+    const node = getNode(nodes, slot.id);
+    if (node) cells.push({ node, span: slot.span });
+  }
+
+  return cells;
+}
+
+export default function Home() {
+  const cells = buildHomeCells(getGardenNodes());
   return <GardenHome cells={cells} />;
 }

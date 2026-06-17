@@ -1,7 +1,9 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import type { GardenNode, NodeKind } from "@/lib/garden";
 import { canonicalHref } from "@/lib/garden";
-import { ArrowUpRight } from "./icons";
+import { ExternalArrow, externalHoverLabel } from "./ExternalArrow";
+import { bookBadge, type BookBadgeStatus } from "@/lib/reading-shelf";
 
 /* Dot-format a date for card captions/meta. Keeps the house rule
    of no dashes (2026-06-13 -> 2026.06.13). Ranges and plain years
@@ -25,8 +27,8 @@ function dotDate(raw?: string): string {
                     (overflow:hidden so the inner scale is clipped)
      .scale-target= the only layer that scales on hover (media)
      .eyebrow     = category, top-left, OUTSIDE scale-target
-     .arrow       = corner arrow, top-right, OUTSIDE scale-target,
-                    solidifies into a filled circle on hover
+     .arrow       = corner arrow, top-right, ONLY when externalUrl
+                    is set; links out with cursor: alias
 
    The exact hover values live in globals.css (.card / .scale-
    target / .arrow). This component only assigns structure and
@@ -79,49 +81,50 @@ function Eyebrow({ node, onPhoto }: { node: GardenNode; onPhoto?: boolean }) {
   );
 }
 
-function Arrow({ onPhoto }: { onPhoto?: boolean }) {
+function TileExternalArrow({
+  node,
+  onPhoto,
+}: {
+  node: GardenNode;
+  onPhoto?: boolean;
+}) {
+  if (!node.externalUrl) return null;
   return (
-    <span className={`arrow${onPhoto ? " on-photo" : ""}`} aria-hidden>
-      <ArrowUpRight />
-    </span>
+    <ExternalArrow
+      url={node.externalUrl}
+      ariaLabel={node.externalLabel ?? "Open external link"}
+      hoverLabel={externalHoverLabel(node)}
+      onPhoto={onPhoto}
+    />
   );
 }
 
-function GoodreadsArrow({ url }: { url: string }) {
+function wrapCard(
+  node: GardenNode,
+  href: string,
+  className: string,
+  inner: ReactNode,
+  onPhoto?: boolean,
+) {
+  if (node.externalUrl) {
+    return (
+      <div className={`card card--has-external ${className}`}>
+        <Link href={href} className="tile-hit">
+          {inner}
+        </Link>
+        <TileExternalArrow node={node} onPhoto={onPhoto} />
+      </div>
+    );
+  }
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="arrow book-goodreads-arrow"
-      aria-label="View on Goodreads"
-    >
-      <ArrowUpRight />
-      <span className="book-goodreads-arrow__label">view on goodreads</span>
-    </a>
+    <Link href={href} className={`card ${className}`}>
+      {inner}
+    </Link>
   );
 }
 
-export type BookBadgeStatus = "reading" | "to-read" | "read";
-
-const BOOK_BADGE_LABEL: Record<BookBadgeStatus, string> = {
-  reading: "Reading",
-  "to-read": "To read",
-  read: "Read",
-};
-
-/* Shelf badge: explicit readStatus wins; else takeaway = read;
-   else to-read tag; else read (on-shelf default). */
-export function bookBadge(node: GardenNode): { label: string; cls: BookBadgeStatus } {
-  if (node.readStatus) {
-    return { label: BOOK_BADGE_LABEL[node.readStatus], cls: node.readStatus };
-  }
-  if (node.tags.includes("to-read")) {
-    return { label: BOOK_BADGE_LABEL["to-read"], cls: "to-read" };
-  }
-  if (node.takeaway) return { label: BOOK_BADGE_LABEL.read, cls: "read" };
-  return { label: BOOK_BADGE_LABEL.read, cls: "read" };
-}
+export type { BookBadgeStatus };
+export { bookBadge };
 
 export function GardenCard({
   node,
@@ -160,7 +163,14 @@ export function GardenCard({
     );
     const meta = (
       <div className="book-meta">
-        <span className={`badge ${badge.cls}`}>{badge.label}</span>
+        <div className="book-meta__head">
+          <span className={`badge ${badge.cls}`}>{badge.label}</span>
+          {node.favorite ? (
+            <span className="book-favorite-star" aria-label="Favorite" title="Favorite">
+              ★
+            </span>
+          ) : null}
+        </div>
         <div className="b-title">{node.title}</div>
         {node.author ? <div className="b-author">{node.author}</div> : null}
       </div>
@@ -173,29 +183,30 @@ export function GardenCard({
             {cover}
             {meta}
           </Link>
-          {node.externalUrl ? (
-            <GoodreadsArrow url={node.externalUrl} />
-          ) : (
-            <Arrow />
-          )}
+          <TileExternalArrow node={node} />
         </div>
       );
     }
 
-    return (
-      <Link href={href} className={`card book ${className}`}>
+    return wrapCard(
+      node,
+      href,
+      `book ${className}`,
+      <>
         <Eyebrow node={node} />
-        <Arrow />
         {cover}
         {meta}
-      </Link>
+      </>,
     );
   }
 
   /* ----- PHOTO variant ----- */
   if (isPhoto) {
-    return (
-      <Link href={href} className={`card photo ${className}`}>
+    return wrapCard(
+      node,
+      href,
+      `photo ${className}`,
+      <>
         <div className="card-media">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -207,18 +218,20 @@ export function GardenCard({
         </div>
         <div className="photo-grad" />
         <Eyebrow node={node} onPhoto />
-        <Arrow onPhoto />
         <div className="photo-cap">{dotDate(node.date) || node.title}</div>
-      </Link>
+      </>,
+      true,
     );
   }
 
   /* ----- PROJECT variant: with image -> inset screenshot ----- */
   if (home === "project" && node.image) {
-    return (
-      <Link href={href} className={`card project ${className}`}>
+    return wrapCard(
+      node,
+      href,
+      `project ${className}`,
+      <>
         <Eyebrow node={node} />
-        <Arrow />
         <div className="shot">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -229,16 +242,18 @@ export function GardenCard({
           />
         </div>
         <div className="proj-title">{node.title}</div>
-      </Link>
+      </>,
     );
   }
 
   /* ----- TEXT variant: projects with no image, writing, stories
      with no image. Carries date + title + excerpt. ----- */
-  return (
-    <Link href={href} className={`card text ${className}`}>
+  return wrapCard(
+    node,
+    href,
+    `text ${className}`,
+    <>
       <Eyebrow node={node} />
-      <Arrow />
       <div className="scale-target text-body">
         {node.status || node.date ? (
           <div className="t-date">{node.status ?? dotDate(node.date)}</div>
@@ -246,6 +261,6 @@ export function GardenCard({
         <div className="t-title">{node.title}</div>
         {node.summary ? <div className="t-excerpt">{node.summary}</div> : null}
       </div>
-    </Link>
+    </>,
   );
 }

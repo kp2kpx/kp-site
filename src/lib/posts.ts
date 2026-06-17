@@ -20,6 +20,8 @@ export type PostMeta = {
   date: string;
   excerpt: string;
   tags: string[];
+  /* Canonical URL when imported from elsewhere (e.g. Paragraph). */
+  source: string;
   /* Optional explicit links to other garden nodes, set in the
      post frontmatter as `links: ["fresh2o", ...]`. */
   links: string[];
@@ -62,6 +64,7 @@ function parseFile(file: string): Post {
     date: typeof data.date === "string" ? data.date : "",
     excerpt: typeof data.excerpt === "string" ? data.excerpt : "",
     tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
+    source: typeof data.source === "string" ? data.source : "",
     links: Array.isArray(data.links) ? (data.links as string[]) : [],
     html,
   };
@@ -113,6 +116,9 @@ function postToNode(p: PostMeta): GardenNode {
     date: p.date,
     sortDate: p.date,
     links: p.links,
+    ...(p.source
+      ? { externalUrl: p.source, externalLabel: "Paragraph" }
+      : {}),
   };
 }
 
