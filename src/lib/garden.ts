@@ -1043,6 +1043,16 @@ export const NODES: GardenNode[] = [
     image: "",
     imageAlt: "PLACEHOLDER music photo",
   },
+  {
+    id: "hobby-movies",
+    kinds: ["hobby"],
+    title: "Movies",
+    summary: "Films I keep coming back to. Notes and stills to come.",
+    tags: ["movies", "film"],
+    body: "PLACEHOLDER: movie notes and photos.",
+    image: "",
+    imageAlt: "PLACEHOLDER movies photo",
+  },
 
   /* ---------- story ----------
      Cinematic vertical chapters. One strong photo per beat,

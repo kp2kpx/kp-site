@@ -1,0 +1,55 @@
+# ============================================================
+# Manual Pinata maintenance: usage report + stale-pin cleanup.
+#
+# Runs scripts/pinata-maintenance.mjs with the existing
+# PINATA_JWT secret (never printed). Allowlist based: it keeps
+# the CIDs you pass in `keep` and unpins the rest. Dry-run by
+# default; set apply=true to actually unpin.
+#
+# Trigger: Actions -> "Pinata maintenance" -> Run workflow.
+# ============================================================
+
+name: Pinata maintenance
+
+on:
+  workflow_dispatch:
+    inputs:
+      keep:
+        description: "Comma-separated CIDs to KEEP (live CID + rollback)"
+        required: true
+        type: string
+      apply:
+        description: "Actually unpin (true) or dry-run (false)"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+concurrency:
+  group: pinata-maintenance
+  cancel-in-progress: false
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run maintenance
+        env:
+          PINATA_JWT: ${{ secrets.PINATA_JWT }}
+          KEEP: ${{ inputs.keep }}
+        run: |
+          if [ "${{ inputs.apply }}" = "true" ]; then
+            node scripts/pinata-maintenance.mjs --apply
+          else
+            node scripts/pinata-maintenance.mjs
+          fi

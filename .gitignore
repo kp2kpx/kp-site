@@ -57,3 +57,4 @@ IPNS_SIGNING_KEY.secret.txt
 *key*.txt
 *.secret.txt
 *.secret
+.aider*

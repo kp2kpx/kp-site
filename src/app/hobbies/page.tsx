@@ -18,7 +18,7 @@ export default function HobbiesPage() {
       current="/hobbies/"
       eyebrow="Hobbies"
       title="Off the keyboard"
-      intro="Chess, trekking, music. Photos to come."
+      intro="Chess, trekking, music, movies. Photos to come."
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {hobbies.map((n, i) => (
