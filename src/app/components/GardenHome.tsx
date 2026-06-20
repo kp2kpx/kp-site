@@ -43,8 +43,8 @@ export function GardenHome({ cells }: GardenHomeProps) {
                   </p>
                   <p className="intro-script__p">
                     In my free time, I enjoy <strong>trekking</strong>,{" "}
-                    <strong>climbing</strong>, and brewing{" "}
-                    <strong>coffee</strong>.
+                    <strong>playing chess</strong>, and {" "}
+                    <strong>reading</strong>.
                   </p>
                   <p className="intro-script__p">
                     I do some <strong>reading</strong> and{" "}
