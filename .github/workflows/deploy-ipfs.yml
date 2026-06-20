@@ -55,6 +55,16 @@ jobs:
       - name: Build static export
         run: npm run build
 
+      - name: Count export files (Pinata free tier = 500)
+        run: |
+          ALL=$(find out -type f | wc -l)
+          PIN=$(find out -type f ! -name '*.txt' | wc -l)
+          echo "Export files: $ALL total, $PIN pin-eligible (txt RSC payloads skipped)"
+          if [ "$PIN" -gt 500 ]; then
+            echo "::error::Pin-eligible file count $PIN exceeds Pinata free-tier limit (500)"
+            exit 1
+          fi
+
       # Capture the CID the IPNS name currently points at BEFORE we
       # pin the new build. This is the "previous" live CID; we keep
       # it pinned as a one-step rollback and unpin everything older.

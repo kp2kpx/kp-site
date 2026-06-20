@@ -38,12 +38,23 @@ if (!fs.existsSync(DIR) || !fs.statSync(DIR).isDirectory()) {
 /* Recursively collect every file under DIR with its path
    relative to DIR's parent's basename root, so the wrapping
    directory name is consistent. */
+/* Next static export also emits App Router flight *.txt payloads
+   for client transitions. IPFS gateways serve full HTML pages, so
+   those files are not needed on kp2kp.eth and they blow past
+   Pinata's free-tier file cap (500) for this site. */
+function shouldPin(rel) {
+  return !rel.endsWith(".txt");
+}
+
 function walk(dir) {
   const out = [];
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) out.push(...walk(full));
-    else if (entry.isFile()) out.push(full);
+    else if (entry.isFile()) {
+      const rel = path.relative(DIR, full).split(path.sep).join("/");
+      if (shouldPin(rel)) out.push(full);
+    }
   }
   return out;
 }
