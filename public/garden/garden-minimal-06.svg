@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="s6-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f0e9dc" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s6-shade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8d4b8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#a8b896" stop-opacity="0.38"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#s6-sky)"/>
+  <g fill="#fffef9" fill-opacity="0.48"><ellipse cx="500" cy="110" rx="90" ry="26"/><ellipse cx="1000" cy="95" rx="70" ry="20"/></g>
+  <path fill="#dde3cf" fill-opacity="0.35" d="M0 580 C320 530 640 555 960 525 C1180 505 1320 520 1440 500 V900 H0 Z"/>
+  <!-- large reading tree -->
+  <g stroke="#5a6442" stroke-opacity="0.44" stroke-width="2.4" stroke-linecap="round">
+    <path d="M520 720 V480"/><path d="M520 560 C490 535 470 518 450 502"/><path d="M520 550 C550 525 570 508 590 492"/>
+    <path d="M520 590 C498 572 485 562 472 552"/><path d="M520 580 C542 562 555 552 568 542"/>
+    <path d="M520 620 C502 604 492 596 482 588"/><path d="M520 610 C538 594 548 586 558 578"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.5">
+    <ellipse cx="520" cy="465" rx="95" ry="62"/><ellipse cx="460" cy="490" rx="60" ry="42"/><ellipse cx="580" cy="485" rx="65" ry="44"/>
+  </g>
+  <!-- shade pool -->
+  <ellipse cx="520" cy="700" rx="180" ry="50" fill="url(#s6-shade)"/>
+  <!-- reading bench -->
+  <g stroke="#a35a2c" stroke-opacity="0.36" stroke-width="1.8" stroke-linecap="round">
+    <path d="M420 680 H620"/><path d="M430 680 V702 M610 680 V702"/><path d="M420 688 H620"/>
+    <rect x="480" y="662" width="36" height="24" rx="2" fill="#fffef9" fill-opacity="0.38" stroke="#bfb09a" stroke-opacity="0.28"/>
+    <path d="M488 670 H508" stroke-opacity="0.22" stroke-width="1.2"/>
+  </g>
+  <!-- book stack -->
+  <g fill="#fffef9" fill-opacity="0.34" stroke="#bfb09a" stroke-opacity="0.28">
+    <rect x="700" y="700" width="32" height="8" rx="1"/><rect x="698" y="692" width="34" height="8" rx="1"/><rect x="702" y="684" width="28" height="8" rx="1"/>
+  </g>
+  <!-- lantern -->
+  <g stroke="#6f6558" stroke-opacity="0.34" stroke-width="1.6">
+    <path d="M780 640 V710"/><rect x="772" y="628" width="16" height="14" rx="2" fill="#ead9c8" fill-opacity="0.35"/>
+  </g>
+  <!-- quiet path -->
+  <path fill="#d5cabb" fill-opacity="0.22" stroke="#bfb09a" stroke-opacity="0.32" stroke-width="1.8" d="M80 900 C200 800 300 720 400 660 C460 625 500 600 560 580"/>
+  <g fill="#dde3cf" fill-opacity="0.4"><ellipse cx="120" cy="860" rx="75" ry="28"/><ellipse cx="900" cy="870" rx="95" ry="32"/><ellipse cx="1280" cy="855" rx="65" ry="26"/></g>
+</svg>

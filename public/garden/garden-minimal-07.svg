@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="s7-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f3ec" stop-opacity="0.66"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s7-desk" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d5cabb" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#ddd1be" stop-opacity="0.28"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#s7-sky)"/>
+  <g fill="#ead9c8" fill-opacity="0.26"><circle cx="160" cy="140" r="50"/><path stroke="#ead9c8" stroke-opacity="0.18" stroke-width="2" d="M160 88 V108 M160 172 V192 M108 140 H128 M192 140 H212"/></g>
+  <path fill="#c8d4b8" fill-opacity="0.32" d="M0 620 C360 560 720 590 1080 560 C1260 545 1380 565 1440 550 V900 H0 Z"/>
+  <!-- writing pergola -->
+  <g stroke="#a35a2c" stroke-opacity="0.32" stroke-width="2" stroke-linecap="round">
+    <path d="M560 520 H880"/><path d="M580 520 V600 M660 520 V600 M740 520 V600 M820 520 V600 M860 520 V600"/>
+    <path d="M560 560 H880 M560 580 H880"/>
+    <path stroke="#5a6442" stroke-opacity="0.3" d="M600 520 C620 500 640 490 660 488 C680 490 700 500 720 520"/>
+    <path stroke="#5a6442" stroke-opacity="0.28" d="M760 520 C780 500 800 490 820 488 C840 490 860 500 880 520"/>
+  </g>
+  <!-- garden writing desk -->
+  <g>
+    <rect x="620" y="600" width="200" height="14" rx="2" fill="url(#s7-desk)" stroke="#bfb09a" stroke-opacity="0.32"/>
+    <path stroke="#a35a2c" stroke-opacity="0.3" stroke-width="1.6" d="M640 614 V650 M780 614 V650"/>
+    <rect x="680" y="588" width="48" height="32" rx="2" fill="#fffef9" fill-opacity="0.42" stroke="#bfb09a" stroke-opacity="0.3"/>
+    <path d="M688 598 H720 M688 606 H715 M688 614 H718" stroke="#bfb09a" stroke-opacity="0.22" stroke-width="1"/>
+    <!-- inkwell -->
+    <ellipse cx="740" cy="596" rx="8" ry="5" fill="#6f6558" fill-opacity="0.28" stroke="#5a6442" stroke-opacity="0.3"/>
+    <path d="M748 592 L754 586" stroke="#5a6442" stroke-opacity="0.35" stroke-width="1.2"/>
+  </g>
+  <!-- herb border -->
+  <g stroke="#5a6442" stroke-opacity="0.34" stroke-width="1.4" stroke-linecap="round">
+    <path d="M200 750 V710 M200 730 C192 718 184 712 176 706"/><path d="M240 745 V708 M240 726 C248 714 256 708 264 702"/>
+    <path d="M1100 760 V720 M1100 740 C1092 728 1084 722 1076 716"/><path d="M1140 755 V718 M1140 736 C1148 724 1156 718 1164 712"/>
+  </g>
+  <!-- quill flowers -->
+  <g>
+    <circle cx="480" cy="650" r="7" fill="#fffef9" fill-opacity="0.55"/><circle cx="960" cy="640" r="8" fill="#ead9c8" fill-opacity="0.52"/>
+    <circle cx="1040" cy="670" r="7" fill="#fffef9" fill-opacity="0.5"/>
+  </g>
+  <!-- stone path to desk -->
+  <g fill="#fffef9" fill-opacity="0.44" stroke="#bfb09a" stroke-opacity="0.28">
+    <ellipse cx="400" cy="780" rx="16" ry="9"/><ellipse cx="480" cy="720" rx="18" ry="10"/><ellipse cx="560" cy="670" rx="17" ry="9"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.38"><ellipse cx="100" cy="870" rx="70" ry="28"/><ellipse cx="720" cy="880" rx="120" ry="34"/><ellipse cx="1320" cy="865" rx="75" ry="28"/></g>
+</svg>

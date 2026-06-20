@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="s5-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f3ec" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s5-meadow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dde3cf" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#c8d4b8" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#s5-sky)"/>
+  <g fill="#fffef9" fill-opacity="0.56">
+    <ellipse cx="200" cy="95" rx="72" ry="22"/><ellipse cx="700" cy="78" rx="96" ry="26"/><ellipse cx="1150" cy="105" rx="80" ry="24"/>
+  </g>
+  <path fill="url(#s5-meadow)" d="M0 600 C400 540 800 580 1200 550 C1320 538 1400 545 1440 540 V900 H0 Z"/>
+  <!-- wildflower meadow clearing -->
+  <ellipse cx="720" cy="720" rx="340" ry="75" fill="#dde3cf" fill-opacity="0.26" stroke="#bfb09a" stroke-opacity="0.22"/>
+  <!-- hobby flowers (dense scatter) -->
+  <g>
+    <circle cx="480" cy="680" r="8" fill="#fffef9" fill-opacity="0.58"/><circle cx="480" cy="680" r="3.5" fill="#ead9c8" fill-opacity="0.55"/>
+    <circle cx="560" cy="710" r="7" fill="#ead9c8" fill-opacity="0.52"/><circle cx="640" cy="690" r="9" fill="#fffef9" fill-opacity="0.6"/><circle cx="720" cy="715" r="8" fill="#fffef9" fill-opacity="0.55"/>
+    <circle cx="800" cy="685" r="7" fill="#ead9c8" fill-opacity="0.5"/><circle cx="880" cy="705" r="8" fill="#fffef9" fill-opacity="0.58"/><circle cx="960" cy="675" r="7" fill="#fffef9" fill-opacity="0.52"/>
+    <path d="M520 740 C514 728 520 716 526 728 C532 716 538 728 532 740 C526 752 520 752 520 740 Z" fill="#a35a2c" fill-opacity="0.3"/>
+    <path d="M760 745 C754 733 760 721 766 733 C772 721 778 733 772 745 C766 757 760 757 760 745 Z" fill="#a35a2c" fill-opacity="0.28"/>
+    <path d="M900 735 C894 723 900 711 906 723 C912 711 918 723 912 735 C906 747 900 747 900 735 Z" fill="#a35a2c" fill-opacity="0.32"/>
+  </g>
+  <!-- butterflies -->
+  <g stroke="#6f6558" stroke-opacity="0.28" stroke-width="1.2" fill="#ead9c8" fill-opacity="0.35">
+    <ellipse cx="540" cy="620" rx="9" ry="5"/><path d="M540 620 H549"/><ellipse cx="531" cy="620" rx="7" ry="4"/><ellipse cx="549" cy="620" rx="7" ry="4"/>
+    <ellipse cx="820" cy="590" rx="8" ry="5"/><path d="M820 590 H828"/><ellipse cx="812" cy="590" rx="6" ry="4"/><ellipse cx="828" cy="590" rx="6" ry="4"/>
+    <ellipse cx="1020" cy="640" rx="7" ry="4"/><path d="M1020 640 H1027"/><ellipse cx="1013" cy="640" rx="5" ry="3"/><ellipse cx="1027" cy="640" rx="5" ry="3"/>
+  </g>
+  <!-- climbing tree + rope -->
+  <g stroke="#5a6442" stroke-opacity="0.42" stroke-width="2.2" stroke-linecap="round">
+    <path d="M1180 700 V540"/><path d="M1180 600 C1158 578 1140 565 1122 552"/><path d="M1180 590 C1202 568 1220 555 1238 542"/>
+    <path d="M1140 580 C1155 560 1170 548 1180 542 C1190 548 1205 560 1220 580" stroke="#a35a2c" stroke-opacity="0.28" fill="none"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.46"><ellipse cx="1180" cy="525" rx="68" ry="44"/><ellipse cx="1145" cy="540" rx="44" ry="30"/></g>
+  <!-- coffee cup on stump -->
+  <g stroke="#a35a2c" stroke-opacity="0.3" stroke-width="1.4">
+    <ellipse cx="280" cy="760" rx="28" ry="10" fill="#d5cabb" fill-opacity="0.35"/><path d="M280 770 V790" stroke-width="2"/>
+    <path d="M268 748 C268 742 274 738 280 738 C286 738 292 742 292 748 V756 C292 762 286 766 280 766 C274 766 268 762 268 756 Z" fill="#fffef9" fill-opacity="0.32"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.38"><ellipse cx="180" cy="860" rx="80" ry="30"/><ellipse cx="600" cy="875" rx="110" ry="34"/><ellipse cx="1000" cy="868" rx="85" ry="28"/></g>
+</svg>

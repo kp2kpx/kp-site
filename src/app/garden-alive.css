@@ -1,0 +1,688 @@
+/* LOCAL EXPERIMENT: photoreal living garden (home preview only) */
+
+.garden-alive {
+  --color-bg: #9ec0dc;
+  --color-bg-2: #8eb88a;
+  --color-panel: rgba(255, 253, 246, 0.78);
+  --color-border: rgba(255, 255, 255, 0.62);
+  --garden-glass: rgba(255, 254, 249, 0.72);
+  --garden-glass-hover: rgba(255, 254, 252, 0.86);
+  --garden-glass-border: rgba(255, 255, 255, 0.68);
+}
+
+/* local experiment: meadow photo off, keep critters on original warm paper */
+.garden-alive.garden-alive--no-meadow {
+  --color-bg: #ebe2d2;
+  --color-bg-2: #ddd1be;
+  --color-panel: #fffef9;
+  --color-border: #d5cabb;
+  --garden-glass: rgba(255, 254, 249, 0.72);
+  --garden-glass-hover: rgba(255, 254, 252, 0.86);
+  --garden-glass-border: #d5cabb;
+}
+
+/* Paper on html; route illustration sits in layout (sibling behind main). */
+html.garden-alive.garden-alive--no-meadow {
+  background-color: var(--color-bg);
+  min-height: 100%;
+}
+
+/* Home main must stay clear or it paints over the fixed illustration layer. */
+main.garden-alive.garden-alive--no-meadow {
+  background: transparent;
+  min-height: 100vh;
+}
+
+.garden-alive.garden-alive--no-meadow header {
+  background: rgba(247, 243, 236, 0.82) !important;
+  border-bottom-color: var(--color-border) !important;
+}
+
+.garden-alive.garden-alive--no-meadow .grid-bg {
+  opacity: 0;
+}
+
+.garden-alive.garden-alive--no-meadow .intro-cell .intro-script .intro-script__p {
+  color: var(--color-ink-faint);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
+.garden-alive.garden-alive--no-meadow .intro-script__p strong {
+  color: var(--color-ink);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
+.garden-atmo--no-bg {
+  background: transparent;
+}
+
+.garden-atmo__illustration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.garden-atmo__illustration-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  opacity: 1;
+}
+
+.garden-alive body::before {
+  opacity: 0.08;
+}
+
+/* ---- intro: no box, text floats on the garden ---- */
+.garden-alive .intro-cell {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  border: none !important;
+  justify-content: flex-start !important;
+  padding-top: 0 !important;
+  padding-right: 12px !important;
+  position: relative;
+  z-index: 3;
+}
+
+.garden-alive .garden-grid .card {
+  position: relative;
+  z-index: 1;
+}
+
+.garden-alive .intro-cell .reveal {
+  width: 100%;
+}
+
+.garden-alive .intro-script {
+  max-width: none;
+  width: 100%;
+  padding-top: calc(var(--garden-row) * 0.15);
+}
+
+.garden-alive .garden-grid {
+  --garden-row: 164px;
+  padding-top: 8px;
+}
+
+@media (max-width: 760px) {
+  .garden-alive .garden-grid {
+    --garden-row: 140px;
+  }
+
+  .garden-alive .intro-cell {
+    grid-column: 1 / -1;
+  }
+
+  .garden-alive .intro-script {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .garden-alive .garden-grid {
+    --garden-row: 120px;
+  }
+}
+
+.garden-alive .intro-cell:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.garden-alive .intro-cell .intro-script .intro-script__p {
+  font-size: 1.47rem;
+  line-height: 1.48;
+  color: rgba(22, 18, 14, 0.94);
+  -webkit-text-stroke: 0.45px rgba(255, 253, 246, 0.92);
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 2px rgba(255, 253, 246, 1),
+    0 0 10px rgba(255, 253, 246, 0.95),
+    0 0 22px rgba(255, 253, 246, 0.82),
+    0 1px 3px rgba(20, 30, 15, 0.28);
+}
+
+.garden-alive .intro-script__p strong {
+  color: #100d0a;
+  -webkit-text-stroke: 0.5px rgba(255, 253, 246, 0.98);
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 2px rgba(255, 253, 246, 1),
+    0 0 12px rgba(255, 253, 246, 0.98),
+    0 0 26px rgba(255, 253, 246, 0.88),
+    0 1px 4px rgba(20, 30, 15, 0.32);
+}
+
+/* ---- glass cards ---- */
+.garden-alive .card,
+.garden-alive .card-lift,
+.garden-alive .feed-card,
+.garden-alive .related-chip {
+  background: var(--garden-glass) !important;
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid var(--garden-glass-border) !important;
+  box-shadow: 0 8px 28px rgba(20, 30, 15, 0.18);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+}
+
+.garden-alive .card:hover,
+.garden-alive .card-lift:hover,
+.garden-alive .feed-card:hover,
+.garden-alive .related-chip:hover {
+  background: var(--garden-glass-hover) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(20, 30, 15, 0.24);
+}
+
+.garden-alive .card.project {
+  background: var(--garden-glass) !important;
+}
+
+.garden-alive .card.text {
+  background: var(--garden-glass) !important;
+}
+
+.garden-alive .card.book {
+  background: var(--garden-glass) !important;
+}
+
+/* photo cards stay image-forward; glass only on chrome */
+.garden-alive .card.photo {
+  background: rgba(20, 14, 8, 0.08) !important;
+}
+
+.garden-alive header {
+  background: rgba(255, 253, 246, 0.62) !important;
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.garden-alive footer {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+}
+
+.garden-alive footer,
+.garden-alive footer div,
+.garden-alive footer span,
+.garden-alive footer .planted-by__label {
+  color: #2e2820;
+}
+
+/* ---- ambient canvas (behind content) ---- */
+.garden-atmo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.garden-atmo__photo {
+  position: absolute;
+  inset: 0;
+}
+
+.garden-atmo--gust .garden-flower-photo {
+  animation-duration: 1.4s !important;
+}
+
+.garden-atmo__photo-img {
+  object-fit: cover;
+  object-position: center 72%;
+  filter: contrast(1.16) saturate(1.24) brightness(1.03);
+}
+
+.garden-atmo__haze {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(100, 150, 200, 0.05) 0%,
+    rgba(255, 255, 255, 0.02) 38%,
+    rgba(20, 45, 15, 0.1) 100%
+  );
+  pointer-events: none;
+}
+
+/* ---- flying birds ---- */
+.garden-bird-flyer {
+  position: absolute;
+  top: var(--bird-top, 12%);
+  left: -14%;
+  pointer-events: none;
+  animation: garden-bird-fly-ltr linear infinite;
+  will-change: transform, left;
+}
+
+.garden-bird-flyer--rtl {
+  animation-name: garden-bird-fly-rtl;
+}
+
+.garden-bird-flyer__img {
+  width: calc(120px * var(--bird-scale, 0.12));
+  height: auto;
+  display: block;
+  animation: garden-bird-wing-bob 0.45s ease-in-out infinite alternate;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes garden-bird-fly-ltr {
+  0% {
+    left: -14%;
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    left: 112%;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes garden-bird-fly-rtl {
+  0% {
+    left: 112%;
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    left: -14%;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes garden-bird-wing-bob {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+
+.garden-bird-flyer--rtl .garden-bird-flyer__img {
+  animation-name: garden-bird-wing-bob-rtl;
+}
+
+@keyframes garden-bird-wing-bob-rtl {
+  from {
+    transform: scaleX(-1) rotate(-4deg);
+  }
+  to {
+    transform: scaleX(-1) rotate(5deg);
+  }
+}
+
+/* ---- foreground flowers (wind sway only these, not the background) ---- */
+.garden-flower-photo {
+  position: absolute;
+  pointer-events: auto;
+  cursor: default;
+  transform-origin: 50% 92%;
+  animation: garden-flower-wind 5s ease-in-out infinite;
+  z-index: 2;
+}
+
+.garden-flower-photo__img {
+  width: calc(220px * var(--flower-scale, 0.18));
+  height: auto;
+  display: block;
+  filter: contrast(1.1) saturate(1.15) drop-shadow(0 6px 14px rgba(20, 40, 10, 0.34));
+  pointer-events: none;
+}
+
+.garden-flower-photo:hover,
+.garden-flower-photo:focus-visible {
+  animation: garden-flower-touch 0.55s ease-in-out;
+}
+
+@keyframes garden-flower-wind {
+  0%,
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(5deg) translateY(-4px);
+  }
+}
+
+@keyframes garden-flower-touch {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(10deg) translateX(4px);
+  }
+  40% {
+    transform: rotate(-8deg) translateX(-5px);
+  }
+  60% {
+    transform: rotate(6deg);
+  }
+  80% {
+    transform: rotate(-4deg);
+  }
+}
+
+/* ---- critters layer ON TOP of page content ---- */
+.garden-critters-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.garden-critter {
+  position: absolute;
+  pointer-events: auto;
+  cursor: default;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+}
+
+.garden-critter__img {
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+.garden-bee-sprite {
+  position: relative;
+  width: calc(110px * var(--critter-scale, 0.1));
+  aspect-ratio: 757 / 641;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+.garden-bee-sprite__open,
+.garden-bee-sprite__flap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.garden-bee-sprite__open {
+  animation: garden-bee-show-open 0.07s steps(1) infinite;
+}
+
+.garden-bee-sprite__flap {
+  animation: garden-bee-show-flap 0.07s steps(1) infinite;
+}
+
+.garden-bee--flying .garden-bee-sprite__open {
+  animation: garden-bee-fly-open 0.14s steps(1) infinite;
+}
+
+.garden-bee--flying .garden-bee-sprite__flap {
+  animation: garden-bee-fly-flap 0.14s steps(1) infinite;
+}
+
+.garden-bee--flee .garden-bee-sprite__open {
+  animation: garden-bee-fly-open 0.09s steps(1) infinite;
+}
+
+.garden-bee--flee .garden-bee-sprite__flap {
+  animation: garden-bee-fly-flap 0.09s steps(1) infinite;
+}
+
+.garden-bee--hover-high .garden-bee-sprite__open {
+  animation: garden-bee-fly-open 0.12s steps(1) infinite;
+}
+
+.garden-bee--hover-high .garden-bee-sprite__flap {
+  animation: garden-bee-fly-flap 0.12s steps(1) infinite;
+}
+
+.garden-bee--landing .garden-bee-sprite__open {
+  animation: garden-bee-fly-open 0.2s steps(1) infinite;
+}
+
+.garden-bee--landing .garden-bee-sprite__flap {
+  animation: garden-bee-fly-flap 0.2s steps(1) infinite;
+}
+
+.garden-bee--on-flower .garden-bee-sprite__open {
+  animation: garden-bee-rest-open 2.8s steps(1) infinite;
+}
+
+.garden-bee--on-flower .garden-bee-sprite__flap {
+  animation: garden-bee-rest-flap 2.8s steps(1) infinite;
+}
+
+@keyframes garden-bee-rest-open {
+  0%,
+  78%,
+  100% {
+    opacity: 1;
+  }
+  79%,
+  88% {
+    opacity: 0;
+  }
+}
+
+@keyframes garden-bee-rest-flap {
+  0%,
+  78%,
+  100% {
+    opacity: 0;
+  }
+  79%,
+  88% {
+    opacity: 1;
+  }
+}
+
+@keyframes garden-bee-show-open {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes garden-bee-show-flap {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes garden-bee-fly-open {
+  0%,
+  82%,
+  100% {
+    opacity: 0;
+  }
+  83%,
+  96% {
+    opacity: 1;
+  }
+}
+
+@keyframes garden-bee-fly-flap {
+  0%,
+  81%,
+  100% {
+    opacity: 1;
+  }
+  82%,
+  96% {
+    opacity: 0;
+  }
+}
+
+/* ---- butterflies: background feeders, front layer when chased ---- */
+.garden-butterflies-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.garden-butterflies-front {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.garden-butterfly-flyer {
+  position: absolute;
+  pointer-events: none;
+  will-change: left, top, transform;
+  transform: translate(-50%, -50%);
+}
+
+.garden-butterfly-sprite {
+  position: relative;
+  width: calc(140px * var(--critter-scale, 0.19));
+  aspect-ratio: 1.4 / 1;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.22));
+}
+
+.garden-butterfly-sprite__open,
+.garden-butterfly-sprite__flap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.garden-butterfly-sprite__open {
+  animation: garden-butterfly-show-open 0.52s steps(1) infinite;
+}
+
+.garden-butterfly-sprite__flap {
+  animation: garden-butterfly-show-flap 0.52s steps(1) infinite;
+}
+
+.garden-butterfly-flyer--flying .garden-butterfly-sprite__open,
+.garden-butterfly-flyer--flying .garden-butterfly-sprite__flap {
+  animation-duration: 0.44s;
+}
+
+.garden-butterfly-flyer--flee .garden-butterfly-sprite__open,
+.garden-butterfly-flyer--flee .garden-butterfly-sprite__flap {
+  animation-duration: 0.28s;
+}
+
+.garden-butterfly-flyer--landing .garden-butterfly-sprite__open,
+.garden-butterfly-flyer--landing .garden-butterfly-sprite__flap {
+  animation-duration: 1.15s;
+}
+
+.garden-butterfly-flyer--feeding .garden-butterfly-sprite__open {
+  animation: garden-butterfly-feed-open 5.5s steps(1) infinite;
+}
+
+.garden-butterfly-flyer--feeding .garden-butterfly-sprite__flap {
+  animation: garden-butterfly-feed-flap 5.5s steps(1) infinite;
+}
+
+@keyframes garden-butterfly-feed-open {
+  0%,
+  88%,
+  100% {
+    opacity: 1;
+  }
+  89%,
+  96% {
+    opacity: 0;
+  }
+}
+
+@keyframes garden-butterfly-feed-flap {
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+  }
+  89%,
+  96% {
+    opacity: 1;
+  }
+}
+
+@keyframes garden-butterfly-show-open {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes garden-butterfly-show-flap {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .garden-atmo__photo-img {
+    object-position: center 68%;
+  }
+
+  .garden-butterfly-sprite {
+    width: calc(110px * var(--critter-scale, 0.19));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .garden-bird-flyer,
+  .garden-bird-flyer__img,
+  .garden-flower-photo,
+  .garden-bee-sprite__open,
+  .garden-bee-sprite__flap,
+  .garden-butterfly-sprite__open,
+  .garden-butterfly-sprite__flap {
+    animation: none !important;
+  }
+
+  .garden-bird-flyer {
+    display: none;
+  }
+
+  .garden-critters-layer {
+    display: none;
+  }
+}

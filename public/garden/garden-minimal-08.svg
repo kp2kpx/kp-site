@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="s8-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f3ec" stop-opacity="0.64"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s8-lawn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dde3cf" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#b5c4a4" stop-opacity="0.36"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#s8-sky)"/>
+  <g fill="#fffef9" fill-opacity="0.5"><ellipse cx="360" cy="88" rx="82" ry="24"/><ellipse cx="1080" cy="100" rx="96" ry="28"/></g>
+  <path fill="url(#s8-lawn)" d="M0 640 C400 590 800 620 1200 590 C1320 578 1400 585 1440 580 V900 H0 Z"/>
+  <!-- formal clipped hedges -->
+  <g fill="#dde3cf" fill-opacity="0.38" stroke="#bfb09a" stroke-opacity="0.32">
+    <rect x="80" y="620" width="280" height="55" rx="6"/><rect x="1080" y="610" width="300" height="58" rx="6"/>
+    <rect x="80" y="700" width="200" height="48" rx="5"/><rect x="1160" y="695" width="220" height="50" rx="5"/>
+  </g>
+  <!-- garden arch / library entrance -->
+  <g stroke="#a35a2c" stroke-opacity="0.34" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M620 680 V560"/><path d="M820 680 V560"/><path d="M620 560 C620 500 680 470 720 470 C760 470 820 500 820 560"/>
+    <path d="M640 560 C640 515 680 490 720 490 C760 490 800 515 800 560"/>
+  </g>
+  <g fill="#fffef9" fill-opacity="0.22"><path d="M650 560 C650 520 680 500 720 500 C760 500 790 520 790 560 V680 H650 Z"/></g>
+  <!-- column pair -->
+  <g stroke="#bfb09a" stroke-opacity="0.36" stroke-width="1.8">
+    <path d="M400 680 V580"/><ellipse cx="400" cy="575" rx="14" ry="6" fill="#d5cabb" fill-opacity="0.32"/>
+    <path d="M1040 680 V580"/><ellipse cx="1040" cy="575" rx="14" ry="6" fill="#d5cabb" fill-opacity="0.32"/>
+  </g>
+  <!-- article path (straight, formal) -->
+  <path fill="#d5cabb" fill-opacity="0.26" stroke="#bfb09a" stroke-opacity="0.38" stroke-width="2" d="M720 900 V560"/>
+  <path stroke="#bfb09a" stroke-opacity="0.28" stroke-width="1.4" d="M700 900 V560 M740 900 V560"/>
+  <!-- topiary spheres -->
+  <g fill="#c8d4b8" fill-opacity="0.32" stroke="#6f6558" stroke-opacity="0.28">
+    <circle cx="200" cy="600" r="22"/><circle cx="1240" cy="590" r="24"/><circle cx="360" cy="580" r="18"/><circle cx="1080" cy="575" r="20"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.36"><ellipse cx="200" cy="870" rx="85" ry="30"/><ellipse cx="720" cy="885" rx="130" ry="36"/><ellipse cx="1240" cy="868" rx="80" ry="28"/></g>
+</svg>

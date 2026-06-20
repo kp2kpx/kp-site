@@ -1,0 +1,380 @@
+{
+  "godel-escher-bach": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/24113.G_del_Escher_Bach",
+    "goodreadsTitle": "Gödel, Escher, Bach: An Eternal Golden Braid",
+    "coverFile": "/garden/books/godel-escher-bach.jpg",
+    "bookId": "24113"
+  },
+  "fabric-of-reality": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/177068.The_Fabric_of_Reality",
+    "goodreadsTitle": "The Fabric of Reality: The Science of Parallel Universes--and Its Implications",
+    "coverFile": "/garden/books/fabric-of-reality.jpg",
+    "bookId": "177068"
+  },
+  "beginning-of-infinity": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/10483171-the-beginning-of-infinity",
+    "goodreadsTitle": "The Beginning of Infinity: Explanations That Transform the World",
+    "coverFile": "/garden/books/beginning-of-infinity.jpg",
+    "bookId": "10483171"
+  },
+  "brief-history-of-time": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/3869.A_Brief_History_of_Time",
+    "goodreadsTitle": "A Brief History of Time",
+    "coverFile": "/garden/books/brief-history-of-time.jpg",
+    "bookId": "3869"
+  },
+  "short-history-nearly-everything": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/3333783-a-really-short-history-of-nearly-everything",
+    "goodreadsTitle": "A Really Short History of Nearly Everything",
+    "coverFile": "/garden/books/short-history-nearly-everything.jpg",
+    "bookId": "3333783"
+  },
+  "singularity-is-near": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/83518.The_Singularity_is_Near",
+    "goodreadsTitle": "The Singularity is Near: When Humans Transcend Biology",
+    "coverFile": "/garden/books/singularity-is-near.jpg",
+    "bookId": "83518"
+  },
+  "singularity-is-nearer": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/45024007-the-singularity-is-nearer",
+    "goodreadsTitle": "The Singularity Is Nearer: When We Merge with AI",
+    "coverFile": "/garden/books/singularity-is-nearer.jpg",
+    "bookId": "45024007"
+  },
+  "black-swan": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/28226413-the-black-swan",
+    "goodreadsTitle": "The Black Swan: The Impact of the Highly Improbable by Nassim Nicholas Taleb | Key Takeaways, Analysis & Review",
+    "coverFile": "/garden/books/black-swan.jpg",
+    "bookId": "28226413"
+  },
+  "algorithms-to-live-by": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/31925009-summary-of-algorithms-to-live-by",
+    "goodreadsTitle": "Summary of Algorithms to Live By: by Brian Christian and Tom Griffiths | Includes Analysis",
+    "coverFile": "/garden/books/algorithms-to-live-by.jpg",
+    "bookId": "31925009"
+  },
+  "origin-of-species": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/32331601-the-origin-of-species",
+    "goodreadsTitle": "The Origin of Species: Charles Darwin Introduces Evolutionary Concepts",
+    "coverFile": "/garden/books/origin-of-species.jpg",
+    "bookId": "32331601"
+  },
+  "critique-of-pure-reason": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/51851032-the-critique-of-pure-reason",
+    "goodreadsTitle": "The Critique of Pure Reason: Immanuel Kant",
+    "coverFile": "/garden/books/critique-of-pure-reason.jpg",
+    "bookId": "51851032"
+  },
+  "the-prophet": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/223160115-the-prophet-by-kahlil-gibran",
+    "goodreadsTitle": "The Prophet by Kahlil Gibran",
+    "coverFile": "/garden/books/the-prophet.jpg",
+    "bookId": "223160115"
+  },
+  "nausea": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/298275.Nausea",
+    "goodreadsTitle": "Nausea",
+    "coverFile": "/garden/books/nausea.jpg",
+    "bookId": "298275"
+  },
+  "richest-man-in-babylon": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/8516889-the-richest-man-in-babylon",
+    "goodreadsTitle": "The Richest Man in Babylon: George S. Clason's Bestselling Guide to Financial Success: Saving Money and Putting It to Work for You",
+    "coverFile": "/garden/books/richest-man-in-babylon.jpg",
+    "bookId": "8516889"
+  },
+  "wealth-of-nations": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/28241997-the-wealth-of-nations",
+    "goodreadsTitle": "The Wealth Of Nations: By Adam Smith",
+    "coverFile": "/garden/books/wealth-of-nations.jpg",
+    "bookId": "28241997"
+  },
+  "capital": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/34394704-o-capital---karl-marx",
+    "goodreadsTitle": "O CAPITAL - Karl Marx: Mercadoria, Valor e Mais valia",
+    "coverFile": "/garden/books/capital.jpg",
+    "bookId": "34394704"
+  },
+  "ascent-of-money": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/2714607-the-ascent-of-money",
+    "goodreadsTitle": "The Ascent of Money: A Financial History of the World",
+    "coverFile": "/garden/books/ascent-of-money.jpg",
+    "bookId": "2714607"
+  },
+  "almanack-of-naval": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/121105473-the-almanack-of-naval-ravikant-by-eric-jorgenson-tools-of-titans-by-tim",
+    "goodreadsTitle": "The Almanack of Naval Ravikant By Eric Jorgenson, Tools of Titans By Timothy Ferriss 2 Books Collection Set",
+    "coverFile": "/garden/books/almanack-of-naval.jpg",
+    "bookId": "121105473"
+  },
+  "zero-to-one": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/31703274-zero-to-one",
+    "goodreadsTitle": "Zero to One: by Peter Thiel | Conversation Starters",
+    "coverFile": "/garden/books/zero-to-one.jpg",
+    "bookId": "31703274"
+  },
+  "same-as-ever": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/125116554-same-as-ever",
+    "goodreadsTitle": "Same as Ever: A Guide to What Never Changes",
+    "coverFile": "/garden/books/same-as-ever.jpg",
+    "bookId": "125116554"
+  },
+  "read-write-own": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/178628338-read-write-own",
+    "goodreadsTitle": "Read Write Own: Building the Next Era of the Internet",
+    "coverFile": "/garden/books/read-write-own.jpg",
+    "bookId": "178628338"
+  },
+  "hard-thing-about-hard-things": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/24687652-the-hard-thing-about-hard-things-ben-horowitz---review-summary",
+    "goodreadsTitle": "The Hard Thing About Hard Things Ben Horowitz - Review Summary: Building a Business When There Are No Easy Answers",
+    "coverFile": "/garden/books/hard-thing-about-hard-things.jpg",
+    "bookId": "24687652"
+  },
+  "sapiens": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/26054257-sapiens",
+    "goodreadsTitle": "Sapiens: by Yuval Noah Harari | Key Takeaways, Analysis & Review: A Brief History of Humankind",
+    "coverFile": "/garden/books/sapiens.jpg",
+    "bookId": "26054257"
+  },
+  "nexus": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/204927599-nexus",
+    "goodreadsTitle": "Nexus: A Brief History of Information Networks from the Stone Age to AI",
+    "coverFile": "/garden/books/nexus.jpg",
+    "bookId": "204927599"
+  },
+  "silk-roads": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/25812847-the-silk-roads",
+    "goodreadsTitle": "The Silk Roads: A New History of the World",
+    "coverFile": "/garden/books/silk-roads.jpg",
+    "bookId": "25812847"
+  },
+  "two-treatises-of-government": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/53353109-the-first-and-second-treatises-of-government-by-john-locke",
+    "goodreadsTitle": "The First and Second Treatises of Government by John Locke",
+    "coverFile": "/garden/books/two-treatises-of-government.jpg",
+    "bookId": "53353109"
+  },
+  "train-to-pakistan": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/785454.Train_to_Pakistan",
+    "goodreadsTitle": "Train to Pakistan",
+    "coverFile": "/garden/books/train-to-pakistan.jpg",
+    "bookId": "785454"
+  },
+  "mein-kampf": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/210151814-mein-kampf-da-adolf-hitler",
+    "goodreadsTitle": "Mein Kampf. Da Adolf Hitler",
+    "coverFile": "/garden/books/mein-kampf.jpg",
+    "bookId": "210151814"
+  },
+  "gandhi-autobiography": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/153275883-an-autobiography-or-the-story-of-my-experiments-with-truth-by-mk-gandhi",
+    "goodreadsTitle": "An Autobiography Or The Story of My Experiments With Truth by MK Gandhi: Gandhi's Reflections on Life, Truth, and Nonviolence by MK Gandhi",
+    "coverFile": "/garden/books/gandhi-autobiography.jpg",
+    "bookId": "153275883"
+  },
+  "autobiography-malcolm-x": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/131779119-the-autobiography-of-malcolm-x",
+    "goodreadsTitle": "The Autobiography of Malcolm X",
+    "coverFile": "/garden/books/autobiography-malcolm-x.jpg",
+    "bookId": "131779119"
+  },
+  "marx-returns": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/36963930-marx-returns",
+    "goodreadsTitle": "Marx Returns",
+    "coverFile": "/garden/books/marx-returns.jpg",
+    "bookId": "36963930"
+  },
+  "demons": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/5695.Demons",
+    "goodreadsTitle": "Demons",
+    "coverFile": "/garden/books/demons.jpg",
+    "bookId": "5695"
+  },
+  "brothers-karamazov": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/236301336-the-brothers-karamazov",
+    "goodreadsTitle": "The Brothers Karamazov",
+    "coverFile": "/garden/books/brothers-karamazov.jpg",
+    "bookId": "236301336"
+  },
+  "war-and-peace": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/34742912-war-and-peace-by-leo-tolstoy",
+    "goodreadsTitle": "War and Peace by Leo Tolstoy",
+    "coverFile": "/garden/books/war-and-peace.jpg",
+    "bookId": "34742912"
+  },
+  "anna-karenina": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/62074658-anna-karenina",
+    "goodreadsTitle": "Anna Karenina: by Graf Leo Tolstoy",
+    "coverFile": "/garden/books/anna-karenina.jpg",
+    "bookId": "62074658"
+  },
+  "the-iliad": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/23460877-the-iliad",
+    "goodreadsTitle": "The Iliad: A New Translation by Caroline Alexander",
+    "coverFile": "/garden/books/the-iliad.jpg",
+    "bookId": "23460877"
+  },
+  "the-odyssey": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/1381.The_Odyssey",
+    "goodreadsTitle": "The Odyssey",
+    "coverFile": "/garden/books/the-odyssey.jpg",
+    "bookId": "1381"
+  },
+  "ulysses": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/338798.Ulysses",
+    "goodreadsTitle": "Ulysses",
+    "coverFile": "/garden/books/ulysses.jpg",
+    "bookId": "338798"
+  },
+  "labyrinths": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/17717.Labyrinths",
+    "goodreadsTitle": "Labyrinths: Selected Stories & Other Writings",
+    "coverFile": "/garden/books/labyrinths.jpg",
+    "bookId": "17717"
+  },
+  "to-kill-a-mockingbird": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/26189532-to-kill-a-mockingbird-by-harper-lee-summary-analysis",
+    "goodreadsTitle": "To Kill a Mockingbird by Harper Lee | Summary & Analysis",
+    "coverFile": "/garden/books/to-kill-a-mockingbird.jpg",
+    "bookId": "26189532"
+  },
+  "tale-of-two-cities": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/34332722-great-expectations",
+    "goodreadsTitle": "Great Expectations: FREE A Tale Of Two Cities By Charles Dickens, Illustrated [Quora Media]",
+    "coverFile": "/garden/books/tale-of-two-cities.jpg",
+    "bookId": "34332722"
+  },
+  "mountain-shadow": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/126006558-the-mountain-shadow-by-gregory-david-roberts",
+    "goodreadsTitle": "The Mountain Shadow by Gregory David Roberts",
+    "coverFile": "/garden/books/mountain-shadow.jpg",
+    "bookId": "126006558"
+  },
+  "hitchhikers-guide": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/37928547-hitchhiker-s-guide-to-the-galaxy-complete-set---douglas-adams-collection",
+    "goodreadsTitle": "Hitchhiker's Guide to the Galaxy Complete Set - Douglas Adams Collection 5 Books",
+    "coverFile": "/garden/books/hitchhikers-guide.jpg",
+    "bookId": "37928547"
+  },
+  "watchmen": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/472331.Watchmen",
+    "goodreadsTitle": "Watchmen",
+    "coverFile": "/garden/books/watchmen.jpg",
+    "bookId": "472331"
+  },
+  "fish-in-alien-streams": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/59078371-a-fish-in-alien-streams",
+    "goodreadsTitle": "A Fish in Alien Streams: The Incredible Journey of the Trout in India",
+    "coverFile": "",
+    "bookId": "59078371"
+  },
+  "life-keith-richards": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/9439303-life",
+    "goodreadsTitle": "Life",
+    "coverFile": "/garden/books/life-keith-richards.jpg",
+    "bookId": "9439303"
+  },
+  "crime-and-punishment": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/46117596-crime-and-punishment",
+    "goodreadsTitle": "Crime And Punishment: Fyodor Dostoevsky's Exploration of Guilt and Redemption",
+    "coverFile": "/garden/books/crime-and-punishment.jpg",
+    "bookId": "46117596"
+  },
+  "the-idiot": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/53123010-the-idiot-by-fyodor-dostoevsky",
+    "goodreadsTitle": "The Idiot by Fyodor Dostoevsky",
+    "coverFile": "/garden/books/the-idiot.jpg",
+    "bookId": "53123010"
+  },
+  "in-search-of-schrodingers-cat": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/513367.In_Search_of_Schr_dinger_s_Cat",
+    "goodreadsTitle": "In Search of Schrödinger's Cat: Quantum Physics and Reality",
+    "coverFile": "/garden/books/in-search-of-schrodingers-cat.jpg",
+    "bookId": "513367"
+  },
+  "to-explain-the-world": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/22328555-to-explain-the-world",
+    "goodreadsTitle": "To Explain the World: The Discovery of Modern Science",
+    "coverFile": "/garden/books/to-explain-the-world.jpg",
+    "bookId": "22328555"
+  },
+  "consciousness-explained": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/128454543-consciousness-explained-by-daniel-c-dennett",
+    "goodreadsTitle": "Consciousness Explained by Daniel C. Dennett",
+    "coverFile": "/garden/books/consciousness-explained.jpg",
+    "bookId": "128454543"
+  },
+  "beyond-good-and-evil": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/33651446-beyond-good-and-evil",
+    "goodreadsTitle": "Beyond Good and Evil: By Friedrich Nietzsche - Illustrated",
+    "coverFile": "/garden/books/beyond-good-and-evil.jpg",
+    "bookId": "33651446"
+  },
+  "thinking-fast-and-slow": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/17185950-thinking-fast-and-slow-by-daniel-kahneman",
+    "goodreadsTitle": "Thinking, Fast and Slow by Daniel Kahneman",
+    "coverFile": "/garden/books/thinking-fast-and-slow.jpg",
+    "bookId": "17185950"
+  },
+  "siddhartha": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/60487534-siddhartha-by-hermann-hesse",
+    "goodreadsTitle": "Siddhartha by Hermann Hesse: A Journey to Enlightenment and Self-Discovery",
+    "coverFile": "/garden/books/siddhartha.jpg",
+    "bookId": "60487534"
+  },
+  "in-search-of-lost-time-vol-1": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/18803.In_Search_of_Lost_Time_Volume_1",
+    "goodreadsTitle": "In Search of Lost Time, Volume 1: The Way by Swann's",
+    "coverFile": "/garden/books/in-search-of-lost-time-vol-1.jpg",
+    "bookId": "18803"
+  },
+  "the-fountainhead": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/2122.The_Fountainhead",
+    "goodreadsTitle": "The Fountainhead",
+    "coverFile": "/garden/books/the-fountainhead.jpg",
+    "bookId": "2122"
+  },
+  "thus-spoke-zarathustra": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/239262372-thus-spoke-zarathustra---by-friedrich-nietzsche",
+    "goodreadsTitle": "Thus Spoke Zarathustra - By Friedrich Nietzsche: In Modern Language",
+    "coverFile": "/garden/books/thus-spoke-zarathustra.jpg",
+    "bookId": "239262372"
+  },
+  "the-trial": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/6874976-the-trial-by-franz-kafka-and-the-metamorphosis-by-franz-kafka",
+    "goodreadsTitle": "The Trial by Franz Kafka and The Metamorphosis by Franz Kafka",
+    "coverFile": "/garden/books/the-trial.jpg",
+    "bookId": "6874976"
+  },
+  "the-metamorphosis": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/198387408-the-metamorphosis",
+    "goodreadsTitle": "The Metamorphosis: Franz Kafka",
+    "coverFile": "/garden/books/the-metamorphosis.jpg",
+    "bookId": "198387408"
+  },
+  "rights-of-man": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/34061011-the-rights-of-man",
+    "goodreadsTitle": "The Rights of Man: Thomas Paine",
+    "coverFile": "/garden/books/rights-of-man.jpg",
+    "bookId": "34061011"
+  },
+  "the-art-of-war": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/2587.The_Art_of_War_Sun_Tzu_s_Classic_in_Plain_English_With_Sun_Pin_s_",
+    "goodreadsTitle": "The Art of War - Sun Tzu's Classic in Plain English With Sun Pin's : The Art of Warfare",
+    "coverFile": "/garden/books/the-art-of-war.jpg",
+    "bookId": "2587"
+  },
+  "new-history-of-the-world": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/61617023-the-illustrated-history-of-the-world",
+    "goodreadsTitle": "The Illustrated History of the World: Volume 5: The Far East and a New Europe",
+    "coverFile": "/garden/books/new-history-of-the-world.jpg",
+    "bookId": "61617023"
+  },
+  "irrationally-rational": {
+    "goodreadsUrl": "https://www.goodreads.com/book/show/61486532-irrationally-rational",
+    "goodreadsTitle": "Irrationally Rational: Ten Nobel Laureates Script the Story of Behavioural Economics",
+    "coverFile": "/garden/books/irrationally-rational.jpg",
+    "bookId": "61486532"
+  }
+}

@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="alt-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f3ec" stop-opacity="0.7"/>
+      <stop offset="55%" stop-color="#f0e9dc" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="alt-hill-back" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e9ecdd" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#dde3cf" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="alt-hill-mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dde3cf" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#c8d4b8" stop-opacity="0.42"/>
+    </linearGradient>
+    <linearGradient id="alt-hill-front" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c8d4b8" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#b5c4a4" stop-opacity="0.38"/>
+    </linearGradient>
+    <linearGradient id="alt-stream" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dde3cf" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#c8d4b8" stop-opacity="0.32"/>
+    </linearGradient>
+    <linearGradient id="alt-path" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ddd1be" stop-opacity="0.38"/>
+      <stop offset="100%" stop-color="#d5cabb" stop-opacity="0.22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#alt-sky)"/>
+
+  <!-- soft clouds -->
+  <g fill="#fffef9" fill-opacity="0.52">
+    <ellipse cx="260" cy="110" rx="92" ry="26"/><ellipse cx="330" cy="98" rx="58" ry="18"/>
+    <ellipse cx="680" cy="88" rx="110" ry="30"/><ellipse cx="760" cy="76" rx="70" ry="22"/>
+    <ellipse cx="1080" cy="118" rx="84" ry="24"/><ellipse cx="1140" cy="106" rx="52" ry="16"/>
+  </g>
+
+  <!-- morning sun (left) -->
+  <g fill="#ead9c8" fill-opacity="0.28">
+    <circle cx="148" cy="148" r="58"/><circle cx="148" cy="148" r="38" fill="#f7f3ec" fill-opacity="0.32"/>
+    <path stroke="#ead9c8" stroke-opacity="0.2" stroke-width="2" d="M148 78 V98 M148 198 V218 M78 148 H98 M198 148 H218"/>
+  </g>
+
+  <!-- open hills -->
+  <path fill="url(#alt-hill-back)" d="M0 500 C220 450 460 470 720 440 C980 410 1180 430 1440 400 V900 H0 Z"/>
+  <path fill="url(#alt-hill-mid)" d="M0 590 C320 530 620 560 900 530 C1120 508 1280 540 1440 515 V900 H0 Z"/>
+  <path fill="url(#alt-hill-front)" d="M0 690 C400 630 760 670 1040 640 C1220 620 1340 655 1440 630 V900 H0 Z"/>
+
+  <!-- distant hedge line -->
+  <path fill="#dde3cf" fill-opacity="0.34" stroke="#bfb09a" stroke-opacity="0.28" stroke-width="1.4"
+    d="M120 560 C280 540 420 548 580 532 C740 516 900 524 1060 510 C1180 500 1280 508 1360 498 V540 C1280 550 1180 542 1060 556 C900 570 740 562 580 578 C420 594 280 586 120 602 Z"/>
+
+  <!-- meadow clearing -->
+  <ellipse cx="720" cy="745" rx="280" ry="62" fill="#dde3cf" fill-opacity="0.24" stroke="#bfb09a" stroke-opacity="0.22"/>
+
+  <!-- winding stream -->
+  <path fill="url(#alt-stream)" d="M700 320 C680 380 710 440 690 500 C670 560 700 620 680 680 C660 740 690 800 700 900 L740 900 C730 800 760 740 740 680 C720 620 750 560 730 500 C710 440 740 380 720 320 Z"/>
+  <path stroke="#a8b896" stroke-opacity="0.38" stroke-width="1.6" d="M710 330 C690 390 720 450 700 510 C680 570 710 630 690 690 C670 750 700 810 710 890"/>
+  <ellipse cx="705" cy="410" rx="18" ry="7" fill="#fffef9" fill-opacity="0.22"/>
+  <ellipse cx="695" cy="560" rx="16" ry="6" fill="#fffef9" fill-opacity="0.2"/>
+  <ellipse cx="708" cy="710" rx="20" ry="8" fill="#fffef9" fill-opacity="0.18"/>
+
+  <!-- stone bridge -->
+  <g fill="#d5cabb" fill-opacity="0.42" stroke="#bfb09a" stroke-opacity="0.35">
+    <path d="M620 585 C660 565 700 562 740 565 C780 568 820 565 860 585 V600 H620 Z"/>
+    <path d="M635 585 C675 568 715 565 750 568 C785 571 825 568 845 585" fill="none" stroke-width="2"/>
+    <ellipse cx="650" cy="592" rx="8" ry="4"/><ellipse cx="750" cy="592" rx="8" ry="4"/><ellipse cx="830" cy="592" rx="8" ry="4"/>
+  </g>
+
+  <!-- curved garden path -->
+  <path fill="url(#alt-path)" d="M80 900 C180 820 260 760 360 700 C460 640 520 610 620 580 C720 550 820 520 920 490 C1020 460 1120 430 1280 400 L1300 420 C1140 450 1040 480 940 510 C840 540 740 570 640 600 C540 630 460 660 380 720 C300 780 220 840 100 900 Z"/>
+  <path stroke="#bfb09a" stroke-opacity="0.48" stroke-width="2.2" stroke-linecap="round"
+    d="M100 900 C200 820 280 760 380 700 C480 640 540 610 640 580 C740 550 840 520 940 490 C1040 460 1140 430 1290 405"/>
+
+  <!-- knot herb garden -->
+  <g stroke="#bfb09a" stroke-opacity="0.32" fill="#dde3cf" fill-opacity="0.2">
+    <circle cx="480" cy="720" r="58"/><circle cx="480" cy="720" r="38"/><circle cx="480" cy="720" r="18"/>
+    <path d="M422 720 H538 M480 662 V778 M444 684 L516 756 M516 684 L444 756"/>
+  </g>
+  <g fill="#5a6442" fill-opacity="0.22">
+    <circle cx="452" cy="700" r="3"/><circle cx="508" cy="694" r="3"/><circle cx="468" cy="742" r="3"/><circle cx="498" cy="736" r="3"/>
+  </g>
+
+  <!-- raised beds (right) -->
+  <g fill="#c8d4b8" fill-opacity="0.24" stroke="#bfb09a" stroke-opacity="0.3">
+    <rect x="980" y="680" width="120" height="52" rx="4"/><rect x="1110" y="700" width="100" height="44" rx="4"/>
+    <path stroke="#5a6442" stroke-opacity="0.28" d="M995 700 H1085 M995 715 H1085 M1125 718 H1195"/>
+  </g>
+
+  <!-- large shade tree -->
+  <g stroke="#5a6442" stroke-opacity="0.42" stroke-width="2.2" stroke-linecap="round">
+    <path d="M1180 640 V520"/><path d="M1180 565 C1155 545 1135 530 1115 518"/><path d="M1180 555 C1205 535 1225 520 1245 508"/>
+    <path d="M1180 590 C1162 572 1150 562 1138 552"/><path d="M1180 580 C1198 562 1210 552 1222 542"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.44">
+    <ellipse cx="1180" cy="500" rx="72" ry="48"/><ellipse cx="1145" cy="515" rx="48" ry="34"/><ellipse cx="1215" cy="512" rx="52" ry="36"/>
+  </g>
+
+  <!-- bench under tree -->
+  <g stroke="#a35a2c" stroke-opacity="0.34" stroke-width="1.8" stroke-linecap="round">
+    <path d="M1100 650 H1160"/><path d="M1105 650 V670 M1155 650 V670"/><path d="M1100 658 H1160"/>
+  </g>
+
+  <!-- small fruit tree left -->
+  <g stroke="#5a6442" stroke-opacity="0.38" stroke-width="1.8" stroke-linecap="round">
+    <path d="M220 670 V610"/><path d="M220 635 C205 622 192 614 180 606"/><path d="M220 625 C235 612 248 604 260 596"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.4">
+    <ellipse cx="220" cy="598" rx="38" ry="30"/><ellipse cx="200" cy="608" rx="24" ry="18"/>
+  </g>
+  <g fill="#a35a2c" fill-opacity="0.32">
+    <circle cx="208" cy="600" r="4"/><circle cx="232" cy="592" r="3.5"/><circle cx="218" cy="610" r="3"/>
+  </g>
+
+  <!-- wildflowers along stream (sparse) -->
+  <g>
+    <circle cx="640" cy="640" r="7" fill="#fffef9" fill-opacity="0.55"/><circle cx="640" cy="640" r="3" fill="#ead9c8" fill-opacity="0.5"/>
+    <circle cx="820" cy="620" r="6" fill="#ead9c8" fill-opacity="0.5"/><circle cx="820" cy="620" r="2.5" fill="#a35a2c" fill-opacity="0.35"/>
+    <circle cx="600" cy="760" r="7" fill="#fffef9" fill-opacity="0.52"/><circle cx="850" cy="740" r="6" fill="#fffef9" fill-opacity="0.48"/>
+    <path d="M760 680 C754 668 760 656 766 668 C772 656 778 668 772 680 C766 692 760 692 760 680 Z" fill="#a35a2c" fill-opacity="0.28"/>
+  </g>
+
+  <!-- herbs & grasses -->
+  <g stroke="#5a6442" stroke-opacity="0.36" stroke-width="1.4" stroke-linecap="round">
+    <path d="M360 780 V740 M360 760 C352 748 344 742 336 736"/><path d="M400 770 V735 M400 752 C408 740 416 734 424 728"/>
+    <path d="M900 790 V750 M900 770 C892 758 884 752 876 746"/><path d="M940 785 V748 M940 766 C948 754 956 748 964 742"/>
+    <path d="M1020 820 V780 M1020 800 C1012 788 1004 782 996 776"/>
+  </g>
+
+  <!-- bird bath near path -->
+  <g fill="#fffef9" fill-opacity="0.36" stroke="#bfb09a" stroke-opacity="0.34">
+    <ellipse cx="860" cy="560" rx="28" ry="9"/><path d="M860 569 V590" stroke-width="2"/><ellipse cx="860" cy="590" rx="18" ry="5" fill="#d5cabb" fill-opacity="0.3"/>
+  </g>
+
+  <!-- garden gate -->
+  <g stroke="#a35a2c" stroke-opacity="0.3" stroke-width="1.8" stroke-linecap="round">
+    <path d="M1280 700 V640 M1320 700 V640"/><path d="M1280 670 H1320 M1280 685 H1320"/>
+    <path d="M1270 700 H1330"/>
+  </g>
+
+  <!-- windmill silhouette (distant) -->
+  <g stroke="#bfb09a" stroke-opacity="0.28" stroke-width="1.4" stroke-linecap="round">
+    <path d="M1040 470 V430"/><path d="M1040 445 L1020 425 M1040 445 L1060 425 M1040 445 L1040 420 M1040 445 L1025 460 M1040 445 L1055 460"/>
+    <path d="M1030 470 H1050"/>
+  </g>
+
+  <!-- static butterfly -->
+  <g stroke="#6f6558" stroke-opacity="0.26" stroke-width="1.1" fill="#ead9c8" fill-opacity="0.32">
+    <ellipse cx="540" cy="580" rx="7" ry="4"/><path d="M540 580 H546"/><ellipse cx="534" cy="580" rx="5" ry="3"/><ellipse cx="546" cy="580" rx="5" ry="3"/>
+  </g>
+
+  <!-- pebbles -->
+  <g fill="#d5cabb" fill-opacity="0.42">
+    <circle cx="300" cy="820" r="2.5"/><circle cx="315" cy="826" r="2"/><circle cx="330" cy="818" r="2.5"/>
+    <circle cx="1000" cy="830" r="2"/><circle cx="1015" cy="836" r="2.5"/>
+  </g>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="s4-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f3ec" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s4-hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e9ecdd" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#b5c4a4" stop-opacity="0.42"/>
+    </linearGradient>
+    <pattern id="s4-trellis" width="14" height="14" patternUnits="userSpaceOnUse">
+      <path d="M0 14 V0 M14 14 V0 M0 0 H14 M0 7 H14 M0 14 H14" stroke="#bfb09a" stroke-opacity="0.22" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1440" height="900" fill="url(#s4-sky)"/>
+  <g fill="#ead9c8" fill-opacity="0.28"><circle cx="1180" cy="130" r="52"/><circle cx="1180" cy="130" r="34" fill="#f7f3ec" fill-opacity="0.3"/></g>
+  <path fill="url(#s4-hill)" d="M0 560 C300 500 600 530 900 495 C1140 468 1300 490 1440 465 V900 H0 Z"/>
+  <!-- workshop shed -->
+  <g stroke="#6f6558" stroke-opacity="0.36" stroke-width="1.6" fill="#fffef9" fill-opacity="0.22">
+    <path d="M680 520 H920 V680 H680 Z"/><path d="M680 520 L800 470 L920 520"/>
+    <path d="M720 520 V680 M760 520 V680 M800 520 V680 M840 520 V680 M880 520 V680"/>
+    <path d="M680 580 H920 M680 620 H920 M680 660 H920"/>
+    <rect x="790" y="600" width="40" height="50" rx="2" fill="#d5cabb" fill-opacity="0.35"/>
+  </g>
+  <!-- trellis wall -->
+  <rect x="520" y="560" width="100" height="120" fill="url(#s4-trellis)" opacity="0.6"/>
+  <path stroke="#a35a2c" stroke-opacity="0.34" stroke-width="2.2" d="M520 680 H620 M520 560 V680 M620 560 V680"/>
+  <!-- raised project beds -->
+  <g fill="#c8d4b8" fill-opacity="0.26" stroke="#bfb09a" stroke-opacity="0.32">
+    <rect x="120" y="700" width="140" height="55" rx="4"/><rect x="280" y="720" width="120" height="48" rx="4"/>
+    <rect x="1020" y="690" width="150" height="58" rx="4"/><rect x="1180" y="710" width="110" height="45" rx="4"/>
+    <path stroke="#5a6442" stroke-opacity="0.28" d="M135 720 H265 M135 735 H265 M1035 710 H1155"/>
+  </g>
+  <!-- tools -->
+  <g stroke="#a35a2c" stroke-opacity="0.34" stroke-width="1.6" stroke-linecap="round">
+    <path d="M960 640 H1000 C1008 640 1014 634 1014 626 V618 C1014 610 1008 604 1000 604 H960 Z"/><path d="M1014 616 H1030 L1040 608"/>
+    <path d="M580 650 L580 690" stroke="#6f6558"/><path d="M576 650 H584 M574 670 H586 M576 690 H584"/>
+    <path d="M840 655 L840 685" stroke="#6f6558"/><path d="M836 655 L844 655 L840 648 Z" fill="#6f6558" fill-opacity="0.2"/>
+  </g>
+  <!-- wheelbarrow -->
+  <g stroke="#a35a2c" stroke-opacity="0.32" stroke-width="1.5" stroke-linecap="round">
+    <path d="M200 820 H260 L275 805"/><path d="M200 820 V835 H260 V820"/><circle cx="282" cy="835" r="10" fill="none"/>
+  </g>
+  <!-- compost -->
+  <g fill="#d5cabb" fill-opacity="0.3" stroke="#bfb09a" stroke-opacity="0.32">
+    <rect x="1080" y="800" width="55" height="42" rx="3"/><path d="M1086 812 H1124 M1086 822 H1124 M1086 832 H1124"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.4"><ellipse cx="400" cy="860" rx="65" ry="26"/><ellipse cx="720" cy="875" rx="100" ry="32"/><ellipse cx="1280" cy="855" rx="70" ry="28"/></g>
+</svg>

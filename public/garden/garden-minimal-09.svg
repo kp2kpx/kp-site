@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="s9-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f7f3ec" stop-opacity="0.74"/>
+      <stop offset="55%" stop-color="#f0e9dc" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#ebe2d2" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="s9-glow" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#fffef9" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#dde3cf" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="900" fill="url(#s9-sky)"/>
+  <g fill="#fffef9" fill-opacity="0.42"><ellipse cx="720" cy="120" rx="120" ry="32"/><ellipse cx="780" cy="108" rx="72" ry="22"/></g>
+  <path fill="#c8d4b8" fill-opacity="0.28" d="M0 680 C480 640 960 670 1440 640 V900 H0 Z"/>
+  <!-- intimate single clearing -->
+  <ellipse cx="720" cy="680" rx="220" ry="90" fill="url(#s9-glow)"/>
+  <!-- lone oak -->
+  <g stroke="#5a6442" stroke-opacity="0.42" stroke-width="2.2" stroke-linecap="round">
+    <path d="M720 750 V580"/><path d="M720 640 C698 618 680 605 662 592"/><path d="M720 630 C742 608 760 595 778 582"/>
+    <path d="M720 670 C704 656 692 648 680 640"/><path d="M720 660 C736 646 748 638 760 630"/>
+  </g>
+  <g fill="#dde3cf" fill-opacity="0.48"><ellipse cx="720" cy="565" rx="78" ry="52"/><ellipse cx="680" cy="585" rx="48" ry="34"/><ellipse cx="760" cy="580" rx="50" ry="36"/></g>
+  <!-- focus flower (hero) -->
+  <g>
+    <circle cx="720" cy="720" r="18" fill="#fffef9" fill-opacity="0.62"/><circle cx="720" cy="720" r="8" fill="#ead9c8" fill-opacity="0.65"/>
+    <g stroke="#5a6442" stroke-opacity="0.28" stroke-width="1.2"><path d="M720 702 V694 M712 724 L705 731 M728 724 L735 731 M712 716 L705 709 M728 716 L735 709 M720 738 V746"/></g>
+    <path d="M720 738 V770" stroke="#5a6442" stroke-opacity="0.38" stroke-width="2"/>
+  </g>
+  <!-- soft side blooms -->
+  <g>
+    <circle cx="580" cy="740" r="9" fill="#fffef9" fill-opacity="0.5"/><circle cx="860" cy="735" r="8" fill="#ead9c8" fill-opacity="0.48"/>
+    <circle cx="640" cy="780" r="7" fill="#fffef9" fill-opacity="0.45"/><circle cx="800" cy="775" r="7" fill="#fffef9" fill-opacity="0.42"/>
+  </g>
+  <!-- narrow footpath -->
+  <path fill="#d5cabb" fill-opacity="0.2" stroke="#bfb09a" stroke-opacity="0.3" stroke-width="1.6" d="M720 900 V780"/>
+  <g fill="#dde3cf" fill-opacity="0.34"><ellipse cx="400" cy="870" rx="90" ry="32"/><ellipse cx="1040" cy="875" rx="85" ry="30"/></g>
+</svg>

@@ -10,6 +10,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import { NODES, type GardenNode } from "./garden";
 
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
@@ -19,6 +20,11 @@ export type PostMeta = {
   date: string;
   excerpt: string;
   tags: string[];
+  /* Canonical URL when imported from elsewhere (e.g. Paragraph). */
+  source: string;
+  /* Optional explicit links to other garden nodes, set in the
+     post frontmatter as `links: ["fresh2o", ...]`. */
+  links: string[];
 };
 
 export type Post = PostMeta & {
@@ -58,6 +64,8 @@ function parseFile(file: string): Post {
     date: typeof data.date === "string" ? data.date : "",
     excerpt: typeof data.excerpt === "string" ? data.excerpt : "",
     tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
+    source: typeof data.source === "string" ? data.source : "",
+    links: Array.isArray(data.links) ? (data.links as string[]) : [],
     html,
   };
 }
@@ -85,4 +93,36 @@ export function getPostBySlug(slug: string): Post | null {
   const file = readDir().find((f) => fileToSlug(f) === slug);
   if (!file) return null;
   return parseFile(file);
+}
+
+/* ============================================================
+   THE GRAPH, assembled.
+
+   getGardenNodes() returns the full node list: the hand-authored
+   NODES plus one `writing` node per markdown post. Every page
+   that touches the graph (sections, detail pages, related links)
+   should source nodes from here, not from NODES directly, so that
+   blog posts participate in tags and backlinks like everything
+   else. Writing detail pages still render the markdown body via
+   getPostBySlug; the node carries the metadata and links.
+   ============================================================ */
+function postToNode(p: PostMeta): GardenNode {
+  return {
+    id: p.slug,
+    kinds: ["writing"],
+    title: p.title,
+    summary: p.excerpt,
+    tags: p.tags,
+    date: p.date,
+    sortDate: p.date,
+    links: p.links,
+    ...(p.source
+      ? { externalUrl: p.source, externalLabel: "Paragraph" }
+      : {}),
+  };
+}
+
+export function getGardenNodes(): GardenNode[] {
+  const writingNodes = getAllPostMeta().map(postToNode);
+  return [...NODES, ...writingNodes];
 }
