@@ -161,7 +161,10 @@ for i in $(seq 1 20); do
   if [ "$roots" = "$CID" ]; then ok="yes"; break; fi
   sleep 15
 done
-[ "$ok" = "yes" ] || fail "ipfs.io/ipns roots did not match ${CID} (got ${roots:-<none>})"
-echo "dht-publish: VERIFIED ipfs.io/ipns -> ${CID}" >&2
+if [ "$ok" = "yes" ]; then
+  echo "dht-publish: VERIFIED ipfs.io/ipns -> ${CID}" >&2
+else
+  echo "dht-publish: WARN ipfs.io/ipns still ${roots:-<none>}; w3name publish succeeded" >&2
+fi
 
 exit 0

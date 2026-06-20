@@ -58,3 +58,7 @@ IPNS_SIGNING_KEY.secret.txt
 *.secret.txt
 *.secret
 .aider*
+
+# Local agent/session scratch (not part of the site)
+/agent-tools/
+/terminals/

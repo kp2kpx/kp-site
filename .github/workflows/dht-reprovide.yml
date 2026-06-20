@@ -59,6 +59,7 @@ jobs:
           echo "cid=$CID" >> "$GITHUB_OUTPUT"
 
       - name: Republish IPNS to public DHT (kubo)
+        continue-on-error: true
         env:
           IPNS_SIGNING_KEY_B64: ${{ secrets.IPNS_SIGNING_KEY_B64 }}
         run: |

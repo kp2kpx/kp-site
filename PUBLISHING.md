@@ -11,7 +11,8 @@ git push to main
    -> GitHub Action builds the static site (out/)
    -> pins out/ to IPFS via Pinata  (new root CID)
    -> updates the IPNS name to that CID via w3name (signed in CI)
-   -> kp2kp.eth resolves the new content within minutes
+   -> publishes IPNS to the public DHT (best effort in CI)
+   -> kp2kp.eth.limo picks up the new content (may need the step below)
 ```
 
 The ENS Content Hash on kp2kp.eth points at one fixed IPNS name and never
@@ -49,6 +50,18 @@ Edit any page or copy, push to `main`. Same pipeline runs.
 npm run dev      # live dev server at http://localhost:3000
 npm run build    # produce the static export in out/
 ```
+
+## If kp2kp.eth.limo shows an old version
+
+The site is live on IPFS immediately after CI finishes. eth.limo resolves
+via the public IPNS network and can lag behind. Run this once on your PC
+(~15 minutes; uses the local key file):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/dht-publish.ps1
+```
+
+Then hard-refresh https://kp2kp.eth.limo (Ctrl+Shift+R).
 
 ## Manual publish (rarely needed)
 
