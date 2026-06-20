@@ -1,28 +1,30 @@
 /* ============================================================
-   Push KP's current w3name IPNS record onto the public DHT via
-   the delegated routing HTTP API.
+   Push KP's current IPNS mapping onto the public DHT via the
+   delegated routing HTTP API.
 
-   w3name is the source of truth for CID + sequence. Kubo on CI
-   cannot publish with the right sequence (no --seq in v0.39), so
-   eth.limo keeps serving stale content. This script fetches the
-   already-signed record from w3name and PUTs it to delegated-ipfs,
-   which places it on the Amino DHT on our behalf.
+   w3name is the source of truth for CID + sequence. The record
+   bytes stored by w3name are V2-only; DHT resolvers (eth.limo,
+   ipfs.io) still serve older V1+V2 records until we publish a
+   fresh V1-compatible record signed with the correct sequence.
 
    Usage: node scripts/dht-publish-delegated.mjs [<CID>]
-   Env:   IPNS_SIGNING_KEY_B64   (verifies name; record from w3name)
-          DELEGATED_PUBLISHER    optional, default delegated-ipfs.dev
-          W3NAME_ENDPOINT        optional, default name.web3.storage
+   Env:   IPNS_SIGNING_KEY_B64
+          DELEGATED_PUBLISHER    optional
+          W3NAME_ENDPOINT        optional
    ============================================================ */
 
 import * as Name from "w3name";
+import {
+  createIPNSRecord,
+  marshalIPNSRecord,
+} from "../node_modules/w3name/node_modules/ipns/dist/src/index.js";
+import { unmarshalIPNSRecord } from "../node_modules/w3name/node_modules/ipns/dist/src/utils.js";
 
 const EXPECTED_NAME =
   "k51qzi5uqu5dirkws21royn4pbng52n780ezucpigsyahksijsdoybfodpj7zp";
 const DELEGATED_PUBLISHER =
   process.env.DELEGATED_PUBLISHER ??
   "https://delegated-ipfs.dev/routing/v1/ipns";
-const W3NAME_ENDPOINT =
-  process.env.W3NAME_ENDPOINT ?? "https://name.web3.storage/";
 
 const log = (...args) => console.error("dht-publish:", ...args);
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -51,29 +53,25 @@ if (cidArg && cidArg !== cid) {
   log(`WARN arg CID ${cidArg} != w3name ${cid}; publishing w3name value`);
 }
 
+const lifetimeMs = new Date(revision.validity).getTime() - Date.now();
+if (lifetimeMs <= 0) {
+  log("ERROR w3name record validity is in the past");
+  process.exit(1);
+}
+
 log(`w3name seq = ${revision.sequence}`);
 log(`CID = ${cid}`);
 log(`publisher = ${DELEGATED_PUBLISHER}`);
 
-const w3url = new URL(`name/${nameStr}`, W3NAME_ENDPOINT);
-const w3res = await fetch(w3url);
-if (!w3res.ok) {
-  const body = await w3res.text().catch(() => "");
-  log(`ERROR w3name fetch failed: HTTP ${w3res.status} ${body}`);
-  process.exit(1);
-}
-
-const { record } = await w3res.json();
-if (!record) {
-  log("ERROR w3name response missing record field");
-  process.exit(1);
-}
-
-const recordBytes = Buffer.from(record, "base64");
-if (recordBytes.length < 32) {
-  log("ERROR w3name record too small to be a valid IPNS record");
-  process.exit(1);
-}
+const entry = await createIPNSRecord(
+  name.key,
+  revision.value,
+  revision.sequence,
+  lifetimeMs,
+  { ttlNs: revision.ttl, v1Compatible: true },
+);
+const recordBytes = Buffer.from(marshalIPNSRecord(entry));
+log(`record bytes = ${recordBytes.length} (v1+v2)`);
 
 const putUrl = `${DELEGATED_PUBLISHER.replace(/\/$/, "")}/${nameStr}`;
 let published = false;
@@ -103,14 +101,21 @@ for (let i = 1; i <= 12; i++) {
     headers: { Accept: "application/vnd.ipfs.ipns-record" },
   });
   if (getRes.ok) {
-    const buf = Buffer.from(await getRes.arrayBuffer());
-    if (buf.includes(Buffer.from(cid))) {
+    const got = unmarshalIPNSRecord(Buffer.from(await getRes.arrayBuffer()));
+    const gotCid = String(got.value).replace(/^\/ipfs\//, "").trim();
+    if (gotCid === cid && got.sequence === revision.sequence) {
       recOk = true;
-      log(`delegated record check #${i} -> HTTP ${getRes.status}, CID present`);
+      log(
+        `delegated record check #${i} -> seq ${got.sequence}, value ${got.value}`,
+      );
       break;
     }
+    log(
+      `delegated record check #${i} -> seq ${got.sequence}, value ${got.value}`,
+    );
+  } else {
+    log(`delegated record check #${i} -> HTTP ${getRes.status}`);
   }
-  log(`delegated record check #${i} -> waiting for ${cid}`);
   await sleep(10_000);
 }
 if (!recOk) {
