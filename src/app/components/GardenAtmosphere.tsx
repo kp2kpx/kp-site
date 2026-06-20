@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { showMeadowBackground } from "@/lib/garden-illustrations";
 import "../garden-alive.css";
 
 const ASSETS = {
@@ -47,9 +48,6 @@ const BUTTERFLY_SPECIES = [
 ] as const;
 
 const SPECIES_SHUFFLE = [0, 3, 1, 5, 2, 4, 1, 0];
-
-const showMeadowBackground =
-  process.env.NEXT_PUBLIC_GARDEN_BG !== "0";
 
 type BeeFlyer = {
   id: number;

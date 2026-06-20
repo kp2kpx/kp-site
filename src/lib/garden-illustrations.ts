@@ -65,5 +65,6 @@ export function getGardenIllustrationForPath(pathname: string): string | null {
   return GARDEN_ILLUSTRATIONS.home;
 }
 
+/** Production default: per-route minimal SVGs. Set NEXT_PUBLIC_GARDEN_BG=1 to restore the meadow photo experiment. */
 export const showMeadowBackground =
-  process.env.NEXT_PUBLIC_GARDEN_BG !== "0";
+  process.env.NEXT_PUBLIC_GARDEN_BG === "1";

@@ -9,12 +9,11 @@ import {
   GardenBirdsongMuteButton,
 } from "./GardenBirdsong";
 import type { GardenNode } from "@/lib/garden";
+import { showMeadowBackground } from "@/lib/garden-illustrations";
 
 type GardenHomeProps = {
   cells: { node: GardenNode; span: string }[];
 };
-
-const showMeadowBackground = process.env.NEXT_PUBLIC_GARDEN_BG !== "0";
 
 export function GardenHome({ cells }: GardenHomeProps) {
   return (
