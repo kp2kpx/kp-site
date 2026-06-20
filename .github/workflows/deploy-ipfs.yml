@@ -79,6 +79,17 @@ jobs:
           echo "cid=$PREV" >> "$GITHUB_OUTPUT"
           echo "Previous live CID: ${PREV:-<none>}"
 
+      # Pinata free tier counts every file in every pin (500 max).
+      # Unpin superseded roots BEFORE adding ~318 new files so we do
+      # not fail mid-deploy when the previous site is still pinned.
+      - name: Unpin stale pins before new pin (Pinata)
+        continue-on-error: true
+        if: steps.prev.outputs.cid != ''
+        env:
+          PINATA_JWT: ${{ secrets.PINATA_JWT }}
+          KEEP: ${{ steps.prev.outputs.cid }}
+        run: node scripts/pinata-maintenance.mjs --apply
+
       - name: Pin to IPFS (Pinata)
         id: pin
         env:
