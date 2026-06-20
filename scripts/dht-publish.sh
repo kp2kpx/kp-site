@@ -38,17 +38,34 @@
 set -u
 
 CID="${1:-}"
+CID="${CID#/ipfs/}"
 EXPECTED_NAME="k51qzi5uqu5dirkws21royn4pbng52n780ezucpigsyahksijsdoybfodpj7zp"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 KUBO_VERSION="${KUBO_VERSION:-v0.39.0}"
 DELEGATED_PUBLISHER="${DELEGATED_PUBLISHER:-https://delegated-ipfs.dev/routing/v1/ipns}"
-CAR_GATEWAYS="${CAR_GATEWAYS:-https://trustless-gateway.link https://ipfs.io https://dweb.link}"
+CAR_GATEWAYS="${CAR_GATEWAYS:-https://dweb.link https://ipfs.io https://trustless-gateway.link}"
 
 fail() { echo "dht-publish: ERROR $*" >&2; exit 1; }
 
 [ -n "$CID" ] || fail "missing CID argument"
 [ -n "${IPNS_SIGNING_KEY_B64:-}" ] || fail "missing IPNS_SIGNING_KEY_B64 env var"
 
-CID="${CID#/ipfs/}"
+# w3name is the source of truth for the live sequence. Ephemeral CI
+# kubo starts with seq 0, so a bare `name publish` is ignored by the
+# DHT when a higher record already exists — eth.limo keeps the old site.
+W3_SEQ=""
+if [ -n "${IPNS_SIGNING_KEY_B64:-}" ]; then
+  resolve_out="$(node "$SCRIPT_DIR/resolve-current-cid.mjs" 2>/dev/null || true)"
+  W3_CID="$(echo "$resolve_out" | grep '^CID=' | cut -d= -f2 || true)"
+  W3_SEQ="$(echo "$resolve_out" | grep '^SEQ=' | cut -d= -f2 || true)"
+  if [ -n "$W3_CID" ] && [ "$W3_CID" != "$CID" ]; then
+    echo "dht-publish: WARN arg CID $CID != w3name $W3_CID; publishing w3name value" >&2
+    CID="$W3_CID"
+  fi
+fi
+[ -n "$W3_SEQ" ] || fail "could not read IPNS sequence from w3name (needed for DHT publish)"
+echo "dht-publish: w3name seq = $W3_SEQ" >&2
+
 WORK="$(mktemp -d)"
 export IPFS_PATH="$WORK/repo"
 KEYBIN="$WORK/ipns-key.proto.bin"
@@ -100,7 +117,7 @@ rm -f "$KEYBIN" 2>/dev/null || true
 got_car=""
 for gw in $CAR_GATEWAYS; do
   echo "dht-publish: fetching CAR from $gw" >&2
-  if curl -fsSL -H "Accept: application/vnd.ipld.car" --max-time 180 \
+  if curl -fsSL -H "Accept: application/vnd.ipld.car" --max-time 300 \
        "${gw}/ipfs/${CID}?format=car" -o "$CARFILE" && [ -s "$CARFILE" ]; then
     # sanity: a CAR is at least a few hundred bytes; error pages are tiny html
     sz="$(wc -c < "$CARFILE" | tr -d ' ')"
@@ -129,7 +146,7 @@ echo "dht-publish: DAG imported, root block local" >&2
 published=""
 for attempt in 1 2 3 4 5; do
   if "$IPFS" name publish --key=kpsite --allow-delegated \
-       --lifetime=8760h --ttl=1h "/ipfs/${CID}" >&2; then
+       --seq="$W3_SEQ" --lifetime=8760h --ttl=1h "/ipfs/${CID}" >&2; then
     published="yes"; break
   fi
   echo "dht-publish: publish attempt $attempt failed, retrying in 15s" >&2
@@ -138,28 +155,33 @@ done
 [ "$published" = "yes" ] || { tail -n 40 "$WORK/daemon.log" >&2; fail "name publish failed after retries"; }
 echo "dht-publish: published /ipns/${EXPECTED_NAME} -> /ipfs/${CID}" >&2
 
-# --- verify the delegated endpoint now serves our record ---
+# --- verify the delegated endpoint serves a record for our CID ---
 rec_ok=""
-for i in $(seq 1 8); do
-  code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 \
+for i in $(seq 1 12); do
+  tmprec="$WORK/delegated-record.bin"
+  code="$(curl -s -o "$tmprec" -w '%{http_code}' --max-time 30 \
     -H "Accept: application/vnd.ipfs.ipns-record" \
     "${DELEGATED_PUBLISHER%/}/${EXPECTED_NAME}" || true)"
-  echo "dht-publish: delegated record check #$i -> HTTP ${code}" >&2
-  if [ "$code" = "200" ]; then rec_ok="yes"; break; fi
+  if [ "$code" = "200" ] && [ -s "$tmprec" ] && grep -aq "$CID" "$tmprec" 2>/dev/null; then
+    rec_ok="yes"
+    echo "dht-publish: delegated record check #$i -> HTTP ${code}, CID present" >&2
+    break
+  fi
+  echo "dht-publish: delegated record check #$i -> HTTP ${code} (waiting for ${CID})" >&2
   sleep 10
 done
-[ "$rec_ok" = "yes" ] || echo "dht-publish: WARN delegated endpoint did not echo record yet" >&2
+[ "$rec_ok" = "yes" ] || fail "delegated IPNS record did not update to ${CID}"
 
-# --- verify on a public DHT resolver. Hard check: if the put landed,
-#     ipfs.io/ipns must resolve. Allow up to ~5 min for propagation. ---
+# --- verify public resolvers point at the same root CID (eth.limo uses this path) ---
 ok=""
 for i in $(seq 1 20); do
-  code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 40 "https://ipfs.io/ipns/${EXPECTED_NAME}/" || true)"
-  echo "dht-publish: ipfs.io/ipns check #$i -> HTTP ${code}" >&2
-  if [ "$code" = "200" ]; then ok="yes"; break; fi
+  roots="$(curl -sI --max-time 40 "https://ipfs.io/ipns/${EXPECTED_NAME}/" \
+    | tr -d '\r' | awk -F': ' 'tolower($1)=="x-ipfs-roots"{print $2; exit}' || true)"
+  echo "dht-publish: ipfs.io/ipns check #$i -> roots=${roots:-<none>}" >&2
+  if [ "$roots" = "$CID" ]; then ok="yes"; break; fi
   sleep 15
 done
-[ "$ok" = "yes" ] || fail "record published but ipfs.io/ipns did not resolve to 200 in time"
-echo "dht-publish: VERIFIED live on ipfs.io/ipns" >&2
+[ "$ok" = "yes" ] || fail "ipfs.io/ipns roots did not match ${CID} (got ${roots:-<none>})"
+echo "dht-publish: VERIFIED ipfs.io/ipns -> ${CID}" >&2
 
 exit 0

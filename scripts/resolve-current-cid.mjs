@@ -37,6 +37,7 @@ try {
   }
   log(`current value = ${rev.value} (seq ${rev.sequence})`);
   console.log(`CID=${cid}`);
+  console.log(`SEQ=${rev.sequence}`);
 } catch (err) {
   log(`could not resolve w3name record: ${err?.message || err}`);
   process.exit(1);
