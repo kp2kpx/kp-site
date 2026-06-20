@@ -80,15 +80,20 @@ jobs:
           echo "Previous live CID: ${PREV:-<none>}"
 
       # Pinata free tier counts every file in every pin (500 max).
-      # Unpin superseded roots BEFORE adding ~318 new files so we do
-      # not fail mid-deploy when the previous site is still pinned.
-      - name: Unpin stale pins before new pin (Pinata)
+      # Drop the previous live root before pinning ~318 new files so
+      # replacement deploys do not stack two full copies of the site.
+      - name: Unpin previous live root before new pin (Pinata)
         continue-on-error: true
         if: steps.prev.outputs.cid != ''
         env:
           PINATA_JWT: ${{ secrets.PINATA_JWT }}
-          KEEP: ${{ steps.prev.outputs.cid }}
-        run: node scripts/pinata-maintenance.mjs --apply
+          PREV: ${{ steps.prev.outputs.cid }}
+        run: |
+          code=$(curl -s -o /tmp/unpin-prev.txt -w '%{http_code}' \
+            -X DELETE -H "Authorization: Bearer ${PINATA_JWT}" \
+            "https://api.pinata.cloud/pinning/unpin/${PREV}")
+          echo "Unpin previous live root ${PREV} -> HTTP ${code}"
+          cat /tmp/unpin-prev.txt || true
 
       - name: Pin to IPFS (Pinata)
         id: pin
@@ -113,17 +118,14 @@ jobs:
           chmod +x scripts/dht-publish.sh
           scripts/dht-publish.sh "${{ steps.pin.outputs.cid }}"
 
-      # Root-cause fix for Pinata free-plan exhaustion: now that the
-      # new CID is pinned AND published to IPNS/DHT, unpin everything
-      # except the new CID and the previous CID. Allowlist based, so
-      # it can never delete the live content. continue-on-error keeps
-      # a cleanup hiccup from failing an otherwise-good deploy; the
-      # next deploy (or the manual workflow) will catch up.
+      # Pinata free tier allows 500 files total; this site pins ~318.
+      # Keep only the new live root (no rollback copy) so the next
+      # deploy has room to replace in place.
       - name: Unpin superseded CIDs (Pinata)
         continue-on-error: true
         env:
           PINATA_JWT: ${{ secrets.PINATA_JWT }}
-          KEEP: ${{ steps.pin.outputs.cid }},${{ steps.prev.outputs.cid }}
+          KEEP: ${{ steps.pin.outputs.cid }}
         run: node scripts/pinata-maintenance.mjs --apply
 
       - name: Summary
