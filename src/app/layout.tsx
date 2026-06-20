@@ -28,7 +28,7 @@ const mono = IBM_Plex_Mono({
   weight: ["400", "500"],
 });
 
-const SITE_URL = "https://kp-singh.vercel.app";
+const SITE_URL = "https://kp2kp.eth.limo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

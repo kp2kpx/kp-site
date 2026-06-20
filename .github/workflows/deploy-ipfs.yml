@@ -112,7 +112,6 @@ jobs:
         run: node scripts/publish-ipns.mjs "${{ steps.pin.outputs.cid }}"
 
       - name: Publish IPNS to public DHT (kubo)
-        continue-on-error: true
         env:
           IPNS_SIGNING_KEY_B64: ${{ secrets.IPNS_SIGNING_KEY_B64 }}
         run: |

@@ -1,7 +1,7 @@
 # Publishing kp2kp.eth
 
-This site is a static Next.js export. It is mirrored on Vercel (web2) and
-served from IPFS at kp2kp.eth via an IPNS name (web3). After the one time
+This site is a static Next.js export served from IPFS at kp2kp.eth via an
+IPNS name. After the one time
 ENS setup, every change is just a git push. No gas. No onchain action.
 
 ## How it flows
