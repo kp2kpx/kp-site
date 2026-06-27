@@ -28,10 +28,11 @@ const HOME_LAYOUT: HomeSlot[] = [
   { kind: "node", id: "fresh2o", span: "c2 r2" },
   { kind: "node", id: "gladaitors", span: "c2" },
   { kind: "favorite", span: "c2" },
-  { kind: "favorite", span: "c2" },
+  { kind: "node", id: "pepper", span: "c2 r2" },
   { kind: "node", id: "poetical-science", span: "c4" },
   { kind: "favorite", span: "c2" },
-  { kind: "node", id: "story-cyclone", span: "c6" },
+  { kind: "favorite", span: "c2" },
+  { kind: "node", id: "hobby-chess", span: "c2" },
 ];
 
 function buildHomeCells(nodes: GardenNode[]) {

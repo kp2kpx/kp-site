@@ -205,6 +205,18 @@ export const NODES: GardenNode[] = [
     status: "2 seasons run",
     links: ["gladaitors"],
   },
+  {
+    id: "live-stream",
+    kinds: ["project"],
+    title: "Live Streams",
+    summary:
+      "Did live streams for Base India and Inner Circle.",
+    tags: ["base", "live", "community", "inner-circle"],
+    date: "2025 - 2026",
+    sortDate: "2025-10-01",
+    status: "50+ live streams",
+    links: ["live-streams"],
+  },
 
   /* ---------- reading ----------
      KP's real shelf, read off photos of it. Each book is its
@@ -1013,9 +1025,9 @@ export const NODES: GardenNode[] = [
     summary:
       "Chess is a constant. It also became a show: I play a guest while we talk crypto.",
     tags: ["chess", "community"],
-    links: ["fresh2o"],
+    links: ["live-stream"],
     body: "PLACEHOLDER: a few lines about chess and photos.",
-    image: "",
+    image: "/images/hobby_chess_knight.jpg",
     imageAlt: "PLACEHOLDER chess photo",
   },
   {
@@ -1061,14 +1073,14 @@ export const NODES: GardenNode[] = [
   {
     id: "story-lucknow",
     kinds: ["story"],
-    title: "Lucknow, and a lot of deep ends",
+    title: "A lot of deep ends",
     summary:
-      "B.Com in Economics, then a decade of being thrown into the deep end.",
-    tags: ["lucknow", "finance", "origin"],
+      "Graduation in Economics, then a decade of being thrown into the deep end.",
+    tags: ["economics", "finance", "origin"],
     chapter: 1,
-    era: "2006 - 2018",
+    era: "2009 - 2018",
     body:
-      "B.Com in Economics from the University of Lucknow. Then a decade of deep ends: QuickBooks support at an IBM call centre, self-taught forex and stock trading, an investment-advisor stint at Angel Broking, and coordinating US trucking dispatch and accounts remotely from India. I learned to operate where nobody hands you a manual.",
+      "After Graduation in Economics, a decade of deep ends: QuickBooks support at IBM, self-taught forex and stock trading, an investment-advisor stint at Angel Broking, selling websites for a fucked up firm and coordinating US trucking dispatch and accounts remotely from India. I learned to operate where nobody hands you a manual.",
     image: "",
     imageAlt: "PLACEHOLDER Lucknow photo",
   },
@@ -1120,6 +1132,21 @@ export const NODES: GardenNode[] = [
       "That October I borrowed money from my parents and a laptop from my girlfriend, and taught myself Solidity from zero: no prior coding, no HTML. Just contracts and NFTs until they worked. The first salary I earned later bought the laptop I still build on today.",
     image: "",
     imageAlt: "PLACEHOLDER borrowed laptop photo",
+  },
+  {
+    id: "pepper",
+    kinds: ["story"],
+    title: "Pepper",
+    summary:
+      "Pepper came into life when my wife found him on street, scared and hungry.",
+    tags: ["pet","animals"],
+    chapter: 6,
+    era: "2021",
+    links: ["delhi", "family"],
+    body:
+      "to be added.",
+    image: "/images/story-pepper1.jpg",
+    imageAlt: "Pepper posing for the camera",
   },
 ];
 

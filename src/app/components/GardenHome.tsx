@@ -38,8 +38,8 @@ export function GardenHome({ cells }: GardenHomeProps) {
                     Hey there, I&apos;m <strong>KP</strong>{" "}
                     <span aria-hidden="true">&#128075;</span> Welcome to my
                     digital garden <span aria-hidden="true">&#127793;</span> I
-                    like building things, and I&apos;m currently shipping on
-                    Base and Farcaster.
+                    like building things, and I&apos;m currently experimenting
+                    with AI Agents.
                   </p>
                   <p className="intro-script__p">
                     In my free time, I enjoy <strong>trekking</strong>,{" "}
@@ -47,9 +47,8 @@ export function GardenHome({ cells }: GardenHomeProps) {
                     <strong>reading</strong>.
                   </p>
                   <p className="intro-script__p">
-                    I do some <strong>reading</strong> and{" "}
-                    <strong>writing</strong> as well, albeit not as
-                    consistently, but I&apos;m working on being better at that.
+                    I do some <strong>writing</strong> too. Not as consistently as I'd like, but I'm working on changing that.
+
                   </p>
                 </div>
               </Reveal>
